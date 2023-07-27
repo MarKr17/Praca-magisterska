@@ -1,8 +1,8 @@
-from model import MoneyModel
+from model import MSModel
 from visualisation import visualisation
-from plots import create_plots
+# from plots import create_plots
 
 
-model = MoneyModel(20, 10, 10)
+model = MSModel(20, 30, 30)
 visualisation(model)
-create_plots(model)
+# create_plots(model)

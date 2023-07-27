@@ -6,10 +6,9 @@ import matplotlib.pyplot as plt
 
 def create_plots(model):
 
-    agent_wealth = [a.wealth for a in model.schedule.agents]
+    agent_health = [a.health for a in model.schedule.agents]
     # Create a histogram with seaborn
-    g = sns.histplot(agent_wealth, discrete=True)
-    g.set(title="Wealth distribution", xlabel="Wealth",
-          ylabel="Number of agents");
+    g = sns.histplot(agent_health, discrete=True)
+    g.set(title="Health distribution", xlabel="Health",
+          ylabel="Number of agents")
     # The semicolon is just to avoid printing the object representation
-    plt.show()

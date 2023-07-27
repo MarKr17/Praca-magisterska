@@ -3,25 +3,26 @@ import os
 colorb = (250, 0, 0)
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 1000
-GRID_SIZE = 800
+GRID_SIZE = 900
 WHITE = (200, 200, 200)
 BLACK = (0, 0, 0)
 assets_path = os.path.join(os.getcwd(), "assets")
+GREY = (204, 191, 190)
 
 
 class Button():
-    def __init__(self, screen, color, width, height):
+    def __init__(self, screen, color, width, height, pos):
         self.screen = screen,
         self.color = color,
         self.width = width
         self.height = height
         self.surf = pygame.Surface((width, height), pygame.SRCALPHA, 32)
-        self.x = 400, 400+width
-        self.y = 900, 900+height
+        self.pos = pos
+        self.x = pos[0], pos[0]+width
+        self.y = pos[1], pos[1]+height
 
     def draw(self, PAUSE):
         # pygame.draw.rect(self.surf, self.color, self.surf.get_rect() )
-        print(PAUSE)
         if PAUSE:
             image = pygame.image.load(os.path.join(assets_path,
                                                    "play_button.png"))
@@ -30,32 +31,33 @@ class Button():
                                                    "pause_button.png"))
 
         image = pygame.transform.scale(image, (self.width, self.height))
-        self.screen[0].blit(image, (400, 900))
+        self.screen[0].blit(image, self.pos)
 
 
-def drawGrid(screen):
-    blockSize = int(GRID_SIZE/10)  # Set the size of the grid block
+def drawGrid(screen, size):
+    blockSize = int(GRID_SIZE/size)  # Set the size of the grid block
     for x in range(0, GRID_SIZE, blockSize):
         for y in range(0, GRID_SIZE, blockSize):
             rect = pygame.Rect(x, y, blockSize, blockSize)
-            pygame.draw.rect(screen, BLACK, rect, 1)
+            pygame.draw.rect(screen, GREY, rect, 1)
 
 
 def draw_agents(grid, model, screen, size):
     color = "#ff0000"
     for (cell_contents, x, y) in model.grid.coord_iter():
-        x = x*GRID_SIZE/10+GRID_SIZE/20
-        y = y*GRID_SIZE/10+GRID_SIZE/20
+        radius = GRID_SIZE/size/2 - 5
+        x = x*GRID_SIZE/size+GRID_SIZE/size/2
+        y = y*GRID_SIZE/size+GRID_SIZE/size/2
         for a in cell_contents:
-            surf = pygame.Surface((2*size, 2*size), pygame.SRCALPHA, 32)
-            pygame.draw.circle(surf, color, (size, size), size)
+            surf = pygame.Surface((2*radius, 2*radius), pygame.SRCALPHA, 32)
+            pygame.draw.circle(surf, color, (radius, radius), radius)
             rect = surf.get_rect()
             rect.centerx = int(x)
             rect.centery = int(y)
             grid.blit(surf, rect)
     screen.blit(grid, (300, 20))
     grid.fill("white")
-    drawGrid(grid)
+    drawGrid(grid, size)
 
 
 def visualisation(model):
@@ -66,7 +68,7 @@ def visualisation(model):
     clock = pygame.time.Clock()
     grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
     grid.fill("white")
-    drawGrid(grid)
+    drawGrid(grid, size)
     screen.blit(grid, (300, 20))
 
     PAUSE = False
@@ -75,7 +77,7 @@ def visualisation(model):
     while RUNNING:
         # Process inputs
         mouse = pygame.mouse.get_pos()
-        button = Button(screen, colorb, 50, 50)
+        button = Button(screen, colorb, 50, 50, (400, 930))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
