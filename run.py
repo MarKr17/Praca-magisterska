@@ -1,8 +1,8 @@
 from model import MoneyModel
-from visualisation import *
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-import pygame
+from visualisation import visualisation
+from plots import create_plots
+
+
 model = MoneyModel(20, 10, 10)
 visualisation(model)
+create_plots(model)
