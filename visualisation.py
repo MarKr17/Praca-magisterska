@@ -1,5 +1,7 @@
 import pygame
 import os
+
+from Neuron import Neuron
 colorb = (250, 0, 0)
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 1000
@@ -42,15 +44,28 @@ def drawGrid(screen, size):
             pygame.draw.rect(screen, GREY, rect, 1)
 
 
-def draw_agents(grid, model, screen, size):
+def drawNeuron(radius, neuron):
     color = "#ff0000"
+    yellow = "#FFD700"
+    outer = radius+neuron.myelin_health
+    surf = pygame.Surface((2*outer, 2*outer), pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, yellow, (outer, outer), outer)
+    pygame.draw.circle(surf, color, (outer, outer), radius)
+    return surf
+
+
+def draw_agents(grid, model, screen, size):
+    color = "#2832C2"
     for (cell_contents, x, y) in model.grid.coord_iter():
         radius = GRID_SIZE/size/2 - 5
         x = x*GRID_SIZE/size+GRID_SIZE/size/2
         y = y*GRID_SIZE/size+GRID_SIZE/size/2
         for a in cell_contents:
-            surf = pygame.Surface((2*radius, 2*radius), pygame.SRCALPHA, 32)
-            pygame.draw.circle(surf, color, (radius, radius), radius)
+            if type(a) is Neuron:
+                surf = drawNeuron(radius, a)
+            else:
+                surf = pygame.Surface((2*radius, 2*radius), pygame.SRCALPHA, 32)
+                pygame.draw.circle(surf, color, (radius, radius), radius)
             rect = surf.get_rect()
             rect.centerx = int(x)
             rect.centery = int(y)

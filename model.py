@@ -1,5 +1,6 @@
 import mesa
 from Lymphocyte import Lymphocyte
+from Neuron import Neuron
 
 
 def compute_gini(model):
@@ -15,6 +16,10 @@ class MSModel(mesa.Model):
     def __init__(self, N, width, height):
         self.num_agents = N
         self.width = width
+        self.neuron_number = 9
+        self.neuron_positions = [[12, 12], [15, 12], [18, 12],
+                                 [12, 15], [15, 15], [18, 15],
+                                 [12, 18], [15, 18], [18, 18]]
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add
         self.ID = 0  # id number that is available at the moment
@@ -25,6 +30,17 @@ class MSModel(mesa.Model):
             model_reporters={"Gini": compute_gini},
             agent_reporters={"Health": "health"}
         )
+        # Create neurons
+        for i in range(self.neuron_number):
+            n = Neuron(self.ID, self, 10)
+            # Add neuron to scheduler
+            self.schedule.add(n)
+            # Add neuron to assinged grid cell
+            x = self.neuron_positions[i][0]
+            y = self.neuron_positions[i][1]
+            self.grid.place_agent(n, (x, y))
+            self.ID += 1
+        print(type(n))
         # Create agents
         for i in range(self.num_agents):
             a = Lymphocyte(self.ID, self)
