@@ -1,5 +1,7 @@
 import mesa
-from Lymphocyte import Lymphocyte
+import numpy as np
+import random
+from LymphocyteT import LymphocyteT
 from Neuron import Neuron
 
 
@@ -23,6 +25,8 @@ class MSModel(mesa.Model):
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add
         self.ID = 0  # id number that is available at the moment
+        self.cytokine_matrix = np.zeros((width, width), dtype=int)
+        self.cytokine_dis_rate = 5
         self.grid = mesa.space.MultiGrid(width, height, True)
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)
@@ -40,10 +44,9 @@ class MSModel(mesa.Model):
             y = self.neuron_positions[i][1]
             self.grid.place_agent(n, (x, y))
             self.ID += 1
-        print(type(n))
         # Create agents
         for i in range(self.num_agents):
-            a = Lymphocyte(self.ID, self)
+            a = LymphocyteT(self.ID, self, 50)
             # Add the agent to the scheduler
             self.schedule.add(a)
             # Add the agent to a random grid cell
@@ -65,3 +68,7 @@ class MSModel(mesa.Model):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
             self.grid.place_agent(n, (x, y))
+        # disolving cytokine
+        r = random.randint(0, 100)
+        if r < self.cytokine_dis_rate:
+            self.cytokine_matrix = self.cytokine_matrix-1

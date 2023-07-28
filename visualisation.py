@@ -54,25 +54,41 @@ def drawNeuron(radius, neuron):
     return surf
 
 
+def drawCytokine(model, size, grid):
+    color = "#FE7F9C"
+    a = GRID_SIZE/size
+    for x in range(size):
+        for y in range(size):
+            X = x*GRID_SIZE/size
+            if model.cytokine_matrix[x][y] > 0:
+                Y = y*GRID_SIZE/size
+                s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
+                s.set_alpha(128)
+                s.fill(color)
+                grid.blit(s, (X, Y))
+
+
 def draw_agents(grid, model, screen, size):
     color = "#2832C2"
+    grid.fill("white")
+    drawGrid(grid, size)
+    drawCytokine(model, size, grid)
     for (cell_contents, x, y) in model.grid.coord_iter():
         radius = GRID_SIZE/size/2 - 5
-        x = x*GRID_SIZE/size+GRID_SIZE/size/2
-        y = y*GRID_SIZE/size+GRID_SIZE/size/2
+        X = x*GRID_SIZE/size+GRID_SIZE/size/2
+        Y = y*GRID_SIZE/size+GRID_SIZE/size/2
         for a in cell_contents:
             if type(a) is Neuron:
                 surf = drawNeuron(radius, a)
             else:
-                surf = pygame.Surface((2*radius, 2*radius), pygame.SRCALPHA, 32)
+                surf = pygame.Surface((2*radius, 2*radius),
+                                      pygame.SRCALPHA, 32)
                 pygame.draw.circle(surf, color, (radius, radius), radius)
             rect = surf.get_rect()
-            rect.centerx = int(x)
-            rect.centery = int(y)
+            rect.centerx = int(X)
+            rect.centery = int(Y)
             grid.blit(surf, rect)
     screen.blit(grid, (300, 20))
-    grid.fill("white")
-    drawGrid(grid, size)
 
 
 def visualisation(model):

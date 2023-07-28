@@ -19,6 +19,6 @@ class Neuron(mesa.Agent):
 
     def myelin_regeneration(self):
         if self.myelin_health < 10:
-            x = random.randint(1, 100)
-            if x <= self.reg_rate:
+            r = random.randint(1, 100)
+            if r <= self.reg_rate:
                 self.myelin_health += 1
