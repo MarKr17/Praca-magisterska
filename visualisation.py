@@ -15,11 +15,11 @@ t_color = "#3D405B"
 m_color = "#F2CC8F"
 n_color = "#C1292E"
 t_gradient = [
-    "#390040",
-    "#440f48",
-    "#4f1d50",
-    "#5a2a58",
-    "#643761"
+    "#97798f",
+    "#815b79",
+    "#693d65",
+    "#522052",
+    "#390040"
 ]
 cytokine_gradient = [
     "#e8bfb2",
@@ -78,6 +78,8 @@ def drawNeuron(radius, neuron):
 def drawLympcocyteT(radius, lymphocyte):
     i = int(lymphocyte.health/5)
     color = t_gradient[i]
+    print(i)
+    print(color)
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, color, (radius, radius), radius)
@@ -153,4 +155,4 @@ def visualisation(model):
             model.step()
         button.draw(PAUSE)
         pygame.display.flip()  # Refresh on-screen display
-        clock.tick(24)         # wait until next frame (at 24 FPS)
+        clock.tick(1)         # wait until next frame (at 24 FPS)
