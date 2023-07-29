@@ -81,7 +81,11 @@ class MSModel(mesa.Model):
     def step(self):
         """Advance the model by one step."""
         self.datacollector.collect(self)
+        self.kill_agents = []
         self.schedule.step()
+        with open("agents.txt", 'w') as f: 
+            for key, value in self.schedule._agents.items(): 
+                f.write('%s:%s\n' % (key, value))
         for x in self.kill_agents:
             self.schedule.remove(x)
             self.grid.remove_agent(x)
