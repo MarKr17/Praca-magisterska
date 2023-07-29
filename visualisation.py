@@ -1,6 +1,6 @@
 import pygame
 import os
-
+import math
 from Neuron import Neuron
 colorb = (250, 0, 0)
 SCREEN_WIDTH = 1400
@@ -10,6 +10,29 @@ WHITE = (200, 200, 200)
 BLACK = (0, 0, 0)
 assets_path = os.path.join(os.getcwd(), "assets")
 GREY = (204, 191, 190)
+grid_background = "#F4F1DE"
+t_color = "#3D405B"
+m_color = "#F2CC8F"
+n_color = "#C1292E"
+t_gradient = [
+    "#390040",
+    "#440f48",
+    "#4f1d50",
+    "#5a2a58",
+    "#643761"
+]
+cytokine_gradient = [
+    "#e8bfb2",
+    "#e6b2a3",
+    "#e3a595",
+    "#e09887",
+    "#dd8b7b",
+    "#d97e6e",
+    "#d57063",
+    "#d16258",
+    "#cd534e",
+    "#c84244"
+]
 
 
 class Button():
@@ -45,23 +68,34 @@ def drawGrid(screen, size):
 
 
 def drawNeuron(radius, neuron):
-    color = "#ff0000"
-    yellow = "#FFD700"
     outer = radius+neuron.myelin_health
     surf = pygame.Surface((2*outer, 2*outer), pygame.SRCALPHA, 32)
-    pygame.draw.circle(surf, yellow, (outer, outer), outer)
-    pygame.draw.circle(surf, color, (outer, outer), radius)
+    pygame.draw.circle(surf, m_color, (outer, outer), outer)
+    pygame.draw.circle(surf, n_color, (outer, outer), radius)
+    return surf
+
+
+def drawLympcocyteT(radius, lymphocyte):
+    i = int(lymphocyte.health/5)
+    color = t_gradient[i]
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, color, (radius, radius), radius)
     return surf
 
 
 def drawCytokine(model, size, grid):
-    color = "#FE7F9C"
     a = GRID_SIZE/size
     for x in range(size):
         for y in range(size):
             X = x*GRID_SIZE/size
             if model.cytokine_matrix[x][y] > 0:
                 Y = y*GRID_SIZE/size
+                if model.cytokine_matrix[x][y] > 100:
+                    color = cytokine_gradient[9]
+                else:
+                    c = math.floor(model.cytokine_matrix[x][y]/10)
+                    color = cytokine_gradient[c]
                 s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
                 s.set_alpha(128)
                 s.fill(color)
@@ -69,8 +103,7 @@ def drawCytokine(model, size, grid):
 
 
 def draw_agents(grid, model, screen, size):
-    color = "#2832C2"
-    grid.fill("white")
+    grid.fill(grid_background)
     drawGrid(grid, size)
     drawCytokine(model, size, grid)
     for (cell_contents, x, y) in model.grid.coord_iter():
@@ -81,9 +114,7 @@ def draw_agents(grid, model, screen, size):
             if type(a) is Neuron:
                 surf = drawNeuron(radius, a)
             else:
-                surf = pygame.Surface((2*radius, 2*radius),
-                                      pygame.SRCALPHA, 32)
-                pygame.draw.circle(surf, color, (radius, radius), radius)
+                surf = drawLympcocyteT(radius, a)
             rect = surf.get_rect()
             rect.centerx = int(X)
             rect.centery = int(Y)
@@ -98,7 +129,7 @@ def visualisation(model):
     screen.fill("black")  # Fill the display with a solid color
     clock = pygame.time.Clock()
     grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
-    grid.fill("white")
+    grid.fill(grid_background)
     drawGrid(grid, size)
     screen.blit(grid, (300, 20))
 

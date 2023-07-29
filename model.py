@@ -1,6 +1,7 @@
 import mesa
 import numpy as np
 import random
+import math
 from LymphocyteT import LymphocyteT
 from Neuron import Neuron
 
@@ -11,6 +12,26 @@ def compute_gini(model):
     N = model.num_agents
     B = sum(xi * (N - i) for i, xi in enumerate(x)) / (N * sum(x))
     return 1 + (1 / N) - 2 * B
+
+
+def cytokine_diffusion(matrix):
+    for x in range(1, len(matrix)-1):
+        for y in range(1, len(matrix)-1):
+            # averege amount of cytokine in neighbor cells
+            if matrix[x][y] > 4:
+                min = matrix[x][y]
+                pos = (0, 0)
+                for i in range(x-1, x+1):
+                    for j in range(y-1, y+1):
+                        if i == x and j == y:
+                            continue
+                        elif matrix[i][j] < min:
+                            pos = (i, j)
+                            min = matrix[i][j]
+                r = math.floor((matrix[x][y] - min)/2)
+                matrix[x][y] -= r
+                matrix[pos[0]][pos[1]] += r
+    return matrix
 
 
 class MSModel(mesa.Model):
@@ -44,9 +65,11 @@ class MSModel(mesa.Model):
             y = self.neuron_positions[i][1]
             self.grid.place_agent(n, (x, y))
             self.ID += 1
+        print(self.ID)
         # Create agents
         for i in range(self.num_agents):
-            a = LymphocyteT(self.ID, self, 50)
+            a = LymphocyteT(self.ID, self, proliferation_rate=0,
+                            cytokin_rate=50)
             # Add the agent to the scheduler
             self.schedule.add(a)
             # Add the agent to a random grid cell
@@ -68,7 +91,10 @@ class MSModel(mesa.Model):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
             self.grid.place_agent(n, (x, y))
+            self.new_agents.remove(n)
         # disolving cytokine
         r = random.randint(0, 100)
         if r < self.cytokine_dis_rate:
             self.cytokine_matrix = self.cytokine_matrix-1
+            self.cytokine_matrix = np.clip(self.cytokine_matrix, 0, None)
+        self.cytokine_matrix = cytokine_diffusion(self.cytokine_matrix)
