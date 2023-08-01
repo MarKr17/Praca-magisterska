@@ -50,6 +50,9 @@ class MSModel(mesa.Model):
             if i in [6, 24]:
                 for j in range(6, 25):
                     self.areas[i][j] = 1
+        for i in range(7, 24):
+            for j in range(7, 24):
+                self.areas[i][j] = 2
 
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add
