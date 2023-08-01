@@ -78,8 +78,6 @@ def drawNeuron(radius, neuron):
 def drawLympcocyteT(radius, lymphocyte):
     i = int(lymphocyte.health/5)
     color = t_gradient[i]
-    print(i)
-    print(color)
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, color, (radius, radius), radius)
@@ -91,8 +89,12 @@ def drawCytokine(model, size, grid):
     for x in range(size):
         for y in range(size):
             X = x*GRID_SIZE/size
+            Y = y*GRID_SIZE/size
+            if model.areas[x][y] == 1:
+                s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
+                s.fill(m_color)
+                grid.blit(s, (X, Y))
             if model.cytokine_matrix[x][y] > 0:
-                Y = y*GRID_SIZE/size
                 if model.cytokine_matrix[x][y] > 100:
                     color = cytokine_gradient[9]
                 else:
@@ -155,4 +157,4 @@ def visualisation(model):
             model.step()
         button.draw(PAUSE)
         pygame.display.flip()  # Refresh on-screen display
-        clock.tick(1)         # wait until next frame (at 24 FPS)
+        clock.tick(24)         # wait until next frame (at 24 FPS)

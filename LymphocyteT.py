@@ -11,7 +11,6 @@ class LymphocyteT(Lymphocyte):
         self.move()
         self.cytokine_release()
         self.proliferation()
-        self.health -= 1
         if self.health <= 0:
             self.death()
 
