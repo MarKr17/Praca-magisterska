@@ -1,19 +1,10 @@
 import pygame
 import os
+from Constants import (assets_path, SCREEN_WIDTH, SCREEN_HEIGHT, GRID_SIZE,
+                       grid_background, GRID_POS, WHITE)
 from drawGrid import drawGrid
 from drawLegend import drawLegend
 from drawAgents import drawAgents
-colorb = (250, 0, 0)
-SCREEN_WIDTH = 1400
-SCREEN_HEIGHT = 1000
-GRID_SIZE = 900
-GRID_POS = (50, 20)
-WHITE = (250, 250, 250)
-BLACK = (0, 0, 0)
-assets_path = os.path.join(os.getcwd(), "assets")
-GREY = (204, 191, 190)
-grid_background = "#F4F1DE"
-t_color = "#3D405B"
 
 
 class Button():
@@ -57,7 +48,7 @@ def visualisation(model):
     while RUNNING:
         # Process inputs
         mouse = pygame.mouse.get_pos()
-        button = Button(screen, colorb, 50, 50, (400, 930))
+        button = Button(screen, WHITE, 50, 50, (400, 930))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
