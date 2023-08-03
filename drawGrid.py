@@ -1,6 +1,6 @@
 import pygame
 import math
-from Constants import (GRID_SIZE, GREY, m_color, grid_border)
+from Constants import (GRID_SIZE, GREY, barrier_color, grid_border)
 from Gradients import cytokine_gradient
 
 
@@ -18,10 +18,6 @@ def drawCytokine(model, size, grid):
         for y in range(size):
             X = x*GRID_SIZE/size
             Y = y*GRID_SIZE/size
-            if model.areas[x][y] == 1:
-                s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
-                s.fill(m_color)
-                grid.blit(s, (X, Y))
             if model.cytokine_matrix[x][y] > 0:
                 if model.cytokine_matrix[x][y] > 100:
                     color = cytokine_gradient[9]
@@ -30,6 +26,20 @@ def drawCytokine(model, size, grid):
                     color = cytokine_gradient[c]
                 s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
                 s.fill(color)
+                rect = s.get_rect()
+                pygame.draw.rect(s, GREY, rect, grid_border)
+                grid.blit(s, (X, Y))
+
+
+def drawBarrier(model, size, grid):
+    a = GRID_SIZE/size
+    for x in range(size):
+        for y in range(size):
+            X = x*GRID_SIZE/size
+            Y = y*GRID_SIZE/size
+            if model.areas[x][y] == 1:
+                s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
+                s.fill(barrier_color)
                 rect = s.get_rect()
                 pygame.draw.rect(s, GREY, rect, grid_border)
                 grid.blit(s, (X, Y))
