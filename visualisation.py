@@ -35,6 +35,30 @@ cytokine_gradient = [
     "#838888",
     "#7a7d7d"
 ]
+neuron_gradient = [
+    "#c1292e",
+    "#b22531",
+    "#a32233",
+    "#941f33",
+    "#841e33",
+    "#751d31",
+    "#651c2f",
+    "#561b2b",
+    "#471927",
+    "#381722"
+]
+myelin_gradient = [
+    "#f2cc8f",
+    "#e8c68d",
+    "#debf8b",
+    "#d5b988",
+    "#cbb286",
+    "#c2ac84",
+    "#b9a582",
+    "#b09f7f",
+    "#a7987d",
+    "#9e927b"
+]
 
 
 class Button():
@@ -70,6 +94,10 @@ def drawGrid(screen, size):
 
 
 def drawNeuron(radius, neuron):
+    i = int(neuron.health/10)
+    n_color = neuron_gradient[i]
+    i = int(neuron.myelin_health/10)
+    m_color = myelin_gradient[i]
     outer = radius+neuron.myelin_health
     surf = pygame.Surface((2*outer, 2*outer), pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, m_color, (outer, outer), outer)
@@ -139,7 +167,8 @@ def visualisation(model):
     grid.fill(grid_background)
     drawGrid(grid, size)
     screen.blit(grid, GRID_POS)
-    drawLegend(screen, t_gradient, cytokine_gradient)
+    drawLegend(screen, t_gradient, cytokine_gradient, neuron_gradient,
+               myelin_gradient)
     PAUSE = False
     RUNNING = True
     pygame.display.set_caption('MS model')

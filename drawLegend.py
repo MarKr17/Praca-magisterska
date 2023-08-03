@@ -7,25 +7,42 @@ font_small = pygame.font.SysFont('yugothicui', 14)
 font_medium = pygame.font.SysFont('yugothicui', 18)
 
 
-def drawLegend(screen, t_gradient, cytokine_gradient):
+def drawLegend(screen, t_gradient, cytokine_gradient, neuron_gradient,
+               myelin_gradient):
     pos = (1000, 20)
     surf = pygame.Surface((350, 900))
     surf.fill(WHITE)
+
     # Add title text
     text = font_title.render('Legend', True, BLACK)
     textRect = text.get_rect()
     textRect.center = (175, 30)
     surf.blit(text, textRect)
+
     # Create stripe for gradient of t cells
     stripe = drawStripe(t_gradient, h_max=20)
     name = font_medium.render("T-cells", True, BLACK)
     surf.blit(name, (25, 50))
     surf.blit(stripe, (25, 70))
+
     # Create stripe for cytokine gradient
     stripe = drawStripe(cytokine_gradient, h_max=100)
     name = font_medium.render("Cytokinase", True, BLACK)
     surf.blit(name, (25, 130))
     surf.blit(stripe, (25, 150))
+
+    # Crate stripe for myelin gradient
+    stripe = drawStripe(neuron_gradient, h_max=10)
+    name = font_medium.render("Neuron", True, BLACK)
+    surf.blit(name, (25, 210))
+    surf.blit(stripe, (25, 230))
+
+    # Crate stripe for neuron gradient
+    stripe = drawStripe(myelin_gradient, h_max=10)
+    name = font_medium.render("Myelin", True, BLACK)
+    surf.blit(name, (25, 280))
+    surf.blit(stripe, (25, 300))
+
     screen.blit(surf, pos)
 
 

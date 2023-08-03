@@ -7,7 +7,7 @@ class Neuron(mesa.Agent):
     def __init__(self, unique_id, model, reg_rate):
         super().__init__(unique_id, model)
         self.reg_rate = reg_rate
-        self.health = 1
+        self.health = 10
         self.myelin_health = 10
         self.tiredness = 0
         self.armor_rating = 10
