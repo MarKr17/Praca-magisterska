@@ -24,16 +24,16 @@ t_gradient = [
     "#390040"
 ]
 cytokine_gradient = [
-    "#e8bfb2",
-    "#e6b2a3",
-    "#e3a595",
-    "#e09887",
-    "#dd8b7b",
-    "#d97e6e",
-    "#d57063",
-    "#d16258",
-    "#cd534e",
-    "#c84244"
+    "#e4e6d4",
+    "#d5dacb",
+    "#c7cfc2",
+    "#bac3b9",
+    "#adb7b0",
+    "#a2aba6",
+    "#97a09c",
+    "#8d9492",
+    "#838888",
+    "#7a7d7d"
 ]
 
 
@@ -103,8 +103,9 @@ def drawCytokine(model, size, grid):
                     c = math.floor(model.cytokine_matrix[x][y]/10)
                     color = cytokine_gradient[c]
                 s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
-                s.set_alpha(128)
                 s.fill(color)
+                rect = s.get_rect()
+                pygame.draw.rect(s, GREY, rect, 1)
                 grid.blit(s, (X, Y))
 
 
@@ -138,7 +139,7 @@ def visualisation(model):
     grid.fill(grid_background)
     drawGrid(grid, size)
     screen.blit(grid, GRID_POS)
-    drawLegend(screen, t_gradient)
+    drawLegend(screen, t_gradient, cytokine_gradient)
     PAUSE = False
     RUNNING = True
     pygame.display.set_caption('MS model')
