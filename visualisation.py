@@ -2,11 +2,13 @@ import pygame
 import os
 import math
 from Neuron import Neuron
+from drawLegend import drawLegend
 colorb = (250, 0, 0)
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 1000
 GRID_SIZE = 900
-WHITE = (200, 200, 200)
+GRID_POS = (50, 20)
+WHITE = (250, 250, 250)
 BLACK = (0, 0, 0)
 assets_path = os.path.join(os.getcwd(), "assets")
 GREY = (204, 191, 190)
@@ -123,7 +125,7 @@ def draw_agents(grid, model, screen, size):
             rect.centerx = int(X)
             rect.centery = int(Y)
             grid.blit(surf, rect)
-    screen.blit(grid, (300, 20))
+    screen.blit(grid, GRID_POS)
 
 
 def visualisation(model):
@@ -135,11 +137,11 @@ def visualisation(model):
     grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
     grid.fill(grid_background)
     drawGrid(grid, size)
-    screen.blit(grid, (300, 20))
-
+    screen.blit(grid, GRID_POS)
+    drawLegend(screen, t_gradient)
     PAUSE = False
     RUNNING = True
-
+    pygame.display.set_caption('MS model')
     while RUNNING:
         # Process inputs
         mouse = pygame.mouse.get_pos()
