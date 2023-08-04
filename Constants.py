@@ -1,4 +1,5 @@
 import os
+import pygame
 SCREEN_WIDTH = 1400
 SCREEN_HEIGHT = 1000
 GRID_SIZE = 900
@@ -13,3 +14,7 @@ m_color = "#F2CC8F"
 n_color = "#C1292E"
 grid_border = 1
 barrier_color = "#F3D9A5"
+pygame.font.init()
+font_title = pygame.font.SysFont('yugothicui', 24)
+font_small = pygame.font.SysFont('yugothicui', 14)
+font_medium = pygame.font.SysFont('yugothicui', 18)

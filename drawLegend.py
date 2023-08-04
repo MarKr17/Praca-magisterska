@@ -1,11 +1,8 @@
 import pygame
-from Constants import (WHITE, BLACK)
+from Constants import (WHITE, BLACK, font_small, font_medium, font_title)
 from Gradients import (t_gradient, cytokine_gradient,
                        neuron_gradient, myelin_gradient)
 pygame.font.init()
-font_title = pygame.font.SysFont('yugothicui', 24)
-font_small = pygame.font.SysFont('yugothicui', 14)
-font_medium = pygame.font.SysFont('yugothicui', 18)
 
 
 def drawLegend(screen):
