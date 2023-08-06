@@ -30,7 +30,7 @@ class Controls():
                         image=self.image,
                         onClick=lambda: self.not_function()
                         )
-        self.slider = Slider(self.screen, 200, 945, 100, 20, min=0, max=99,
+        self.slider = Slider(self.screen, 200, 945, 100, 20, min=1, max=100,
                              step=1)
 
     def not_function(self):
@@ -41,10 +41,10 @@ class Controls():
     def pick_image(self):
         if self.PAUSE is False:
             self.image = pygame.image.load(os.path.join(assets_path,
-                                           "play.png"))
+                                           "pause.png"))
         elif self.PAUSE is True:
             self.image = pygame.image.load(os.path.join(assets_path,
-                                           "pause.png"))
+                                           "play.png"))
         self.image = pygame.Surface.convert_alpha(self.image)
         self.image = pygame.transform.smoothscale(self.image, (50, 50))
 

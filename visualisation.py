@@ -1,7 +1,7 @@
 import pygame
 import pygame_widgets
 from Constants import (SCREEN_WIDTH, SCREEN_HEIGHT, GRID_SIZE,
-                       grid_background, GRID_POS, GREY)
+                       grid_background, GRID_POS, GREY, font_medium, BLACK)
 from drawGrid import drawGrid
 from drawLegend import drawLegend
 from drawAgents import drawAgents
@@ -26,6 +26,11 @@ def visualisation(model):
         drawLegend(screen)
         drawAgents(grid, model, screen, size)
         controls.draw()
+        text = font_medium.render("Step: {}".format(model.schedule.steps),
+                                  True, BLACK)
+        textRect = text.get_rect()
+        textRect.center = (400, 960)
+        screen.blit(text, textRect)
         # Process inputs
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

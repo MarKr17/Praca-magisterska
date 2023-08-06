@@ -80,7 +80,7 @@ class MSModel(mesa.Model):
         # Create agents
         for i in range(self.num_agents):
             a = T_cell(self.ID, self, proliferation_rate=0,
-                            cytokin_rate=50)
+                       cytokin_rate=50)
             # Add the agent to the scheduler
             self.schedule.add(a)
             # Add the agent to a random grid cell
@@ -94,8 +94,8 @@ class MSModel(mesa.Model):
         self.datacollector.collect(self)
         self.kill_agents = []
         self.schedule.step()
-        with open("agents.txt", 'w') as f: 
-            for key, value in self.schedule._agents.items(): 
+        with open("agents.txt", 'w') as f:
+            for key, value in self.schedule._agents.items():
                 f.write('%s:%s\n' % (key, value))
         for x in self.kill_agents:
             self.schedule.remove(x)
