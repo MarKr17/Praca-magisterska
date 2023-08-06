@@ -3,6 +3,7 @@ import numpy as np
 import random
 import math
 from T_cell import T_cell
+from B_cell import B_cell
 from Neuron import Neuron
 
 
@@ -33,11 +34,11 @@ def cytokine_diffusion(matrix):
                 matrix[pos[0]][pos[1]] += r
     return matrix
 
-
 class MSModel(mesa.Model):
     """A model with some number of agents."""
-    def __init__(self, N, width, height):
-        self.num_agents = N
+    def __init__(self, width, height):
+        self.num_t = 20  # number of T-cells
+        self.num_b = 20  # number of B-cells
         self.width = width
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],
@@ -78,9 +79,18 @@ class MSModel(mesa.Model):
             self.ID += 1
         print(self.ID)
         # Create agents
-        for i in range(self.num_agents):
+        for i in range(self.num_t):
             a = T_cell(self.ID, self, proliferation_rate=0,
                        cytokin_rate=50)
+            # Add the agent to the scheduler
+            self.schedule.add(a)
+            # Add the agent to a random grid cell
+            x = self.random.randrange(self.grid.width)
+            y = self.random.randrange(self.grid.height)
+            self.grid.place_agent(a, (x, y))
+            self.ID += 1
+        for i in range(self.num_b):
+            a = B_cell(self.ID, self, proliferation_rate=0)
             # Add the agent to the scheduler
             self.schedule.add(a)
             # Add the agent to a random grid cell
@@ -91,7 +101,7 @@ class MSModel(mesa.Model):
 
     def step(self):
         """Advance the model by one step."""
-        self.datacollector.collect(self)
+        # self.datacollector.collect(self)
         self.kill_agents = []
         self.schedule.step()
         with open("agents.txt", 'w') as f:

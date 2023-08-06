@@ -1,6 +1,6 @@
 import pygame
 from Constants import (WHITE, BLACK, font_small, font_medium, font_title)
-from Gradients import (t_gradient, cytokine_gradient,
+from Gradients import (t_gradient, b_gradient, cytokine_gradient,
                        neuron_gradient, myelin_gradient)
 pygame.font.init()
 
@@ -22,23 +22,29 @@ def drawLegend(screen):
     surf.blit(name, (25, 50))
     surf.blit(stripe, (25, 70))
 
+    # Create stripe for gradient of b-cells
+    stripe = drawStripe(b_gradient, h_max=20)
+    name = font_medium.render("B-cells", True, BLACK)
+    surf.blit(name, (25, 130))
+    surf.blit(stripe, (25, 150))
+
     # Create stripe for cytokine gradient
     stripe = drawStripe(cytokine_gradient, h_max=100)
     name = font_medium.render("Cytokinase", True, BLACK)
-    surf.blit(name, (25, 130))
-    surf.blit(stripe, (25, 150))
+    surf.blit(name, (25, 210))
+    surf.blit(stripe, (25, 230))
 
     # Crate stripe for myelin gradient
     stripe = drawStripe(neuron_gradient, h_max=10)
     name = font_medium.render("Neuron", True, BLACK)
-    surf.blit(name, (25, 210))
-    surf.blit(stripe, (25, 230))
+    surf.blit(name, (25, 290))
+    surf.blit(stripe, (25, 310))
 
     # Crate stripe for neuron gradient
     stripe = drawStripe(myelin_gradient, h_max=10)
     name = font_medium.render("Myelin", True, BLACK)
-    surf.blit(name, (25, 280))
-    surf.blit(stripe, (25, 300))
+    surf.blit(name, (25, 370))
+    surf.blit(stripe, (25, 390))
 
     screen.blit(surf, pos)
 

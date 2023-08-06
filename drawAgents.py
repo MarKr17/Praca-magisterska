@@ -1,6 +1,9 @@
 import pygame
 from Constants import (grid_background, GRID_SIZE, GRID_POS)
-from Gradients import (neuron_gradient, myelin_gradient, t_gradient)
+from Gradients import (neuron_gradient, myelin_gradient, t_gradient,
+                       b_gradient)
+from T_cell import T_cell
+from B_cell import B_cell
 from drawGrid import drawGrid
 from drawGrid import drawCytokine
 from drawGrid import drawBarrier
@@ -19,8 +22,10 @@ def drawAgents(grid, model, screen, size):
         for a in cell_contents:
             if type(a) is Neuron:
                 surf = drawNeuron(radius, a)
-            else:
-                surf = drawLympcocyteT(radius, a)
+            elif type(a) is T_cell:
+                surf = drawT_cell(radius, a)
+            elif type(a) is B_cell:
+                surf = drawB_cell(radius, a)
             rect = surf.get_rect()
             rect.centerx = int(X)
             rect.centery = int(Y)
@@ -40,9 +45,18 @@ def drawNeuron(radius, neuron):
     return surf
 
 
-def drawLympcocyteT(radius, Cell):
+def drawT_cell(radius, Cell):
     i = int(Cell.health/5)
     color = t_gradient[i]
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, color, (radius, radius), radius)
+    return surf
+
+
+def drawB_cell(radius, Cell):
+    i = int(Cell.health/5)
+    color = b_gradient[i]
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, color, (radius, radius), radius)
