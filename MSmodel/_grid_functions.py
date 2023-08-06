@@ -37,3 +37,16 @@ def dissolve_cytokine(self):
     if r < self.cytokine_dis_rate:
         self.cytokine_matrix = self.cytokine_matrix-1
         self.cytokine_matrix = np.clip(self.cytokine_matrix, 0, None)
+
+
+def possible_positions(self):
+    positions = []
+    for x in range(self.size):
+        for y in range(self.size):
+            positions.append((x, y))
+    positions_copy = positions.copy()
+    for pos in positions_copy:
+        a = self.areas[pos[0]][pos[1]]
+        if a in [1, 2]:
+            positions.remove(pos)
+    return positions

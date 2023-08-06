@@ -1,5 +1,5 @@
 import pygame
-from Constants import (grid_background, GRID_SIZE, GRID_POS)
+from Constants import (grid_background, GRID_SIZE, GRID_POS, virus_color)
 from Gradients import (neuron_gradient, myelin_gradient, t_gradient,
                        b_gradient)
 from T_cell import T_cell
@@ -8,6 +8,7 @@ from drawGrid import drawGrid
 from drawGrid import drawCytokine
 from drawGrid import drawBarrier
 from Neuron import Neuron
+from Virus import Virus
 
 
 def drawAgents(grid, model, screen, size):
@@ -26,6 +27,8 @@ def drawAgents(grid, model, screen, size):
                 surf = drawT_cell(radius, a)
             elif type(a) is B_cell:
                 surf = drawB_cell(radius, a)
+            elif type(a) is Virus:
+                surf = drawVirus(radius/2, a)
             rect = surf.get_rect()
             rect.centerx = int(X)
             rect.centery = int(Y)
@@ -60,4 +63,11 @@ def drawB_cell(radius, Cell):
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, color, (radius, radius), radius)
+    return surf
+
+
+def drawVirus(radius, Virus):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, virus_color, (radius, radius), radius)
     return surf

@@ -13,20 +13,23 @@ class Cell(mesa.Agent):
         self.tiredness = 0
         self.proliferation_rate = proliferation_rate
         self.penetration_chance = 25
+        self.area = 0  # value of area in which agent is located
+        self.o_side = 1
 
     def step(self):
         self.move()
 
     def move(self):
-        possible_steps = self.model.grid.get_neighborhood(
+        positions = self.model.grid.get_neighborhood(
             self.pos,
             moore=True,
             include_center=False)
-        if self.model.areas[self.pos[0]][self.pos[1]] == 2:
-            for pos in possible_steps:
-                if self.model.areas[pos[0]][pos[1]] != 2:
-                    possible_steps.remove(pos)
-        new_position = self.random.choice(possible_steps)
+        positions_copy = positions.copy()
+        for pos in positions_copy:
+            if self.area != 2:
+                if self.model.areas[pos[0]][pos[1]] == 2:
+                    positions.remove(pos)
+        new_position = self.random.choice(positions)
         x = new_position[0]
         y = new_position[1]
         if self.model.areas[x][y] == 1:
@@ -34,12 +37,12 @@ class Cell(mesa.Agent):
             if r < self.penetration_chance:
                 for i in [-2, -1, 1, 2]:
                     for j in [-2, -1, 1, 2]:
-                        if self.model.areas[x+i][y+j] == 2:
+                        if self.model.areas[x+i][y+j] == self.o_side:
                             new_position = (x+i, y+j)
                             break
             else:
                 new_position = self.pos
-
+        self.area = self.model.areas[new_position[0]][new_position[1]]
         self.model.grid.move_agent(self, new_position)
 
     def proliferation(self):

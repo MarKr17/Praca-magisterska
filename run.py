@@ -3,6 +3,6 @@ from visualisation import visualisation
 # from plots import create_plots
 
 
-model = MSModel(30, 30)
+model = MSModel()
 visualisation(model)
 # create_plots(model)

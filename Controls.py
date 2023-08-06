@@ -31,7 +31,7 @@ class Controls():
                         onClick=lambda: self.not_function()
                         )
         self.slider = Slider(self.screen, 200, 945, 100, 20, min=1, max=100,
-                             step=1)
+                             initial=30, step=1)
 
     def not_function(self):
         self.PAUSE = not self.PAUSE

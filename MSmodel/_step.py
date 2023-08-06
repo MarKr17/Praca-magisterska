@@ -1,3 +1,5 @@
+import random
+
 
 def step(self):
     """Advance the model by one step."""
@@ -10,6 +12,7 @@ def step(self):
     self.killing_agents()
     self.dissolve_cytokine()
     self.cytokine_diffusion()
+    self.start_infection()
 
 
 def killing_agents(self):
@@ -26,3 +29,10 @@ def adding_agents(self):
         y = self.random.randrange(self.grid.height)
         self.grid.place_agent(n, (x, y))
         self.new_agents.remove(n)
+
+
+def start_infection(self):
+    r = random.randint(0, 100)
+    if r < self.infection_chance:
+        n = random. randint(1, 50)
+        self.createViruses(n)
