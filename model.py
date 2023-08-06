@@ -2,7 +2,7 @@ import mesa
 import numpy as np
 import random
 import math
-from LymphocyteT import LymphocyteT
+from T_cell import T_cell
 from Neuron import Neuron
 
 
@@ -79,7 +79,7 @@ class MSModel(mesa.Model):
         print(self.ID)
         # Create agents
         for i in range(self.num_agents):
-            a = LymphocyteT(self.ID, self, proliferation_rate=0,
+            a = T_cell(self.ID, self, proliferation_rate=0,
                             cytokin_rate=50)
             # Add the agent to the scheduler
             self.schedule.add(a)

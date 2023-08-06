@@ -2,7 +2,7 @@ import mesa
 import random
 
 
-class Lymphocyte(mesa.Agent):
+class Cell(mesa.Agent):
 
     def __init__(self, unique_id, model, proliferation_rate):
         # Pass the parameters to the parent class.
@@ -45,7 +45,7 @@ class Lymphocyte(mesa.Agent):
     def proliferation(self):
         r = random.randint(0, 100)
         if r < self.proliferation_rate:
-            n = Lymphocyte(self.model.ID, self.model, proliferation_rate=0)
+            n = Cell(self.model.ID, self.model, proliferation_rate=0)
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1

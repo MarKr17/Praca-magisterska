@@ -1,8 +1,8 @@
-from Lymphocyte import Lymphocyte
+from Cell import Cell
 import random
 
 
-class LymphocyteT(Lymphocyte):
+class T_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate, cytokin_rate):
         super().__init__(unique_id, model, proliferation_rate)
         self.cytokine_rate = cytokin_rate
