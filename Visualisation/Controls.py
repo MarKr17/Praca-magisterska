@@ -1,7 +1,7 @@
 import pygame
 import os
 
-from Constants import WHITE, BLACK, assets_path, font_small
+from Visualisation.Constants import WHITE, BLACK, assets_path, font_small
 from pygame_widgets.button import Button
 from pygame_widgets.slider import Slider
 pygame.font.init()

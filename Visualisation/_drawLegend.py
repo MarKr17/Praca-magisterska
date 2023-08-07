@@ -1,11 +1,12 @@
 import pygame
-from Constants import (WHITE, BLACK, font_small, font_medium, font_title)
-from Gradients import (t_gradient, b_gradient, cytokine_gradient,
-                       neuron_gradient, myelin_gradient)
+from Visualisation.Constants import (WHITE, BLACK, font_small, font_medium,
+                                     font_title)
+from Visualisation.Gradients import (t_gradient, b_gradient, cytokine_gradient,
+                                     neuron_gradient, myelin_gradient)
 pygame.font.init()
 
 
-def drawLegend(screen):
+def drawLegend(self):
     pos = (1000, 20)
     surf = pygame.Surface((350, 900))
     surf.fill(WHITE)
@@ -46,7 +47,7 @@ def drawLegend(screen):
     surf.blit(name, (25, 370))
     surf.blit(stripe, (25, 390))
 
-    screen.blit(surf, pos)
+    self.screen.blit(surf, pos)
 
 
 def drawStripe(gradient_matrix, h_max):

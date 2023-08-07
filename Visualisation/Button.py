@@ -1,6 +1,6 @@
 import pygame
 import os
-from Constants import assets_path, GREY
+from Visualisation.Constants import assets_path, GREY
 
 
 class Button():

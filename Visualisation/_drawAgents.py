@@ -1,25 +1,23 @@
 import pygame
-from Constants import (grid_background, GRID_SIZE, GRID_POS, virus_color)
-from Gradients import (neuron_gradient, myelin_gradient, t_gradient,
-                       b_gradient)
+from Visualisation.Constants import (grid_background, GRID_SIZE, GRID_POS,
+                                     virus_color)
+from Visualisation.Gradients import (neuron_gradient, myelin_gradient,
+                                     t_gradient, b_gradient)
 from Agents.T_cell import T_cell
 from Agents.B_cell import B_cell
-from drawGrid import drawGrid
-from drawGrid import drawCytokine
-from drawGrid import drawBarrier
 from Agents.Neuron import Neuron
 from Agents.Virus import Virus
 
 
-def drawAgents(grid, model, screen, size):
-    grid.fill(grid_background)
-    drawGrid(grid, size)
-    drawCytokine(model, size, grid)
-    drawBarrier(model, size, grid)
-    for (cell_contents, x, y) in model.grid.coord_iter():
-        radius = GRID_SIZE/size/2 - 5
-        X = x*GRID_SIZE/size+GRID_SIZE/size/2
-        Y = y*GRID_SIZE/size+GRID_SIZE/size/2
+def drawAgents(self):
+    self.grid.fill(grid_background)
+    self.drawGrid()
+    self.drawCytokine()
+    self.drawBarrier()
+    for (cell_contents, x, y) in self.model.grid.coord_iter():
+        radius = GRID_SIZE/self.size/2 - 5
+        X = x*GRID_SIZE/self.size+GRID_SIZE/self.size/2
+        Y = y*GRID_SIZE/self.size+GRID_SIZE/self.size/2
         for a in cell_contents:
             if type(a) is Neuron:
                 surf = drawNeuron(radius, a)
@@ -32,8 +30,8 @@ def drawAgents(grid, model, screen, size):
             rect = surf.get_rect()
             rect.centerx = int(X)
             rect.centery = int(Y)
-            grid.blit(surf, rect)
-    screen.blit(grid, GRID_POS)
+            self.grid.blit(surf, rect)
+    self.screen.blit(self.grid, GRID_POS)
 
 
 def drawNeuron(radius, neuron):
