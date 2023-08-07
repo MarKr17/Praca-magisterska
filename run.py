@@ -5,7 +5,6 @@ from Visualisation import Visualisation
 
 
 model = MSModel()
-# visualisation(model)
 visualisation = Visualisation(model)
 visualisation.run()
 # create_plots(model)

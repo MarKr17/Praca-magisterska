@@ -1,5 +1,6 @@
 from mesa.model import Model
 from Agents.Agent import Agent
+import random
 
 
 class Virus(Agent):
@@ -7,9 +8,13 @@ class Virus(Agent):
         super().__init__(unique_id, model)
         self.health = 1
         self.placement = 0
+        self.infection_rate = 50
 
     def step(self):
         self.move()
+        r = random.randint(0, 99)
+        if r < self.infection_rate:
+            self.infect
         if self.health < 1:
             self.death()
 
@@ -23,8 +28,19 @@ class Virus(Agent):
             a = self.model.areas[pos[0]][pos[1]]
             if a == 1 or a == 2:
                 positions.remove(pos)
-        new_position = self.random.choice(positions)
+        new_position = random.choice(positions)
         self.model.grid.move_agent(self, new_position)
 
     def death(self):
         self.model.kill_agents.append(self)
+
+    def infect(self):
+        from Agents.B_cell import B_cell
+        neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
+        neighbors_copy = neighbors.copy()
+        for n in neighbors_copy:
+            if type(n) is not B_cell:
+                neighbors.remove(n)
+        if len(neighbors > 0):
+            b = random.choice(neighbors)
+            b.infected = True

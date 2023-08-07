@@ -15,8 +15,8 @@ class T_cell(Cell):
             self.death()
 
     def cytokine_release(self):
-        r = random.randint(0, 100)
-        if r <= self.cytokine_rate:
+        r = random.randint(0, 99)
+        if r < self.cytokine_rate:
             x = self.pos[0]
             y = self.pos[1]
             self.model.cytokine_matrix[x][y] += 1
