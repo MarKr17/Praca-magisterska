@@ -1,6 +1,6 @@
 import pygame
 from Visualisation.Constants import (WHITE, BLACK, font_small, font_medium,
-                                     font_title)
+                                     font_title, virus_color)
 from Visualisation.Gradients import (t_gradient, b_gradient, cytokine_gradient,
                                      neuron_gradient, myelin_gradient)
 pygame.font.init()
@@ -46,6 +46,13 @@ def drawLegend(self):
     name = font_medium.render("Myelin", True, BLACK)
     surf.blit(name, (25, 370))
     surf.blit(stripe, (25, 390))
+
+    # Create legend for Virus
+    s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
+    pygame.draw.circle(s, virus_color, (10, 10), 10)
+    name = font_medium.render("Virus", True, BLACK)
+    surf.blit(name, (25, 450))
+    surf.blit(s, (80, 450))
 
     self.screen.blit(surf, pos)
 
