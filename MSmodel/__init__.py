@@ -10,6 +10,9 @@ class MSModel(mesa.Model):
                                   possible_positions)
 
     def __init__(self):
+        from ._computing import (compute_B_cells, compute_Myelin,
+                                 compute_Neurons, compute_T_cells,
+                                 compute_Virus)
         self.num_t = 20  # number of T-cells
         self.num_b = 20  # number of B-cells
         self.size = 30
@@ -37,11 +40,13 @@ class MSModel(mesa.Model):
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)
-        """
         self.datacollector = mesa.DataCollector(
-            model_reporters={"Gini": compute_gini},
-            agent_reporters={"Health": "health"}
-        )"""
+            model_reporters={"T-cell population": compute_T_cells,
+                             "B-cell population": compute_B_cells,
+                             "Neuron population": compute_Neurons,
+                             "Myelin population": compute_Myelin,
+                             "Virus population": compute_Virus}
+        )
         self.createNeurons()
         self.createT_cells()
         self.createB_cells()

@@ -3,7 +3,7 @@ import random
 
 def step(self):
     """Advance the model by one step."""
-    # self.datacollector.collect(self)
+    self.datacollector.collect(self)
     self.kill_agents = []
     self.schedule.step()
     with open("agents.txt", 'w') as f:

@@ -12,6 +12,7 @@ class Virus(Agent):
 
     def step(self):
         self.move()
+        self.cytokin_effect()
         r = random.randint(0, 99)
         if r < self.infection_rate:
             self.infect
@@ -44,3 +45,7 @@ class Virus(Agent):
         if len(neighbors > 0):
             b = random.choice(neighbors)
             b.infected = True
+
+    def cytokin_effect(self):
+        cytokin = self.model.cytokine_matrix[self.pos[0]][self.pos[1]]
+        self.health -= cytokin//10

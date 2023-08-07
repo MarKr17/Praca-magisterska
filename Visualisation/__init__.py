@@ -43,8 +43,7 @@ class Visualisation():
             # Process inputs
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    raise SystemExit
+                    self.RUNNING = False
             if not PAUSE:
                 self.model.step()
             pygame_widgets.update(event)
