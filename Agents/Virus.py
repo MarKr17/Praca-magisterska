@@ -1,9 +1,8 @@
-import mesa
-
 from mesa.model import Model
+from Agents.Agent import Agent
 
 
-class Virus(mesa.Agent):
+class Virus(Agent):
     def __init__(self, unique_id: int, model: Model):
         super().__init__(unique_id, model)
         self.health = 1
@@ -11,6 +10,8 @@ class Virus(mesa.Agent):
 
     def step(self):
         self.move()
+        if self.health < 1:
+            self.death()
 
     def move(self):
         positions = self.model.grid.get_neighborhood(
@@ -24,3 +25,6 @@ class Virus(mesa.Agent):
                 positions.remove(pos)
         new_position = self.random.choice(positions)
         self.model.grid.move_agent(self, new_position)
+
+    def death(self):
+        self.model.kill_agents.append(self)

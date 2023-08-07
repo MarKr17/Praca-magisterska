@@ -1,7 +1,7 @@
-from Neuron import Neuron
-from T_cell import T_cell
-from B_cell import B_cell
-from Virus import Virus
+from Agents.Neuron import Neuron
+from Agents.T_cell import T_cell
+from Agents.B_cell import B_cell
+from Agents.Virus import Virus
 import random
 
 

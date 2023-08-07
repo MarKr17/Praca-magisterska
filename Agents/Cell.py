@@ -1,8 +1,8 @@
-import mesa
 import random
+from Agents.Agent import Agent
 
 
-class Cell(mesa.Agent):
+class Cell(Agent):
 
     def __init__(self, unique_id, model, proliferation_rate):
         # Pass the parameters to the parent class.
@@ -13,8 +13,6 @@ class Cell(mesa.Agent):
         self.tiredness = 0
         self.proliferation_rate = proliferation_rate
         self.penetration_chance = 25
-        self.area = 0  # value of area in which agent is located
-        self.o_side = 1
 
     def step(self):
         self.move()
@@ -52,6 +50,3 @@ class Cell(mesa.Agent):
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1
-
-    def death(self):
-        self.model.kill_agents.append(self)

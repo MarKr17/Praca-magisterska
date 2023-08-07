@@ -2,13 +2,13 @@ import pygame
 from Constants import (grid_background, GRID_SIZE, GRID_POS, virus_color)
 from Gradients import (neuron_gradient, myelin_gradient, t_gradient,
                        b_gradient)
-from T_cell import T_cell
-from B_cell import B_cell
+from Agents.T_cell import T_cell
+from Agents.B_cell import B_cell
 from drawGrid import drawGrid
 from drawGrid import drawCytokine
 from drawGrid import drawBarrier
-from Neuron import Neuron
-from Virus import Virus
+from Agents.Neuron import Neuron
+from Agents.Virus import Virus
 
 
 def drawAgents(grid, model, screen, size):

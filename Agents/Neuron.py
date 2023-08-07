@@ -1,8 +1,8 @@
-import mesa
 import random
+from Agents.Agent import Agent
 
 
-class Neuron(mesa.Agent):
+class Neuron(Agent):
 
     def __init__(self, unique_id, model, reg_rate):
         super().__init__(unique_id, model)
@@ -18,9 +18,6 @@ class Neuron(mesa.Agent):
         self.calculate_armor()
         if self.health <= 0:
             self.death()
-
-    def death(self):
-        self.model.kill_agents.append(self)
 
     def myelin_regeneration(self):
         if self.myelin_health < 10:

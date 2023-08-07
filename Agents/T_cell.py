@@ -1,4 +1,4 @@
-from Cell import Cell
+from Agents.Cell import Cell
 import random
 
 
