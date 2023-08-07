@@ -47,7 +47,7 @@ def drawNeuron(radius, neuron):
 
 
 def drawT_cell(radius, Cell):
-    i = int(Cell.health/5)
+    i = int(Cell.health/2-1)
     color = t_gradient[i]
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
@@ -56,7 +56,7 @@ def drawT_cell(radius, Cell):
 
 
 def drawB_cell(radius, Cell):
-    i = int(Cell.health/5)
+    i = int(Cell.health/2-1)
     color = b_gradient[i]
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
