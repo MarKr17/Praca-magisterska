@@ -1,8 +1,8 @@
-def compute_T_cells(self):
-    from Agents.T_cell import T_cell
+def compute_T_naive_cells(self):
+    from Agents.T_naive_cell import T_naive_cell
     T = 0
     for agent in self.schedule.agents:
-        if type(agent) is T_cell:
+        if type(agent) is T_naive_cell:
             T += 1
     return T
 

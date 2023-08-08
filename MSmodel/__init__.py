@@ -12,7 +12,7 @@ class MSModel(mesa.Model):
 
     def __init__(self):
         from ._computing import (compute_B_cells, compute_Myelin,
-                                 compute_Neurons, compute_T_cells,
+                                 compute_Neurons, compute_T_naive_cells,
                                  compute_Virus)
         self.num_t = 20  # number of T-cells
         self.num_b = 20  # number of B-cells
@@ -43,7 +43,7 @@ class MSModel(mesa.Model):
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)
         self.datacollector = mesa.DataCollector(
-            model_reporters={"T-cell population": compute_T_cells,
+            model_reporters={"T-cell population": compute_T_naive_cells,
                              "B-cell population": compute_B_cells,
                              "Neuron population": compute_Neurons,
                              "Myelin population": compute_Myelin,
