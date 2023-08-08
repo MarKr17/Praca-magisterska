@@ -7,5 +7,5 @@ from Plots import Plots
 model = MSModel()
 visualisation = Visualisation(model)
 visualisation.run()
-plots = Plots(model.datacollector)
-plots.Plot()
+# plots = Plots(model.datacollector)
+# plots.Plot()

@@ -1,6 +1,6 @@
 from Agents.Neuron import Neuron
-from Agents.T_cell import T_cell
 from Agents.B_cell import B_cell
+from Agents.T_naive_cell import T_naive_cell
 from Agents.Virus import Virus
 from Agents.APC import APC
 import random
@@ -18,11 +18,10 @@ def createNeurons(self):
         self.ID += 1
 
 
-def createT_cells(self):
+def createT_naive_cells(self):
     positions = self.possible_positions()
     for i in range(self.num_t):
-        a = T_cell(self.ID, self, proliferation_rate=0,
-                   cytokin_rate=50)
+        a = T_naive_cell(self.ID, self, proliferation_rate=0)
         # Add the agent to the scheduler
         self.schedule.add(a)
         pos = random.choice(positions)

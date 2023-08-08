@@ -4,7 +4,8 @@ import numpy as np
 
 class MSModel(mesa.Model):
     from ._creating_agents import (createNeurons, createB_cells,
-                                   createT_cells, createViruses, create_APCs)
+                                   createT_naive_cells, createViruses,
+                                   create_APCs)
     from ._step import (step, killing_agents, adding_agents, start_infection)
     from ._grid_functions import (cytokine_diffusion, dissolve_cytokine,
                                   possible_positions)
@@ -49,6 +50,6 @@ class MSModel(mesa.Model):
                              "Virus population": compute_Virus}
         )
         self.createNeurons()
-        self.createT_cells()
+        self.createT_naive_cells()
         self.createB_cells()
         self.create_APCs()

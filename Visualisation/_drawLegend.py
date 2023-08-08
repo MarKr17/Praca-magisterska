@@ -1,7 +1,8 @@
 import pygame
 from Visualisation.Constants import (WHITE, BLACK, font_small, font_medium,
-                                     font_title, virus_color, APC_color)
-from Visualisation.Gradients import (t_gradient, b_gradient, cytokine_gradient,
+                                     font_title, virus_color, APC_color,
+                                     t_naive_cell_color)
+from Visualisation.Gradients import (b_gradient, cytokine_gradient,
                                      neuron_gradient, myelin_gradient)
 pygame.font.init()
 
@@ -17,11 +18,12 @@ def drawLegend(self):
     textRect.center = (175, 30)
     surf.blit(text, textRect)
 
-    # Create stripe for gradient of t cells
-    stripe = drawStripe(t_gradient, h_max=20)
-    name = font_medium.render("T-cells", True, BLACK)
+    # Create legend for t_naive cells
+    s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
+    pygame.draw.circle(s, t_naive_cell_color, (10, 10), 10)
+    name = font_medium.render("Naive T-cell", True, BLACK)
     surf.blit(name, (25, 50))
-    surf.blit(stripe, (25, 70))
+    surf.blit(s, (140, 50))
 
     # Create stripe for gradient of b-cells
     stripe = drawStripe(b_gradient, h_max=20)
@@ -53,7 +55,7 @@ def drawLegend(self):
     name = font_medium.render("Virus", True, BLACK)
     surf.blit(name, (25, 450))
     surf.blit(s, (80, 450))
-    
+
     # Create legend for APC
     s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
     pygame.draw.circle(s, APC_color, (10, 10), 10)

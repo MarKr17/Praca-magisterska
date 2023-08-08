@@ -11,6 +11,8 @@ class APC(Cell):
     def step(self):
         self.move()
         self.proliferation()
+        if self.health <= 0:
+            self.death
 
     def grow_MHC(self):
         r = random.randint(0, 99)
