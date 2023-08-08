@@ -47,5 +47,5 @@ class Virus(Agent):
             b.infected = True
 
     def cytokin_effect(self):
-        cytokin = self.model.cytokine_matrix[self.pos[0]][self.pos[1]]
+        cytokin = self.model.cytokin_matrix[self.pos[0]][self.pos[1]]
         self.health -= cytokin//10

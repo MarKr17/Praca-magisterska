@@ -19,11 +19,11 @@ def drawCytokine(self):
         for y in range(self.size):
             X = x*GRID_SIZE/self.size
             Y = y*GRID_SIZE/self.size
-            if self.model.cytokine_matrix[x][y] > 0:
-                if self.model.cytokine_matrix[x][y] > 100:
+            if self.model.cytokin_matrix[x][y] > 0:
+                if self.model.cytokin_matrix[x][y] > 100:
                     color = cytokine_gradient[9]
                 else:
-                    c = math.floor(self.model.cytokine_matrix[x][y]/10)
+                    c = math.floor(self.model.cytokin_matrix[x][y]/10)
                     color = cytokine_gradient[c]
                 s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
                 s.fill(color)

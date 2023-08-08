@@ -11,7 +11,8 @@ def step(self):
             f.write('%s:%s\n' % (key, value))
     self.killing_agents()
     self.dissolve_cytokine()
-    self.cytokine_diffusion()
+    self.cytokin_diffusion()
+    self.update_cytokin_matrix()
     self.start_infection()
 
 

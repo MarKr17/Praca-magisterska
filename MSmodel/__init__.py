@@ -7,8 +7,8 @@ class MSModel(mesa.Model):
                                    createT_naive_cells, createViruses,
                                    create_APCs)
     from ._step import (step, killing_agents, adding_agents, start_infection)
-    from ._grid_functions import (cytokine_diffusion, dissolve_cytokine,
-                                  possible_positions)
+    from ._grid_functions import (cytokin_diffusion, dissolve_cytokine,
+                                  possible_positions, update_cytokin_matrix)
 
     def __init__(self):
         from ._computing import (compute_B_cells, compute_Myelin,
@@ -36,7 +36,11 @@ class MSModel(mesa.Model):
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add
         self.ID = 0  # id number that is available at the moment
-        self.cytokine_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.cytokin_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.IFN_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.TNF_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.IL_22_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.IL_17_matrix = np.zeros((self.size, self.size), dtype=int)
         self.cytokine_dis_rate = 5
         self.infection_chance = 5
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)

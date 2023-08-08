@@ -23,7 +23,7 @@ def drawLegend(self):
     pygame.draw.circle(s, t_naive_cell_color, (10, 10), 10)
     name = font_medium.render("Naive T-cell", True, BLACK)
     surf.blit(name, (25, 50))
-    surf.blit(s, (140, 50))
+    surf.blit(s, (130, 50))
 
     # Create stripe for gradient of b-cells
     stripe = drawStripe(b_gradient, h_max=20)

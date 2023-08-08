@@ -11,8 +11,19 @@ def compute_gini(self):
     return 1 + (1 / N) - 2 * B
 
 
-def cytokine_diffusion(self):
-    matrix = self.cytokine_matrix
+def update_cytokin_matrix(self):
+    self.cytokin_matrix = (self.TNF_matrix + self.IFN_matrix +
+                           self.IL_22_matrix + self.IL_17_matrix)
+
+
+def cytokin_diffusion(self):
+    self.TNF_matrix = diffusion(self.TNF_matrix)
+    self.IFN_matrix = diffusion(self.IFN_matrix)
+    self.IL_22_matrix = diffusion(self.IL_22_matrix)
+    self.IL_17_matrix = diffusion(self.IL_17_matrix)
+
+
+def diffusion(matrix):
     for x in range(1, len(matrix)-1):
         for y in range(1, len(matrix)-1):
             # averege amount of cytokine in neighbor cells
@@ -29,14 +40,24 @@ def cytokine_diffusion(self):
                 r = math.floor((matrix[x][y] - min)/2)
                 matrix[x][y] -= r
                 matrix[pos[0]][pos[1]] += r
-    self.cytokine_matrix = matrix
+    return matrix
 
 
 def dissolve_cytokine(self):
     r = random.randint(0, 100)
     if r < self.cytokine_dis_rate:
-        self.cytokine_matrix = self.cytokine_matrix-1
-        self.cytokine_matrix = np.clip(self.cytokine_matrix, 0, None)
+
+        self.IFN_matrix = self.IFN_matrix-1
+        self.IFN_matrix = np.clip(self.IFN_matrix, 0, None)
+
+        self.TNF_matrix = self.TNF_matrix-1
+        self.TNF_matrix = np.clip(self.TNF_matrix, 0, None)
+
+        self.IL_22_matrix = self.IL_22_matrix-1
+        self.IL_22_matrix = np.clip(self.IL_22_matrix, 0, None)
+
+        self.IL_17_matrix = self.IL_17_matrix-1
+        self.IL_17_matrix = np.clip(self.IL_17_matrix, 0, None)
 
 
 def possible_positions(self):
