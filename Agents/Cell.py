@@ -44,7 +44,7 @@ class Cell(Agent):
         self.model.grid.move_agent(self, new_position)
 
     def proliferation(self):
-        r = random.randint(0, 100)
+        r = random.randint(0, 99)
         if r < self.proliferation_rate:
             n = Cell(self.model.ID, self.model, proliferation_rate=0)
             self.model.ID += 1
