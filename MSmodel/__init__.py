@@ -4,7 +4,7 @@ import numpy as np
 
 class MSModel(mesa.Model):
     from ._creating_agents import (createNeurons, createB_cells,
-                                   createT_cells, createViruses)
+                                   createT_cells, createViruses, create_APCs)
     from ._step import (step, killing_agents, adding_agents, start_infection)
     from ._grid_functions import (cytokine_diffusion, dissolve_cytokine,
                                   possible_positions)
@@ -15,6 +15,7 @@ class MSModel(mesa.Model):
                                  compute_Virus)
         self.num_t = 20  # number of T-cells
         self.num_b = 20  # number of B-cells
+        self.num_APC = 10  # number of APCs
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],
@@ -50,3 +51,4 @@ class MSModel(mesa.Model):
         self.createNeurons()
         self.createT_cells()
         self.createB_cells()
+        self.create_APCs()

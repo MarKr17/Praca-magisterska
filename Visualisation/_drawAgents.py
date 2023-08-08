@@ -1,12 +1,13 @@
 import pygame
 from Visualisation.Constants import (grid_background, GRID_SIZE, GRID_POS,
-                                     virus_color)
+                                     virus_color, APC_color)
 from Visualisation.Gradients import (neuron_gradient, myelin_gradient,
                                      t_gradient, b_gradient)
 from Agents.T_cell import T_cell
 from Agents.B_cell import B_cell
 from Agents.Neuron import Neuron
 from Agents.Virus import Virus
+from Agents.APC import APC
 
 
 def drawAgents(self):
@@ -27,6 +28,8 @@ def drawAgents(self):
                 surf = drawB_cell(radius, a)
             elif type(a) is Virus:
                 surf = drawVirus(radius/2, a)
+            elif type(a) is APC:
+                surf = drawAPC(radius, a)
             rect = surf.get_rect()
             rect.centerx = int(X)
             rect.centery = int(Y)
@@ -68,4 +71,11 @@ def drawVirus(radius, Virus):
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, virus_color, (radius, radius), radius)
+    return surf
+
+
+def drawAPC(radius, APC):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, APC_color, (radius, radius), radius)
     return surf

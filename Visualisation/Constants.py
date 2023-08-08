@@ -13,6 +13,7 @@ t_color = "#3D405B"
 m_color = "#F2CC8F"
 n_color = "#C1292E"
 virus_color = "#50723C"  # "#358600"
+APC_color = "#E8871E"
 grid_border = 1
 barrier_color = "#F3D9A5"
 pygame.font.init()
