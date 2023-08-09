@@ -13,6 +13,7 @@ def step(self):
     self.dissolve_cytokine()
     self.cytokin_diffusion()
     self.update_cytokin_matrix()
+    self.barrier_cytokin_effect()
     self.start_infection()
 
 

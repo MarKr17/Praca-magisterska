@@ -8,7 +8,8 @@ class MSModel(mesa.Model):
                                    create_APCs)
     from ._step import (step, killing_agents, adding_agents, start_infection)
     from ._grid_functions import (cytokin_diffusion, dissolve_cytokine,
-                                  possible_positions, update_cytokin_matrix)
+                                  possible_positions, update_cytokin_matrix,
+                                  barrier_cytokin_effect)
 
     def __init__(self):
         from ._computing import (compute_B_cells, compute_Myelin,
@@ -32,6 +33,11 @@ class MSModel(mesa.Model):
         for i in range(7, 24):
             for j in range(7, 24):
                 self.areas[i][j] = 2
+
+        self.barrier = np.zeros((self.size, self.size), dtype=float)
+        for i in [6, 24]:
+            for j in range(6, 25):
+                self.barrier = 100
 
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add

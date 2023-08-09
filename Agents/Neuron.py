@@ -16,6 +16,7 @@ class Neuron(Agent):
     def step(self):
         self.myelin_regeneration()
         self.calculate_armor()
+        self.calculate_myelin_dmg()
         if self.health <= 0:
             self.death()
 
@@ -29,3 +30,7 @@ class Neuron(Agent):
     def calculate_armor(self):
         self.armor_rating = self.armor_rating - pow(self.tiredness/10, 2)
         self.armor = self.armor_rating * self.myelin_health
+
+    def calculate_myelin_dmg(self):
+        ifn = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
+        self.myelin_health -= self.armor - ifn/100
