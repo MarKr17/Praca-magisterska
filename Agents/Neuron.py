@@ -35,6 +35,9 @@ class Neuron(Agent):
 
     def calculate_myelin_dmg(self):
         ifn = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
-        self.myelin_health -= int((self.armor - ifn/100))
+        dmg = int(ifn/100 - self.armor)
+        if dmg < 0:
+            dmg = 0
+        self.myelin_health -= dmg
         if self.myelin_health < 0:
             self.myelin_health = 0
