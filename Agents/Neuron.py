@@ -28,9 +28,13 @@ class Neuron(Agent):
                 self.tiredness += 1
 
     def calculate_armor(self):
-        self.armor_rating = self.armor_rating - pow(self.tiredness/10, 2)
-        self.armor = self.armor_rating * self.myelin_health
+        self.armor_rating = int(self.armor_rating - pow(self.tiredness/100, 2))
+        if self.armor_rating < 0:
+            self.armor_rating = 0
+        self.armor = int(self.armor_rating * self.myelin_health)
 
     def calculate_myelin_dmg(self):
         ifn = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
-        self.myelin_health -= self.armor - ifn/100
+        self.myelin_health -= int((self.armor - ifn/100))
+        if self.myelin_health < 0:
+            self.myelin_health = 0
