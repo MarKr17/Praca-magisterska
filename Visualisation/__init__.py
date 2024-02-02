@@ -22,6 +22,7 @@ class Visualisation():
     from ._drawAgents import drawAgents
     from ._drawGrid import (drawGrid, drawCytokine, drawBarrier)
     from ._drawLegend import drawLegend
+    from ._drawPlot import drawPlot
 
     def run(self):
         self.clock = pygame.time.Clock()
@@ -33,6 +34,7 @@ class Visualisation():
         while self.RUNNING:
             PAUSE = controls.PAUSE
             self.drawLegend()
+            self.drawPlot()
             self.drawAgents()
             self.drawGrid()
             controls.draw()

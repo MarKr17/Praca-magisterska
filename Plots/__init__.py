@@ -1,6 +1,10 @@
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.backends.backend_agg as agg
+import matplotlib
+matplotlib.use("Agg")
+
 from Visualisation.Gradients import (b_gradient, t_gradient, myelin_gradient,
                                      neuron_gradient)
 from Visualisation.Constants import virus_color
@@ -29,3 +33,23 @@ class Plots():
             plt.savefig(filepath, dpi=300)
             plt.clf()
             i += 1
+
+    def Plot_realtime(self):
+        colors = [t_gradient[len(t_gradient)-1],
+                  b_gradient[len(b_gradient)-1],
+                  neuron_gradient[len(neuron_gradient)-1],
+                  myelin_gradient[len(myelin_gradient)-1],
+                  virus_color]
+        i = 0
+        for key in self.data:
+            plot = sns.lineplot(data=self.data[key], color=colors[i], label=key)
+            i += 1
+        plot.set(title=key, ylabel="Number of agents", xlabel="Step")
+        fig = plot.get_figure()
+        canvas = agg.FigureCanvasAgg(fig)
+        canvas.draw()
+        renderer = canvas.get_renderer()
+        raw_data = renderer.tostring_rgb()
+        size = canvas.get_width_height()
+        plt.clf()
+        return raw_data, size
