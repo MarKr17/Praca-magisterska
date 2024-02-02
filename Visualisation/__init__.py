@@ -11,10 +11,12 @@ class Visualisation():
         self.model = model
         self.size = model.size
         pygame.init()
+        SCREEN_WIDTH = pygame.display.Info().current_w*0.99
+        SCREEN_HEIGHT = pygame.display.Info().current_h*0.95
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
         self.grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
-        self.PAUSE = False
+        self.PAUSE = True
         self.RUNNING = True
 
     from ._drawAgents import drawAgents
