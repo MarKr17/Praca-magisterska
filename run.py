@@ -9,4 +9,3 @@ visualisation = Visualisation(model)
 visualisation.run()
 plots = Plots(model.datacollector)
 plots.Plot_combined()
-...
