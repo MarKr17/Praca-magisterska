@@ -1,9 +1,6 @@
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.backends.backend_agg as agg
-import matplotlib
-matplotlib.use("Agg")
 
 from Visualisation.Gradients import (b_gradient, t_gradient, myelin_gradient,
                                      neuron_gradient)
@@ -45,11 +42,5 @@ class Plots():
             plot = sns.lineplot(data=self.data[key], color=colors[i], label=key)
             i += 1
         plot.set(title=key, ylabel="Number of agents", xlabel="Step")
-        fig = plot.get_figure()
-        canvas = agg.FigureCanvasAgg(fig)
-        canvas.draw()
-        renderer = canvas.get_renderer()
-        raw_data = renderer.tostring_rgb()
-        size = canvas.get_width_height()
-        plt.clf()
-        return raw_data, size
+        
+
