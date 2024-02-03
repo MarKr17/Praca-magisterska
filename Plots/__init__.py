@@ -31,7 +31,7 @@ class Plots():
             plt.clf()
             i += 1
 
-    def Plot_realtime(self):
+    def Plot_combined(self):
         colors = [t_gradient[len(t_gradient)-1],
                   b_gradient[len(b_gradient)-1],
                   neuron_gradient[len(neuron_gradient)-1],
@@ -42,5 +42,6 @@ class Plots():
             plot = sns.lineplot(data=self.data[key], color=colors[i], label=key)
             i += 1
         plot.set(title=key, ylabel="Number of agents", xlabel="Step")
-        
-
+        filepath = os.path.join(self.folder_path, "combined.jpg")
+        plt.savefig(filepath, dpi=300)
+        plt.clf()
