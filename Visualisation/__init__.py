@@ -1,6 +1,6 @@
 import pygame
 import pygame_widgets
-from Visualisation.Constants import (SCREEN_WIDTH, SCREEN_HEIGHT, GRID_SIZE,
+from Visualisation.Constants import (GRID_SIZE,
                                      grid_background, GRID_POS, GREY,
                                      font_medium, BLACK)
 from Visualisation.Controls import Controls
@@ -11,10 +11,11 @@ class Visualisation():
         self.model = model
         self.size = model.size
         pygame.init()
-        SCREEN_WIDTH = pygame.display.Info().current_w*0.99
-        SCREEN_HEIGHT = pygame.display.Info().current_h*0.95
+        infoObject = pygame.display.Info()
+        SCREEN_WIDTH = infoObject.current_w*0.99
+        SCREEN_HEIGHT = infoObject.current_h*0.95
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),
-                                              pygame.RESIZABLE)
+                                            pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
         self.PAUSE = True
