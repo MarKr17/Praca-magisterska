@@ -1,7 +1,7 @@
 import pygame
 import pygame_widgets
-from Visualisation.Constants import (GRID_SIZE,
-                                     grid_background, GRID_POS, GREY,
+import math
+from Visualisation.Constants import (grid_background, GRID_POS, GREY,
                                      font_medium, BLACK)
 from Visualisation.Controls import Controls
 
@@ -12,12 +12,12 @@ class Visualisation():
         self.size = model.size
         pygame.init()
         infoObject = pygame.display.Info()
-        SCREEN_WIDTH = infoObject.current_w*0.99
-        SCREEN_HEIGHT = infoObject.current_h*0.95
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),
+        self.screen = pygame.display.set_mode((infoObject.current_w*0.99,
+                                               infoObject.current_h*0.95),
                                             pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
-        self.grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
+        self.GRID_SIZE = math.floor(infoObject.current_h*0.83)
+        self.grid = pygame.Surface((self.GRID_SIZE, self.GRID_SIZE))
         self.PAUSE = True
         self.RUNNING = True
 
@@ -28,15 +28,15 @@ class Visualisation():
     def run(self):
         self.clock = pygame.time.Clock()
         self.grid.fill(grid_background)
-        self.drawGrid()
+        self.drawGrid(self.GRID_SIZE)
         self.screen.blit(self.grid, GRID_POS)
         controls = Controls(self.screen, 900, 100, (50, 930), self.PAUSE)
         pygame.display.set_caption('MS model')
         while self.RUNNING:
             PAUSE = controls.PAUSE
             self.drawLegend()
-            self.drawAgents()
-            self.drawGrid()
+            self.drawAgents(self.GRID_SIZE)
+            self.drawGrid(self.GRID_SIZE)
             controls.draw()
             text = font_medium.render("Step: {}".format(
                                        self.model.schedule.steps),

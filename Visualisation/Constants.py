@@ -1,7 +1,5 @@
 import os
 import pygame
-SCREEN_WIDTH = 1400
-SCREEN_HEIGHT = 1000
 GRID_SIZE = 900
 GRID_POS = (50, 20)
 WHITE = (250, 250, 250)
