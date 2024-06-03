@@ -13,7 +13,8 @@ class Visualisation():
         pygame.init()
         SCREEN_WIDTH = pygame.display.Info().current_w*0.99
         SCREEN_HEIGHT = pygame.display.Info().current_h*0.95
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),
+                                              pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
         self.PAUSE = True
