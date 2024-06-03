@@ -1,9 +1,29 @@
 import pygame
 import pygame_widgets
-import math
 from Visualisation.Constants import (grid_background, GRID_POS, GREY,
                                      font_medium, BLACK)
 from Visualisation.Controls import Controls
+
+
+def closestNumber(n, m):
+    # Find the quotient
+    q = int(n / m)
+
+    # 1st possible closest number
+    n1 = m * q
+
+    # 2nd possible closest number
+    if ((n * m) > 0):
+        n2 = (m * (q + 1))
+    else:
+        n2 = (m * (q - 1))
+
+    # if true, then n1 is the required closest number
+    if (abs(n - n1) < abs(n - n2)):
+        return n1
+
+    # else n2 is the required closest number
+    return n2
 
 
 class Visualisation():
@@ -16,7 +36,8 @@ class Visualisation():
                                                infoObject.current_h*0.95),
                                             pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
-        self.GRID_SIZE = math.floor(infoObject.current_h*0.83)
+        self.GRID_SIZE = int(infoObject.current_h*0.83)
+        self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
         self.grid = pygame.Surface((self.GRID_SIZE, self.GRID_SIZE))
         self.PAUSE = True
         self.RUNNING = True
