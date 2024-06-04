@@ -34,7 +34,7 @@ class Visualisation():
         infoObject = pygame.display.Info()
         self.screen = pygame.display.set_mode((infoObject.current_w*0.99,
                                                infoObject.current_h*0.95),
-                                            pygame.RESIZABLE)
+                                              pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
         self.GRID_SIZE = int(infoObject.current_h*0.83)
         self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
@@ -69,6 +69,13 @@ class Visualisation():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.RUNNING = False
+                if event.type == pygame.VIDEORESIZE:
+                    print("RESIZE")
+                    infoObject = pygame.display.Info()
+                    self.GRID_SIZE = int(infoObject.current_h*0.83)
+                    self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
+                    self.grid = pygame.Surface((self.GRID_SIZE,
+                                                self.GRID_SIZE))
             if not PAUSE:
                 self.model.step()
             pygame_widgets.update(event)
