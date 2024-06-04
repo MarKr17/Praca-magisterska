@@ -7,15 +7,15 @@ from Visualisation.Gradients import (b_gradient, cytokine_gradient,
 pygame.font.init()
 
 
-def drawLegend(self):
+def drawLegend(self, LEGEND_SIZE):
     pos = (1000, 20)
-    surf = pygame.Surface((350, 900))
+    surf = pygame.Surface(LEGEND_SIZE)
     surf.fill(WHITE)
 
     # Add title text
     text = font_title.render('Legend', True, BLACK)
     textRect = text.get_rect()
-    textRect.center = (175, 30)
+    textRect.center = (LEGEND_SIZE[0]/2, 30)
     surf.blit(text, textRect)
 
     # Create legend for t_naive cells

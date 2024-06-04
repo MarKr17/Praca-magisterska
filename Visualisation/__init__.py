@@ -39,6 +39,7 @@ class Visualisation():
         self.GRID_SIZE = int(infoObject.current_h*0.83)
         self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
         self.grid = pygame.Surface((self.GRID_SIZE, self.GRID_SIZE))
+        self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
         self.PAUSE = True
         self.RUNNING = True
 
@@ -55,7 +56,7 @@ class Visualisation():
         pygame.display.set_caption('MS model')
         while self.RUNNING:
             PAUSE = controls.PAUSE
-            self.drawLegend()
+            self.drawLegend(self.LEGEND_SIZE)
             self.drawAgents(self.GRID_SIZE)
             self.drawGrid(self.GRID_SIZE)
             controls.draw()
@@ -70,12 +71,18 @@ class Visualisation():
                 if event.type == pygame.QUIT:
                     self.RUNNING = False
                 if event.type == pygame.VIDEORESIZE:
-                    print("RESIZE")
+                    width, height = event.size
+                    if width < 600 or height < 500:
+                        width = 600
+                        height = 500
+                        self.screen = pygame.display.set_mode((width, height),
+                                                              pygame.RESIZABLE)
                     infoObject = pygame.display.Info()
                     self.GRID_SIZE = int(infoObject.current_h*0.83)
                     self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
                     self.grid = pygame.Surface((self.GRID_SIZE,
                                                 self.GRID_SIZE))
+                    self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
             if not PAUSE:
                 self.model.step()
             pygame_widgets.update(event)
