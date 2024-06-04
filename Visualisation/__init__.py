@@ -1,6 +1,6 @@
 import pygame
 import pygame_widgets
-from Visualisation.Constants import (grid_background, GRID_POS, GREY,
+from Visualisation.Constants import (grid_background, GREY,
                                      font_medium, BLACK)
 from Visualisation.Controls import Controls
 
@@ -31,12 +31,14 @@ class Visualisation():
         self.model = model
         self.size = model.size
         pygame.init()
-        infoObject = pygame.display.Info()
-        self.screen = pygame.display.set_mode((infoObject.current_w*0.99,
-                                               infoObject.current_h*0.95),
+        self.infoObject = pygame.display.Info()
+        self.screen = pygame.display.set_mode((self.infoObject.current_w*0.99,
+                                               self.infoObject.current_h*0.95),
                                               pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
-        self.GRID_SIZE = int(infoObject.current_h*0.83)
+        self.GRID_SIZE = min(self.infoObject.current_h,
+                             self.infoObject.current_w)
+        self.GRID_SIZE = int(self.GRID_SIZE*0.83)
         self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
         self.grid = pygame.Surface((self.GRID_SIZE, self.GRID_SIZE))
         self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
@@ -51,8 +53,8 @@ class Visualisation():
         self.clock = pygame.time.Clock()
         self.grid.fill(grid_background)
         self.drawGrid(self.GRID_SIZE)
-        self.screen.blit(self.grid, GRID_POS)
-        controls = Controls(self.screen, 900, 100, (50, 930), self.PAUSE)
+        self.screen.blit(self.grid, (0, 0))
+        controls = Controls(self.screen, 900, 100, (0, 930), self.PAUSE)
         pygame.display.set_caption('MS model')
         while self.RUNNING:
             PAUSE = controls.PAUSE
@@ -72,13 +74,17 @@ class Visualisation():
                     self.RUNNING = False
                 if event.type == pygame.VIDEORESIZE:
                     width, height = event.size
-                    if width < 600 or height < 500:
-                        width = 600
-                        height = 500
+                    if width < 1000 or height < 500:
+                        if width < 1000:
+                            width = 1000
+                        if height < 500:
+                            height = 500
                         self.screen = pygame.display.set_mode((width, height),
                                                               pygame.RESIZABLE)
-                    infoObject = pygame.display.Info()
-                    self.GRID_SIZE = int(infoObject.current_h*0.83)
+                    self.infoObject = pygame.display.Info()
+                    self.GRID_SIZE = min(self.infoObject.current_h,
+                                         self.infoObject.current_w)
+                    self.GRID_SIZE = int(self.GRID_SIZE*0.83)
                     self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
                     self.grid = pygame.Surface((self.GRID_SIZE,
                                                 self.GRID_SIZE))

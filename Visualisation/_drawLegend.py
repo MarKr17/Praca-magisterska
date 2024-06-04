@@ -8,7 +8,7 @@ pygame.font.init()
 
 
 def drawLegend(self, LEGEND_SIZE):
-    pos = (1000, 20)
+    pos = (LEGEND_SIZE[1]+LEGEND_SIZE[0]/5, 20)
     surf = pygame.Surface(LEGEND_SIZE)
     surf.fill(WHITE)
 
