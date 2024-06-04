@@ -55,8 +55,8 @@ class Visualisation():
         self.screen.blit(self.grid, (0, 0))
         self.controls = Controls(self.screen, self.GRID_SIZE,
                                  self.GRID_SIZE/10,
-                                 (30, self.GRID_SIZE +
-                                  int(self.GRID_SIZE/50)),
+                                 (50, self.GRID_SIZE +
+                                  int(self.GRID_SIZE/35)),
                                  self.PAUSE)
         pygame.display.set_caption('MS model')
         while self.RUNNING:

@@ -18,7 +18,6 @@ class Controls():
                                        "pause.png"))
         self.pick_image()
         self.pos = pos
-        print(pos)
         self.button = Button(
                         # Mandatory Parameters
                         self.screen,  # Surface to place button on
@@ -30,7 +29,8 @@ class Controls():
                         image=self.image,
                         onClick=lambda: self.not_function()
                         )
-        self.slider = Slider(self.screen, int(self.pos[0]+self.width/15),
+        x = self.button.getX() + int(self.height/2) + int(self.width/30)
+        self.slider = Slider(self.screen, x,
                              int(self.pos[1]+self.height/6),
                              int(self.width/6), int(self.height/6), min=1,
                              max=100, initial=10, step=1)
@@ -52,13 +52,14 @@ class Controls():
                                                                int(self.height/2)))
 
     def draw(self, steps):
-        text = font_small.render("FPS: {}".format(self.slider.getValue()),
-                                 True, BLACK)
+        text = font_medium.render("FPS: {}".format(self.slider.getValue()),
+                                  True, BLACK)
         textRect = text.get_rect()
-        textRect.center = (int(self.pos[0]+self.width/3.5),
-                           int(self.pos[1]+self.height/4))
+        x = self.slider.getX() + self.slider.getWidth() + int(self.width/10)
+        textRect.center = (x, self.pos[1]+25)
         self.screen.blit(text, textRect)
+        x = x + text.get_width() + int(self.width/20)
         text = font_medium.render("Step: {}".format(steps), True, BLACK)
         textRect = text.get_rect()
-        textRect.center = (self.pos[0]+350, self.pos[1]+25)
+        textRect.center = (x, self.pos[1]+25)
         self.screen.blit(text, textRect)
