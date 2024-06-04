@@ -1,7 +1,6 @@
 import pygame
 import pygame_widgets
-from Visualisation.Constants import (grid_background, GREY,
-                                     font_medium, BLACK)
+from Visualisation.Constants import (grid_background, GREY)
 from Visualisation.Controls import Controls
 
 
@@ -54,22 +53,21 @@ class Visualisation():
         self.grid.fill(grid_background)
         self.drawGrid(self.GRID_SIZE)
         self.screen.blit(self.grid, (0, 0))
-        controls = Controls(self.screen, 900, 100, (0, 930), self.PAUSE)
+        self.controls = Controls(self.screen, self.GRID_SIZE,
+                                 self.GRID_SIZE/10,
+                                 (30, self.GRID_SIZE +
+                                  int(self.GRID_SIZE/50)),
+                                 self.PAUSE)
         pygame.display.set_caption('MS model')
         while self.RUNNING:
-            PAUSE = controls.PAUSE
+            PAUSE = self.controls.PAUSE
             self.drawLegend(self.LEGEND_SIZE)
             self.drawAgents(self.GRID_SIZE)
             self.drawGrid(self.GRID_SIZE)
-            controls.draw()
-            text = font_medium.render("Step: {}".format(
-                                       self.model.schedule.steps),
-                                      True, BLACK)
-            textRect = text.get_rect()
-            textRect.center = (400, 960)
-            self.screen.blit(text, textRect)
+            self.controls.draw(self.model.schedule.steps)
             # Process inputs
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
                     self.RUNNING = False
                 if event.type == pygame.VIDEORESIZE:
@@ -77,8 +75,8 @@ class Visualisation():
                     if width < 1000 or height < 500:
                         if width < 1000:
                             width = 1000
-                        if height < 500:
-                            height = 500
+                        if height < 600:
+                            height = 600
                         self.screen = pygame.display.set_mode((width, height),
                                                               pygame.RESIZABLE)
                     self.infoObject = pygame.display.Info()
@@ -91,7 +89,7 @@ class Visualisation():
                     self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
             if not PAUSE:
                 self.model.step()
-            pygame_widgets.update(event)
             pygame.display.flip()  # Refresh on-screen display
-            self.clock.tick(controls.slider.getValue())
+            self.clock.tick(self.controls.slider.getValue())
             self.screen.fill(GREY)  # Fill the display with a solid color
+            pygame_widgets.update(events)

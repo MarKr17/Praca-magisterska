@@ -1,7 +1,8 @@
 import pygame
 import os
 
-from Visualisation.Constants import WHITE, BLACK, assets_path, font_small
+from Visualisation.Constants import (WHITE, BLACK, assets_path, font_small,
+                                     font_medium)
 from pygame_widgets.button import Button
 from pygame_widgets.slider import Slider
 pygame.font.init()
@@ -13,25 +14,26 @@ class Controls():
         self.width = width
         self.height = height
         self.PAUSE = PAUSE
-        self.panel = pygame.Surface((width, height), pygame.SRCALPHA, 32)
-        self.panel.fill(WHITE)
         self.image = pygame.image.load(os.path.join(assets_path,
                                        "pause.png"))
         self.pick_image()
         self.pos = pos
+        print(pos)
         self.button = Button(
                         # Mandatory Parameters
                         self.screen,  # Surface to place button on
-                        50,  # X-coordinate of top left corner
-                        930,  # Y-coordinate of top left corner
-                        50,  # Width
-                        50,  # Height
+                        self.pos[0],  # X-coordinate of top left corner
+                        self.pos[1],  # Y-coordinate of top left corner
+                        int(self.height/2),  # Width
+                        int(self.height/2),  # Height
                         radius=2000,
                         image=self.image,
                         onClick=lambda: self.not_function()
                         )
-        self.slider = Slider(self.screen, 200, 945, 100, 20, min=1, max=100,
-                             initial=10, step=1)
+        self.slider = Slider(self.screen, int(self.pos[0]+self.width/15),
+                             int(self.pos[1]+self.height/6),
+                             int(self.width/6), int(self.height/6), min=1,
+                             max=100, initial=10, step=1)
 
     def not_function(self):
         self.PAUSE = not self.PAUSE
@@ -46,11 +48,17 @@ class Controls():
             self.image = pygame.image.load(os.path.join(assets_path,
                                            "play.png"))
         self.image = pygame.Surface.convert_alpha(self.image)
-        self.image = pygame.transform.smoothscale(self.image, (50, 50))
+        self.image = pygame.transform.smoothscale(self.image, (int(self.height/2),
+                                                               int(self.height/2)))
 
-    def draw(self):
+    def draw(self, steps):
         text = font_small.render("FPS: {}".format(self.slider.getValue()),
                                  True, BLACK)
         textRect = text.get_rect()
-        textRect.center = (250, 980)
+        textRect.center = (int(self.pos[0]+self.width/3.5),
+                           int(self.pos[1]+self.height/4))
+        self.screen.blit(text, textRect)
+        text = font_medium.render("Step: {}".format(steps), True, BLACK)
+        textRect = text.get_rect()
+        textRect.center = (self.pos[0]+350, self.pos[1]+25)
         self.screen.blit(text, textRect)
