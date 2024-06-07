@@ -79,6 +79,7 @@ class Visualisation():
                             height = 600
                         self.screen = pygame.display.set_mode((width, height),
                                                               pygame.RESIZABLE)
+                    y = self.controls.pos[1]
                     self.infoObject = pygame.display.Info()
                     self.GRID_SIZE = min(self.infoObject.current_h,
                                          self.infoObject.current_w)
@@ -87,6 +88,15 @@ class Visualisation():
                     self.grid = pygame.Surface((self.GRID_SIZE,
                                                 self.GRID_SIZE))
                     self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
+                    self.controls.width = self.GRID_SIZE
+                    self.controls.height = self.GRID_SIZE/10
+                    self.controls.pos = (50, self.GRID_SIZE +
+                                         int(self.GRID_SIZE/35))
+                    y = self.controls.pos[1] - y
+                    self.controls.button.moveY(y)
+                    self.controls.slider.moveY(y)
+                    self.controls.button.setHeight(int(self.controls.height/2))
+                    self.controls.button.setWidth(int(self.controls.height/2))
             if not PAUSE:
                 self.model.step()
             pygame.display.flip()  # Refresh on-screen display
