@@ -1,5 +1,5 @@
 import pygame
-from Visualisation.Constants import (grid_background, GRID_SIZE, GRID_POS,
+from Visualisation.Constants import (grid_background, GRID_POS,
                                      virus_color, APC_color,
                                      t_naive_cell_color)
 from Visualisation.Gradients import (neuron_gradient, myelin_gradient,
@@ -11,11 +11,11 @@ from Agents.Virus import Virus
 from Agents.APC import APC
 
 
-def drawAgents(self):
+def drawAgents(self, GRID_SIZE):
     self.grid.fill(grid_background)
-    self.drawGrid()
-    self.drawCytokine()
-    self.drawBarrier()
+    self.drawGrid(GRID_SIZE)
+    self.drawCytokine(GRID_SIZE)
+    self.drawBarrier(GRID_SIZE)
     for (cell_contents, x, y) in self.model.grid.coord_iter():
         radius = GRID_SIZE/self.size/2 - 5
         X = x*GRID_SIZE/self.size+GRID_SIZE/self.size/2

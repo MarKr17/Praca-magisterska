@@ -1,9 +1,28 @@
 import pygame
 import pygame_widgets
-from Visualisation.Constants import (GRID_SIZE,
-                                     grid_background, GRID_POS, GREY,
-                                     font_medium, BLACK)
+from Visualisation.Constants import (grid_background, GREY)
 from Visualisation.Controls import Controls
+
+
+def closestNumber(n, m):
+    # Find the quotient
+    q = int(n / m)
+
+    # 1st possible closest number
+    n1 = m * q
+
+    # 2nd possible closest number
+    if ((n * m) > 0):
+        n2 = (m * (q + 1))
+    else:
+        n2 = (m * (q - 1))
+
+    # if true, then n1 is the required closest number
+    if (abs(n - n1) < abs(n - n2)):
+        return n1
+
+    # else n2 is the required closest number
+    return n2
 
 
 class Visualisation():
@@ -11,13 +30,17 @@ class Visualisation():
         self.model = model
         self.size = model.size
         pygame.init()
-        infoObject = pygame.display.Info()
-        SCREEN_WIDTH = infoObject.current_w*0.99
-        SCREEN_HEIGHT = infoObject.current_h*0.95
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),
-                                            pygame.RESIZABLE)
+        self.infoObject = pygame.display.Info()
+        self.screen = pygame.display.set_mode((self.infoObject.current_w*0.99,
+                                               self.infoObject.current_h*0.95),
+                                              pygame.RESIZABLE)
         self.clock = pygame.time.Clock()
-        self.grid = pygame.Surface((GRID_SIZE, GRID_SIZE))
+        self.GRID_SIZE = min(self.infoObject.current_h,
+                             self.infoObject.current_w)
+        self.GRID_SIZE = int(self.GRID_SIZE*0.83)
+        self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
+        self.grid = pygame.Surface((self.GRID_SIZE, self.GRID_SIZE))
+        self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
         self.PAUSE = True
         self.RUNNING = True
 
@@ -28,29 +51,55 @@ class Visualisation():
     def run(self):
         self.clock = pygame.time.Clock()
         self.grid.fill(grid_background)
-        self.drawGrid()
-        self.screen.blit(self.grid, GRID_POS)
-        controls = Controls(self.screen, 900, 100, (50, 930), self.PAUSE)
+        self.drawGrid(self.GRID_SIZE)
+        self.screen.blit(self.grid, (0, 0))
+        self.controls = Controls(self.screen, self.GRID_SIZE,
+                                 self.GRID_SIZE/10,
+                                 (50, self.GRID_SIZE +
+                                  int(self.GRID_SIZE/35)),
+                                 self.PAUSE)
         pygame.display.set_caption('MS model')
         while self.RUNNING:
-            PAUSE = controls.PAUSE
-            self.drawLegend()
-            self.drawAgents()
-            self.drawGrid()
-            controls.draw()
-            text = font_medium.render("Step: {}".format(
-                                       self.model.schedule.steps),
-                                      True, BLACK)
-            textRect = text.get_rect()
-            textRect.center = (400, 960)
-            self.screen.blit(text, textRect)
+            PAUSE = self.controls.PAUSE
+            self.drawLegend(self.LEGEND_SIZE)
+            self.drawAgents(self.GRID_SIZE)
+            self.drawGrid(self.GRID_SIZE)
+            self.controls.draw(self.model.schedule.steps)
             # Process inputs
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type == pygame.QUIT:
                     self.RUNNING = False
+                if event.type == pygame.VIDEORESIZE:
+                    width, height = event.size
+                    if width < 1000 or height < 500:
+                        if width < 1000:
+                            width = 1000
+                        if height < 600:
+                            height = 600
+                        self.screen = pygame.display.set_mode((width, height),
+                                                              pygame.RESIZABLE)
+                    y = self.controls.pos[1]
+                    self.infoObject = pygame.display.Info()
+                    self.GRID_SIZE = min(self.infoObject.current_h,
+                                         self.infoObject.current_w)
+                    self.GRID_SIZE = int(self.GRID_SIZE*0.83)
+                    self.GRID_SIZE = closestNumber(self.GRID_SIZE, self.size)
+                    self.grid = pygame.Surface((self.GRID_SIZE,
+                                                self.GRID_SIZE))
+                    self.LEGEND_SIZE = (self.GRID_SIZE/2, self.GRID_SIZE)
+                    self.controls.width = self.GRID_SIZE
+                    self.controls.height = self.GRID_SIZE/10
+                    self.controls.pos = (50, self.GRID_SIZE +
+                                         int(self.GRID_SIZE/35))
+                    y = self.controls.pos[1] - y
+                    self.controls.button.moveY(y)
+                    self.controls.slider.moveY(y)
+                    self.controls.button.setHeight(int(self.controls.height/2))
+                    self.controls.button.setWidth(int(self.controls.height/2))
             if not PAUSE:
                 self.model.step()
-            pygame_widgets.update(event)
             pygame.display.flip()  # Refresh on-screen display
-            self.clock.tick(controls.slider.getValue())
+            self.clock.tick(self.controls.slider.getValue())
             self.screen.fill(GREY)  # Fill the display with a solid color
+            pygame_widgets.update(events)

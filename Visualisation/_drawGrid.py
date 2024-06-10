@@ -1,11 +1,11 @@
 import pygame
 import math
-from Visualisation.Constants import (GRID_SIZE, GREY, barrier_color,
+from Visualisation.Constants import (GREY, barrier_color,
                                      grid_border)
 from Visualisation.Gradients import cytokine_gradient
 
 
-def drawGrid(self):
+def drawGrid(self, GRID_SIZE):
     blockSize = int(GRID_SIZE/self.size)  # Set the size of the grid block
     for x in range(0, GRID_SIZE, blockSize):
         for y in range(0, GRID_SIZE, blockSize):
@@ -13,7 +13,7 @@ def drawGrid(self):
             pygame.draw.rect(self.grid, GREY, rect, grid_border)
 
 
-def drawCytokine(self):
+def drawCytokine(self, GRID_SIZE):
     a = GRID_SIZE/self.size
     for x in range(self.size):
         for y in range(self.size):
@@ -32,7 +32,7 @@ def drawCytokine(self):
                 self.grid.blit(s, (X, Y))
 
 
-def drawBarrier(self):
+def drawBarrier(self, GRID_SIZE):
     a = GRID_SIZE/self.size
     for x in range(self.size):
         for y in range(self.size):
