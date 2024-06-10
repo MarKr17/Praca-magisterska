@@ -45,6 +45,7 @@ class Virus(Agent):
         if len(neighbors > 0):
             b = random.choice(neighbors)
             b.infected = True
+            b.latency = "latency I"
 
     def cytokin_effect(self):
         cytokin = self.model.cytokin_matrix[self.pos[0]][self.pos[1]]

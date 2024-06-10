@@ -5,11 +5,12 @@ class B_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
         self.infected = False
+        self.latency = ""
 
     def step(self):
         self.move()
         self.proliferation()
-        if self.infected is True:
+        if self.infected is True and self.latency == "latency I":
             self.viral_replication()
             self.health = 0
         if self.health <= 0:
@@ -29,3 +30,7 @@ class B_cell(Cell):
             self.model.ID += 1
             self.model.new_agents.append(v)
             self.tiredness += 1
+    """
+    def protein_production(self):
+        if self.latency == "latency I":
+"""
