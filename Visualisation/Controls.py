@@ -1,7 +1,7 @@
 import pygame
 import os
 
-from Visualisation.Constants import (WHITE, BLACK, assets_path, font_small,
+from Visualisation.Constants import (BLACK, assets_path,
                                      font_medium)
 from pygame_widgets.button import Button
 from pygame_widgets.slider import Slider
@@ -48,8 +48,8 @@ class Controls():
             self.image = pygame.image.load(os.path.join(assets_path,
                                            "play.png"))
         self.image = pygame.Surface.convert_alpha(self.image)
-        self.image = pygame.transform.smoothscale(self.image, (int(self.height/2),
-                                                               int(self.height/2)))
+        height = int(self.height/2)
+        self.image = pygame.transform.smoothscale(self.image, height, height)
 
     def draw(self, steps):
         text = font_medium.render("FPS: {}".format(self.slider.getValue()),
