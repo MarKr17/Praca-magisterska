@@ -1,7 +1,7 @@
 import pygame
 import os
 
-from Visualisation.Constants import (BLACK, assets_path,
+from Visualisation.Constants import (BLACK, WHITE, GREY, assets_path,
                                      font_medium)
 from pygame_widgets.button import Button
 from pygame_widgets.slider import Slider
@@ -36,16 +36,18 @@ class Controls():
                              int(self.pos[1]+self.height/6),
                              int(self.width/6), int(self.height/6), min=1,
                              max=100, initial=10, step=1)
-        x = self.button.getX() + int(self.height/2) + int(self.width/15)
+        x = self.slider.getX() + int(self.height/2) + int(self.width/7)
         self.dropdown = Dropdown(self.screen, x,
                                  int(self.pos[1]+self.height/6),
+                                 int(self.width/6), int(self.height/6),
                                  name='Hipoteza',
                                  choices=[
                                         'Molecullar mimicry',
                                         'Bystander activation',
                                         'Epitope spreading',
                                         ],
-                                 borderRadius=3, colour=pygame.Color('green'),
+                                 borderRadius=3,
+                                 inactiveColour=WHITE,
                                  values=[1, 2, 'true'], direction='down',
                                  textHAlign='left')
 
@@ -70,7 +72,7 @@ class Controls():
         text = font_medium.render("FPS: {}".format(self.slider.getValue()),
                                   True, BLACK)
         textRect = text.get_rect()
-        x = self.slider.getX() + self.slider.getWidth() + int(self.width/10)
+        x = self.dropdown.getX() + self.slider.getWidth() + int(self.width/10)
         textRect.center = (x, self.pos[1]+25)
         self.screen.blit(text, textRect)
         x = x + text.get_width() + int(self.width/20)
