@@ -5,6 +5,8 @@ from Visualisation.Constants import (BLACK, assets_path,
                                      font_medium)
 from pygame_widgets.button import Button
 from pygame_widgets.slider import Slider
+from pygame_widgets.dropdown import Dropdown
+
 pygame.font.init()
 
 
@@ -34,6 +36,18 @@ class Controls():
                              int(self.pos[1]+self.height/6),
                              int(self.width/6), int(self.height/6), min=1,
                              max=100, initial=10, step=1)
+        x = self.button.getX() + int(self.height/2) + int(self.width/15)
+        self.dropdown = Dropdown(self.screen, x,
+                                 int(self.pos[1]+self.height/6),
+                                 name='Hipoteza',
+                                 choices=[
+                                        'Molecullar mimicry',
+                                        'Bystander activation',
+                                        'Epitope spreading',
+                                        ],
+                                 borderRadius=3, colour=pygame.Color('green'),
+                                 values=[1, 2, 'true'], direction='down',
+                                 textHAlign='left')
 
     def not_function(self):
         self.PAUSE = not self.PAUSE
@@ -49,7 +63,8 @@ class Controls():
                                            "play.png"))
         self.image = pygame.Surface.convert_alpha(self.image)
         height = int(self.height/2)
-        self.image = pygame.transform.smoothscale(self.image, height, height)
+        self.image = pygame.transform.smoothscale(self.image, (height,
+                                                               height))
 
     def draw(self, steps):
         text = font_medium.render("FPS: {}".format(self.slider.getValue()),
