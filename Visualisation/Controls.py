@@ -47,8 +47,10 @@ class Controls():
                                         'Epitope spreading',
                                         ],
                                  borderRadius=3,
+                                 borderColour=GREY,
+                                 borderThickness=3,
                                  inactiveColour=WHITE,
-                                 values=[1, 2, 'true'], direction='down',
+                                 direction='down',
                                  textHAlign='left')
 
     def not_function(self):
