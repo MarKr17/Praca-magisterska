@@ -18,7 +18,6 @@ def drawLegend(self, LEGEND_SIZE):
     textRect.center = (LEGEND_SIZE[0]/2, 30)
     surf.blit(text, textRect)
     width = closestNumber(int(LEGEND_SIZE[0]*0.75), 10)
-    print(width)
 
     # Create legend for t_naive cells
     s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
