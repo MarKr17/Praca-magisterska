@@ -47,6 +47,7 @@ class MSModel(mesa.Model):
         self.TNF_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_22_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_17_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.MBP_matrix = np.zeros((self.size, self.size), dtype=int)
         self.cytokine_dis_rate = 5
         self.infection_chance = 5
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)

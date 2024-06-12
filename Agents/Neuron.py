@@ -38,6 +38,15 @@ class Neuron(Agent):
         dmg = int(ifn/100 - self.armor)
         if dmg < 0:
             dmg = 0
+        if self.myelin_health < dmg:
+            dmg = self.myelin_health
         self.myelin_health -= dmg
-        if self.myelin_health < 0:
-            self.myelin_health = 0
+        self.MBP_release(dmg)
+
+    def MBP_release(self, dmg):
+        neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True,
+                                                        include_center=False)
+        while dmg > 0:
+            for n in neighborhood:
+                self.model.MBP_matrix[n[0]][n[1]] += 1
+                dmg -= 1
