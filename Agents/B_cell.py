@@ -6,6 +6,7 @@ class B_cell(Cell):
         super().__init__(unique_id, model, proliferation_rate)
         self.infected = False
         self.latency = ""
+        self.proteins = []
 
     def step(self):
         self.move()
@@ -30,7 +31,7 @@ class B_cell(Cell):
             self.model.ID += 1
             self.model.new_agents.append(v)
             self.tiredness += 1
-    """
+
     def protein_production(self):
         if self.latency == "latency I":
-"""
+            self.proteins.append("EBNA1")
