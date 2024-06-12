@@ -95,10 +95,16 @@ class Visualisation():
                     y = self.controls.pos[1] - y
                     self.controls.button.moveY(y)
                     self.controls.slider.moveY(y)
+                    self.controls.dropdown.moveY(y)
                     self.controls.button.setHeight(int(self.controls.height/2))
                     self.controls.button.setWidth(int(self.controls.height/2))
             if not PAUSE:
                 self.model.step()
+            if self.model.schedule.steps > 0:
+                self.controls.dropdown.disable()
+            elif self.controls.dropdown.getSelected():
+                self.model.hypothesis = self.controls.dropdown.getSelected()
+                print(self.model.hypothesis)
             pygame.display.flip()  # Refresh on-screen display
             self.clock.tick(self.controls.slider.getValue())
             self.screen.fill(GREY)  # Fill the display with a solid color
