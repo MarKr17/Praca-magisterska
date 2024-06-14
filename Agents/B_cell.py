@@ -1,4 +1,5 @@
 from Agents.Cell import Cell
+import random
 
 
 class B_cell(Cell):
@@ -10,10 +11,11 @@ class B_cell(Cell):
 
     def step(self):
         self.move()
-        self.proliferation()
         if self.infection_state == "lytic":
             self.viral_replication()
             self.health = 0
+        else:
+            self.proliferation()
         if self.health <= 0:
             self.death()
 
@@ -32,3 +34,12 @@ class B_cell(Cell):
             self.model.new_agents.append(v)
             self.tiredness += 1
         self.infection_state = "latent"
+
+    def proliferation(self):
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            n = B_cell(self.model.ID, self.model, self.proliferation_rate)
+            n.infectrion_state = self.infection_state
+            self.model.ID += 1
+            self.model.new_agents.append(n)
+            self.tiredness += 1
