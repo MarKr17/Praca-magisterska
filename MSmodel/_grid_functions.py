@@ -21,6 +21,8 @@ def cytokin_diffusion(self):
     self.IFN_matrix = diffusion(self.IFN_matrix)
     self.IL_22_matrix = diffusion(self.IL_22_matrix)
     self.IL_17_matrix = diffusion(self.IL_17_matrix)
+    self.MBP_matrix = diffusion(self.MBP_matrix)
+    self.EBNA1_matrix = diffusion(self.EBNA1_matrix)
 
 
 def diffusion(matrix):
