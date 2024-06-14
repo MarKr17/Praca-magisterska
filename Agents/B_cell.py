@@ -5,6 +5,7 @@ class B_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
         self.infected = False
+        self.activated = False
         self.latency = ""
         self.proteins = []
 
