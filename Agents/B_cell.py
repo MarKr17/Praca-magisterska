@@ -1,4 +1,5 @@
 from Agents.Cell import Cell
+from Agents.Plasma_cell import Plasma_cell
 import random
 
 
@@ -15,7 +16,10 @@ class B_cell(Cell):
             self.viral_replication()
             self.health = 0
         else:
-            self.proliferation()
+            if self.activated is True:
+                self.differentiation()
+            else:
+                self.proliferation()
         if self.health <= 0:
             self.death()
 
@@ -40,6 +44,14 @@ class B_cell(Cell):
         if r < self.proliferation_rate:
             n = B_cell(self.model.ID, self.model, self.proliferation_rate)
             n.infectrion_state = self.infection_state
+            self.model.ID += 1
+            self.model.new_agents.append(n)
+            self.tiredness += 1
+
+    def differentiation(self):
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            n = Plasma_cell(self.model.ID, self.model, self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1
