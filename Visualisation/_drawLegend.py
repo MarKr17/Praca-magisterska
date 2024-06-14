@@ -1,5 +1,6 @@
 import pygame
-from Visualisation.Constants import (WHITE, BLACK, font_small, font_medium,
+from Visualisation.Constants import (WHITE, BLACK, Plasma_color, font_small,
+                                     font_medium,
                                      font_title, virus_color, APC_color,
                                      t_naive_cell_color)
 from Visualisation.Gradients import (b_gradient, cytokine_gradient,
@@ -63,6 +64,13 @@ def drawLegend(self, LEGEND_SIZE):
     name = font_medium.render("APC", True, BLACK)
     surf.blit(name, (25, 500))
     surf.blit(s, (80, 500))
+
+    # Create legend for Plasma
+    s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
+    pygame.draw.circle(s, Plasma_color, (10, 10), 10)
+    name = font_medium.render("Plasma cell", True, BLACK)
+    surf.blit(name, (25, 550))
+    surf.blit(s, (120, 550))
 
     self.screen.blit(surf, pos)
 
