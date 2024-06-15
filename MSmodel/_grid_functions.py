@@ -23,6 +23,8 @@ def cytokin_diffusion(self):
     self.IL_17_matrix = diffusion(self.IL_17_matrix)
     self.MBP_matrix = diffusion(self.MBP_matrix)
     self.EBNA1_matrix = diffusion(self.EBNA1_matrix)
+    self.MBP_matrix_antibody = diffusion(self.MBP_matrix)
+    self.EBNA1_matrix_antibody = diffusion(self.EBNA1_matrix)
 
 
 def diffusion(matrix):

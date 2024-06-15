@@ -5,6 +5,7 @@ import random
 class Plasma_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
+        self.antigen_presented = ''
 
     def step(self):
         self.move()
@@ -19,3 +20,5 @@ class Plasma_cell(Cell):
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1
+
+# def antibody_production(self):
