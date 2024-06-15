@@ -9,6 +9,7 @@ class B_cell(Cell):
         self.infection_state = ""
         self.activated = False
         self.proteins = []
+        self.antigen_presented = ''
 
     def step(self):
         self.move()

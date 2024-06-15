@@ -1,4 +1,6 @@
 from Agents.Cell import Cell
+from Agents.B_cell import B_cell
+from Agents.Plasma_cell import Plasma_cell
 import random
 
 
@@ -32,3 +34,14 @@ class APC(Cell):
             else:
                 self.antigen_attached = "EBNA1"
                 self.model.EBNA1_matrix[self.pos[0], self.pos[1]] -= 1
+
+    def antigen_presentation(self):
+        neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
+        neighbors_copy = neighbors.copy()
+        for n in neighbors_copy:
+            if isinstance(n, (B_cell, Plasma_cell)):
+                neighbors.remove(n)
+        if len(neighbors) > 0:
+            b = random.choice(neighbors)
+            b.antigen_presented = self.antigen_attached
+            self.antigen_attached = ''
