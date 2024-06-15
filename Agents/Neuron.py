@@ -9,6 +9,7 @@ class Neuron(Agent):
         self.reg_rate = reg_rate
         self.health = 10
         self.myelin_health = 10
+        self.current_myelin_health = 10
         self.tiredness = 0
         self.armor_rating = 10
         self.armor = self.myelin_health * self.armor_rating
@@ -23,26 +24,26 @@ class Neuron(Agent):
             self.death()
 
     def myelin_regeneration(self):
-        if self.myelin_health < 10:
+        if self.current_myelin_health < 10:
             r = random.randint(0, 100)
             if r <= self.reg_rate:
-                self.myelin_health += 1
+                self.current_myelin_health += 1
                 self.tiredness += 1
 
     def calculate_armor(self):
         self.armor_rating = int(self.armor_rating - pow(self.tiredness/100, 2))
         if self.armor_rating < 0:
             self.armor_rating = 0
-        self.armor = int(self.armor_rating * self.myelin_health)
+        self.armor = int(self.armor_rating * self.current_myelin_health)
 
     def calculate_myelin_dmg(self):
         ifn = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
         dmg = int(ifn/100 - self.armor)
         if dmg < 0:
             dmg = 0
-        if self.myelin_health < dmg:
-            dmg = self.myelin_health
-        self.myelin_health -= dmg
+        if self.current_myelin_health < dmg:
+            dmg = self.current_myelin_health
+        self.current_myelin_health -= dmg
         self.MBP_release(dmg)
 
     def MBP_release(self, dmg):

@@ -17,6 +17,9 @@ class Cell(Agent):
     def step(self):
         self.move()
 
+    def death(self):
+        self.model.kill_agents.append(self)
+
     def move(self):
         positions = self.model.grid.get_neighborhood(
             self.pos,

@@ -1,6 +1,8 @@
 from Agents.Cell import Cell
 from Agents.B_cell import B_cell
 from Agents.Plasma_cell import Plasma_cell
+from Agents.Neuron import Neuron
+from Agents.Virus import Virus
 import random
 
 
@@ -10,6 +12,8 @@ class APC(Cell):
         self.MHC_grow_rate = 5
         self.num_MHC = 0
         self.antigen_attached = ''
+        self.phagocytosis_rate = 50
+        self.antibodies_threshold = 5
 
     def step(self):
         self.move()
@@ -18,6 +22,15 @@ class APC(Cell):
             self.antigen_attachment()
         if self.health <= 0:
             self.death
+
+    def proliferation(self):
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            n = APC(self.model.ID, self.model, self.proliferation_rate)
+            n.infectrion_state = self.infection_state
+            self.model.ID += 1
+            self.model.new_agents.append(n)
+            self.tiredness += 1
 
     def grow_MHC(self):
         r = random.randint(0, 99)
@@ -39,9 +52,27 @@ class APC(Cell):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
         neighbors_copy = neighbors.copy()
         for n in neighbors_copy:
-            if isinstance(n, (B_cell, Plasma_cell)):
+            if not isinstance(n, (B_cell, Plasma_cell)):
                 neighbors.remove(n)
         if len(neighbors) > 0:
             b = random.choice(neighbors)
             b.antigen_presented = self.antigen_attached
             self.antigen_attached = ''
+
+    def phagocytosis(self):
+        neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
+        neighbors_copy = neighbors.copy()
+        for n in neighbors_copy:
+            if not isinstance(n, (Neuron, Virus)):
+                neighbors.remove(n)
+            elif n.attached_antibodies < self.antibodies_threshold:
+                neighbors.remove(n)
+        if len(neighbors) > 0:
+            b = random.choice(neighbors)
+            if isinstance(b, Neuron):
+                dmg = int(b.myelin_health * 0.1)
+                b.current_myelin_health -= dmg
+                b.attached_antibodies = 0
+            else:
+                b.death()
+            self.tiredness += 1

@@ -30,7 +30,7 @@ def compute_Myelin(self):
     M = 0
     for agent in self.schedule.agents:
         if type(agent) is Neuron:
-            M += agent.myelin_health
+            M += agent.current_myelin_health
     return M
 
 
