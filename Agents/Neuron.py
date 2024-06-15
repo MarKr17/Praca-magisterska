@@ -12,10 +12,12 @@ class Neuron(Agent):
         self.tiredness = 0
         self.armor_rating = 10
         self.armor = self.myelin_health * self.armor_rating
+        self.attached_antibodies = 0
 
     def step(self):
         self.myelin_regeneration()
         self.calculate_armor()
+        self.antibody_attachement()
         self.calculate_myelin_dmg()
         if self.health <= 0:
             self.death()
@@ -50,3 +52,12 @@ class Neuron(Agent):
             for n in neighborhood:
                 self.model.MBP_matrix[n[0]][n[1]] += 1
                 dmg -= 1
+
+    def antibody_attachement(self):
+        neighborhood = self.model.grid.get_neighborhood(
+            self.pos,
+            moore=True,
+            include_center=False)
+        for n in neighborhood:
+            self.attached_antibodies += self.model.MBP_antibody_matrix[n[0],
+                                                                       n[1]]
