@@ -13,6 +13,8 @@ class T_naive_cell(Cell):
         self.move()
         self.proliferation()
         self.differentiation()
+        if self.health <= 0:
+            self.death()
 
     def myelin_reactive_activation(self):
         if self.antigen_presented == "MBP":

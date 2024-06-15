@@ -7,10 +7,14 @@ class Th17(Cell):
         super().__init__(unique_id, model, proliferation_rate)
         self.cytokin_rate = cytokin_rate
         self.activated = False
+        self.antigen_attached = ''
+        self.activated_proliferation_rate = int(1.5 * self.proliferation_rate)
 
     def step(self):
         self.move()
-        self.cytokine_release()
+        self.activation()
+        if self.activated:
+            self.cytokine_release()
         self.proliferation()
         if self.health <= 0:
             self.death()
@@ -22,3 +26,8 @@ class Th17(Cell):
             y = self.pos[1]
             self.model.cytokine_matrix[x][y] += 1
             self.tiredness += 1
+
+    def activation(self):
+        if self.antigen_attached != '':
+            self.activated = True
+            self.proliferation_rate = self.activated_proliferation_rate
