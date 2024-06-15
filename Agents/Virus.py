@@ -37,6 +37,7 @@ class Virus(Agent):
 
     def death(self):
         self.model.kill_agents.append(self)
+        self.EBNA1_release
 
     def infect(self):
         from Agents.B_cell import B_cell
@@ -65,3 +66,8 @@ class Virus(Agent):
         self.current_infection_rate = self.infection_rate - x
         if self.current_infection_rate < 0:
             self.current_infection_rate = 0
+
+    def EBNA1_release(self):
+        neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True)
+        for n in neighborhood:
+            self.model.MBP_matrix[n[0]][n[1]] += 1
