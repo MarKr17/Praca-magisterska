@@ -9,13 +9,16 @@ class Virus(Agent):
         self.health = 1
         self.placement = 0
         self.infection_rate = 50
+        self.current_infection_rate = 50
+        self.attached_antibodies = 0
 
     def step(self):
         self.move()
         self.cytokin_effect()
+        self.antibody_attachement()
         r = random.randint(0, 99)
-        if r < self.infection_rate:
-            self.infect
+        if r < self.current_infection_rate:
+            self.infect()
         if self.health < 1:
             self.death()
 
@@ -42,10 +45,23 @@ class Virus(Agent):
         for n in neighbors_copy:
             if type(n) is not B_cell:
                 neighbors.remove(n)
-        if len(neighbors > 0):
+        if len(neighbors) > 0:
             b = random.choice(neighbors)
             b.infection_state = "lytic"
 
     def cytokin_effect(self):
         cytokin = self.model.cytokin_matrix[self.pos[0]][self.pos[1]]
         self.health -= cytokin//10
+
+    def antibody_attachement(self):
+        neighborhood = self.model.grid.get_neighborhood(
+            self.pos,
+            moore=True,
+            include_center=False)
+        for n in neighborhood:
+            self.attached_antibodies += self.model.EBNA1_antibody_matrix[n[0],
+                                                                         n[1]]
+        x = int(self.infection_rate * 0.1 * self.attached_antibodies)
+        self.current_infection_rate = self.infection_rate - x
+        if self.current_infection_rate < 0:
+            self.current_infection_rate = 0
