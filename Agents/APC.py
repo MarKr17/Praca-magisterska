@@ -18,6 +18,9 @@ class APC(Cell):
     def step(self):
         self.move()
         self.proliferation()
+        r = random.randint(0, 99)
+        if r < self.phagocytosis_rate:
+            self.phagocytosis()
         if self.antigen_attached != '':
             self.antigen_attachment()
         if self.health <= 0:
