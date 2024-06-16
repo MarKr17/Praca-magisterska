@@ -50,6 +50,7 @@ class MSModel(mesa.Model):
         self.IL_6_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_10_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_17_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.IL_21_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_22_matrix = np.zeros((self.size, self.size), dtype=int)
         self.MBP_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_matrix = np.zeros((self.size, self.size), dtype=int)
