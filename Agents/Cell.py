@@ -45,11 +45,3 @@ class Cell(Agent):
                 new_position = self.pos
         self.area = self.model.areas[new_position[0]][new_position[1]]
         self.model.grid.move_agent(self, new_position)
-
-    def proliferation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = Cell(self.model.ID, self.model, proliferation_rate=0)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 1

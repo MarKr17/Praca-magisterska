@@ -41,6 +41,7 @@ class B_cell(Cell):
             self.model.new_agents.append(v)
             self.tiredness += 1
         self.infection_state = "latent"
+        self.tiredness += 1
 
     def proliferation(self):
         r = random.randint(0, 99)

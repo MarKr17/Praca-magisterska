@@ -27,3 +27,4 @@ class Th1(Cell):
         self.model.TFN_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IL_10_matrix[self.pos[0], self.pos[1]] += 2
+        self.tiredness += 1

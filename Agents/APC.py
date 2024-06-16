@@ -36,11 +36,6 @@ class APC(Cell):
             self.model.new_agents.append(n)
             self.tiredness += 1
 
-    def grow_MHC(self):
-        r = random.randint(0, 99)
-        if r < self.MHC_grow_rate:
-            self.num_MHC += 1
-
     def antigen_attachment(self):
         MBP = self.model.MBP_matrix[self.pos[0], self.pos[1]]
         EBNA1 = self.model.EBNA1_matrix[self.pos[0], self.pos[1]]
@@ -51,6 +46,7 @@ class APC(Cell):
             else:
                 self.antigen_attached = "EBNA1"
                 self.model.EBNA1_matrix[self.pos[0], self.pos[1]] -= 1
+        self.tiredness += 1
 
     def antigen_presentation(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
@@ -62,6 +58,7 @@ class APC(Cell):
             b = random.choice(neighbors)
             b.antigen_presented = self.antigen_attached
             self.antigen_attached = ''
+        self.tiredness += 1
 
     def phagocytosis(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)

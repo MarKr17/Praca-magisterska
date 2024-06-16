@@ -30,6 +30,7 @@ class Th0(Cell):
         self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IL_4_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IFN_matrix[self.pos[0], self.pos[1]] += 2
+        self.tiredness += 1
 
     def differentiation(self):
         r = random.randint(0, 99)

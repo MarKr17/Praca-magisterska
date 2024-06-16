@@ -20,6 +20,7 @@ class Virus(Agent):
         if r < self.current_infection_rate:
             self.infect()
         if self.health < 1:
+            self.EBNA1_release()
             self.death()
 
     def move(self):
@@ -49,6 +50,7 @@ class Virus(Agent):
         if len(neighbors) > 0:
             b = random.choice(neighbors)
             b.infection_state = "lytic"
+        self.tiredness += 1
 
     def cytokin_effect(self):
         cytokin = self.model.cytokin_matrix[self.pos[0]][self.pos[1]]
