@@ -52,6 +52,7 @@ class MSModel(mesa.Model):
         self.IL_17_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_21_matrix = np.zeros((self.size, self.size), dtype=int)
         self.IL_22_matrix = np.zeros((self.size, self.size), dtype=int)
+        self.IL_23_matrix = np.zeros((self.size, self.size), dtype=int)
         self.MBP_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_matrix = np.zeros((self.size, self.size), dtype=int)
         self.MBP_antibody_matrix = np.zeros((self.size, self.size), dtype=int)
