@@ -1,5 +1,6 @@
 from Agents.Cell import Cell
 from Agents.Th2 import Th2
+from Agents.Th1 import Th1
 import random
 
 
@@ -37,6 +38,9 @@ class Th0(Cell):
         if r < self.proliferation_rate:
             if IL4 > IFN:
                 n = Th2(self.model.ID, self.model,
+                        self.proliferation_rate)
+            else:
+                n = Th1(self.model.ID, self.model,
                         self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
