@@ -11,6 +11,7 @@ class Virus(Agent):
         self.infection_rate = 50
         self.current_infection_rate = 50
         self.attached_antibodies = 0
+        self.tiredness = 0
 
     def step(self):
         self.move()
