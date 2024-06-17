@@ -20,6 +20,12 @@ class Cell(Agent):
     def death(self):
         self.model.kill_agents.append(self)
 
+    def calculate_dmg(self):
+        dmg = int(self.tiredness / 10)
+        self.health -= dmg
+        if self.health < 0:
+            self.health = 0
+
     def move(self):
         positions = self.model.grid.get_neighborhood(
             self.pos,

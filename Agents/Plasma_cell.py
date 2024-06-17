@@ -13,6 +13,7 @@ class Plasma_cell(Cell):
         self.proliferation()
         if self.antigen_presented != '':
             self.antibody_production()
+        self.calculate_dmg()
         if self.health <= 0:
             self.death()
 

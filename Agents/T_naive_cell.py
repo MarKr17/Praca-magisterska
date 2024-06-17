@@ -16,6 +16,7 @@ class T_naive_cell(Cell):
         self.activation()
         self.proliferation()
         self.differentiation()
+        self.calculate_dmg()
         if self.health <= 0:
             self.death()
 

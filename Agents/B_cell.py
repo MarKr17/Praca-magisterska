@@ -25,6 +25,7 @@ class B_cell(Cell):
                 self.differentiation()
             else:
                 self.proliferation()
+        self.calculate_dmg()
         if self.health <= 0:
             self.death()
 

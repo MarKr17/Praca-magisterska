@@ -55,7 +55,7 @@ def createB_cells(self):
 def createViruses(self, n):
     positions = self.possible_positions()
     for i in range(n):
-        a = Virus(self.ID, self)
+        a = Virus(self.ID, self, proliferation_rate=50)
         # Add the agent to the scheduler
         self.schedule.add(a)
         pos = random.choice(positions)

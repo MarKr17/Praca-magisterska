@@ -1,17 +1,16 @@
 from mesa.model import Model
-from Agents.Agent import Agent
+from Agents.Cell import Cell
 import random
 
 
-class Virus(Agent):
-    def __init__(self, unique_id: int, model: Model):
-        super().__init__(unique_id, model)
+class Virus(Cell):
+    def __init__(self, unique_id: int, model: Model, proliferation_rate):
+        super().__init__(unique_id, model, proliferation_rate)
         self.health = 1
         self.placement = 0
-        self.infection_rate = 50
+        self.infection_rate = self.proliferation_rate
         self.current_infection_rate = 50
         self.attached_antibodies = 0
-        self.tiredness = 0
 
     def step(self):
         self.move()
@@ -20,6 +19,7 @@ class Virus(Agent):
         r = random.randint(0, 99)
         if r < self.current_infection_rate:
             self.infect()
+        self.calculate_dmg()
         if self.health < 1:
             self.EBNA1_release()
             self.death()

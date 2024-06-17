@@ -24,6 +24,7 @@ class APC(Cell):
             self.phagocytosis()
         if self.antigen_attached != '':
             self.antigen_attachment()
+        self.calculate_dmg()
         if self.health <= 0:
             self.death
 

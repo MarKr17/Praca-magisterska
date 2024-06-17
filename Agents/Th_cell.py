@@ -16,6 +16,7 @@ class Th_cell(Cell):
         self.cytokine_release()
         self.proliferation()
         self.differentiation()
+        self.calculate_dmg()
         if self.health <= 0:
             self.death()
 

@@ -10,6 +10,7 @@ class Treg17(Cell):
         self.move()
         self.cytokine_release()
         self.proliferation()
+        self.calculate_dmg()
         if self.health <= 0:
             self.death()
 
