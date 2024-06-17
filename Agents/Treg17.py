@@ -23,7 +23,6 @@ class Treg17(Cell):
             self.tiredness += 1
 
     def cytokine_release(self):
-        self.model.IL_10_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IL_17_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IL_22_matrix[self.pos[0], self.pos[1]] += 2
         self.tiredness += 1

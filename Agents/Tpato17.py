@@ -24,5 +24,4 @@ class Tpato17(Cell):
 
     def cytokine_release(self):
         self.model.IL_17_matrix[self.pos[0], self.pos[1]] += 2
-        self.model.IL_23_matrix[self.pos[0], self.pos[1]] += 2
         self.tiredness += 1
