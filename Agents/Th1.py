@@ -24,6 +24,5 @@ class Th1(Cell):
 
     def cytokine_release(self):
         self.model.IFN_matrix[self.pos[0], self.pos[1]] += 2
-        self.model.TFN_matrix[self.pos[0], self.pos[1]] += 2
         self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 2
         self.tiredness += 1

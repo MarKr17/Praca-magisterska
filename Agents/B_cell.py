@@ -11,10 +11,12 @@ class B_cell(Cell):
         self.proteins = []
         self.antigen_presented = ''
         self.cytokine_activation_threshold = 5
+        self.lytic_threshold = 5
 
     def step(self):
         self.move()
         self.activation()
+        self.infection_switch()
         if self.infection_state == "lytic":
             self.viral_replication()
             self.health = 0
@@ -66,6 +68,12 @@ class B_cell(Cell):
             if self.antigen_presented != '':
                 self.activated = True
             else:
-                IL22 = self.model.IL_22_matrix[self.pos[0], self.pos[1]]
-                if IL22 >= self.cytokine_activation_threshold:
+                IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
+                if IL21 >= self.cytokine_activation_threshold:
                     self.activated = True
+
+    def infection_switch(self):
+        if self.infection_state == "latent":
+            TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
+            if TGF >= self.lytic_threshold:
+                self.infection_state = "lytic"

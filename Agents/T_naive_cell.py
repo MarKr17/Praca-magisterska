@@ -37,8 +37,12 @@ class T_naive_cell(Cell):
         r = random.randint(0, 99)
         if r < self.proliferation_rate and self.activated:
             IL6 = self.model.IL_6_matrix[self.pos[0], self.pos[1]]
+            TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
+
             IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
-            if IL6 > IL21:
+            TNF = self.model.TNF_matrix[self.pos[0], self.pos[1]]
+
+            if IL6 + TGF > IL21 + TNF:
                 n = Treg17(self.model.ID, self.model,
                            self.proliferation_rate)
             else:

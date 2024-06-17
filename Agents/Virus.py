@@ -50,7 +50,7 @@ class Virus(Agent):
                 neighbors.remove(n)
         if len(neighbors) > 0:
             b = random.choice(neighbors)
-            b.infection_state = "lytic"
+            b.infection_state = "latent"
         self.tiredness += 1
 
     def cytokin_effect(self):

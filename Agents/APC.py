@@ -77,3 +77,9 @@ class APC(Cell):
             else:
                 b.death()
             self.tiredness += 1
+
+    def cytokine_release(self):
+        if self.antigen_attached == "EBNA1":
+            self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 2
+            self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
+            self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
