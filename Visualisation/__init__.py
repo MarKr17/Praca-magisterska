@@ -53,7 +53,6 @@ class Visualisation():
         self.grid.fill(grid_background)
         self.drawGrid(self.GRID_SIZE)
         # self.drawCytokine(self.GRID_SIZE)
-        print(self.model.cytokin_matrix)
         self.screen.blit(self.grid, (0, 0))
         self.controls = Controls(self.screen, self.GRID_SIZE,
                                  self.GRID_SIZE/10,

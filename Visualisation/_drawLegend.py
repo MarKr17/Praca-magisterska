@@ -21,35 +21,39 @@ def drawLegend(self, LEGEND_SIZE):
     textRect.center = (LEGEND_SIZE[0]/2, 30)
     surf.blit(text, textRect)
     width = closestNumber(int(LEGEND_SIZE[0]*0.75), 10)
-    Cells_dict = {"APC": APC_color,
-                  "B-cell": B_cells_color,
-                  "Plasma cell": Plasma_color,
-                  "T-cell": t_naive_cell_color,
-                  "Th-cell": Th_color,
-                  "Th0-cell": Th0_color,
-                  "Th1-cell": Th1_color,
-                  "Th2-cell": Th2_color,
-                  "Tpato17-cell": Tpato17_color,
-                  "Treg17-cell": Treg17_color,
-                  "Virus": virus_color}
+    Cells_dict = {"B_cells": {"B-cell": B_cells_color,
+                              "Plasma cell": Plasma_color},
+                  "T_cells": {"T-cell": t_naive_cell_color,
+                              "Tpato17-cell": Tpato17_color,
+                              "Treg17-cell": Treg17_color},
+                  "Th_cells": {"Th-cell": Th_color,
+                               "Th0-cell": Th0_color,
+                               "Th1-cell": Th1_color,
+                               "Th2-cell": Th2_color},
+                  "Misc_cells": {"APC": APC_color,
+                                 "Virus": virus_color}}
+
     # figuring out the x of the two columns
     xs = [25, int(width/2) + 25]
     n = False
-    y = 50
+    y = 80
     # drawing cells legend
-    for cell in Cells_dict:
-        s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
-        pygame.draw.circle(s, Cells_dict[cell], (10, 10), 10)
-        name = font_medium.render(cell, True, BLACK)
-        surf.blit(name, (xs[int(n)], y))
-        surf.blit(s, (xs[int(n)] + 100, y))
-        n = not n
-        if n:
-            y += 50
+    for cells in Cells_dict:
+        for cell in Cells_dict[cells]:
+            s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
+            pygame.draw.circle(s, Cells_dict[cells][cell], (10, 10), 10)
+            name = font_medium.render(cell, True, BLACK)
+            surf.blit(name, (xs[int(n)], y))
+            surf.blit(s, (xs[int(n)] + 100, y))
+            if n:
+                y += 50
+            n = not n
+        y += 60
+        n = False
 
     # drawing gradients
     x = 25
-    y = 360
+    y += 50
     Gradients_dict = {"Cytokinase": drawStripe(cytokine_gradient,
                                                h_max=100, width=width),
                       "Neuron":  drawStripe(neuron_gradient, h_max=10,

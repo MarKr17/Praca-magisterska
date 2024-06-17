@@ -6,19 +6,28 @@ BLACK = (0, 0, 0)
 assets_path = os.path.join(os.getcwd(), "_assets")
 GREY = "#D6D7D7"
 grid_background = WHITE
-t_naive_cell_color = "#bd4089"
+
 m_color = "#F2CC8F"
 n_color = "#C1292E"
 virus_color = "#50723C"  # "#358600"
-APC_color = "#E8871E"
-Plasma_color = "#aac0af"
-B_cells_color = "#6190bd"
-Th_color = "#08415C"
-Th0_color = "#93B5C6"
-Th1_color = "#D6C3C9"
-Th2_color = "#A5D8FF"
-Tpato17_color = "#BBE1C3"
-Treg17_color = "#324376"
+
+
+APC_color = "#CE8147"
+
+Plasma_color = "#DB3069"
+B_cells_color = "#AE1E4E"
+
+t_naive_cell_color = "#bd4089"
+Tpato17_color = "#782060"
+Treg17_color = "#330036"
+
+
+Th_color = "#74B3CE"
+Th0_color = "#4f86a0"
+Th1_color = "#2c5c75"
+Th2_color = "#07354B"
+
+
 grid_border = 1
 barrier_color = "#F3D9A5"
 pygame.font.init()
