@@ -31,7 +31,6 @@ class APC(Cell):
         r = random.randint(0, 99)
         if r < self.proliferation_rate:
             n = APC(self.model.ID, self.model, self.proliferation_rate)
-            n.infectrion_state = self.infection_state
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1
