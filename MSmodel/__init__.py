@@ -5,7 +5,7 @@ import numpy as np
 class MSModel(mesa.Model):
     from ._creating_agents import (createNeurons, createB_cells,
                                    createT_naive_cells, createViruses,
-                                   create_APCs)
+                                   create_APCs, createThcells)
     from ._step import (step, killing_agents, adding_agents, start_infection)
     from ._grid_functions import (cytokin_diffusion, dissolve_cytokine,
                                   possible_positions, update_cytokin_matrix,
@@ -14,8 +14,13 @@ class MSModel(mesa.Model):
     def __init__(self):
         from ._computing import (compute_B_cells, compute_Myelin,
                                  compute_Neurons, compute_T_naive_cells,
-                                 compute_Virus)
+                                 compute_Virus, computePlasma_cells,
+                                 compute_Th_cells, compute_Th0_cells,
+                                 compute_Th1_cells, compute_Th2_cells,
+                                 compute_Tpato17_cells, compute_Treg17_cells,
+                                 compute_APC_cells)
         self.num_t = 20  # number of T-cells
+        self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
         self.num_APC = 10  # number of APCs
         self.size = 30
@@ -63,12 +68,21 @@ class MSModel(mesa.Model):
         self.schedule = mesa.time.RandomActivation(self)
         self.datacollector = mesa.DataCollector(
             model_reporters={"T-cell population": compute_T_naive_cells,
+                             "Th-cell population": compute_Th_cells,
                              "B-cell population": compute_B_cells,
+                             "APC population": compute_APC_cells,
                              "Neuron population": compute_Neurons,
                              "Myelin population": compute_Myelin,
-                             "Virus population": compute_Virus}
+                             "Virus population": compute_Virus,
+                             "Plasma cell population": computePlasma_cells,
+                             "Th0 population": compute_Th0_cells,
+                             "Th1 population": compute_Th1_cells,
+                             "Th2 population": compute_Th2_cells,
+                             "Tpato17 population": compute_Tpato17_cells,
+                             "Treg17 population": compute_Treg17_cells}
         )
         self.createNeurons()
         self.createT_naive_cells()
+        self.createThcells()
         self.createB_cells()
         self.create_APCs()
