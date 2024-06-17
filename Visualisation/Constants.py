@@ -12,6 +12,13 @@ n_color = "#C1292E"
 virus_color = "#50723C"  # "#358600"
 APC_color = "#E8871E"
 Plasma_color = "#aac0af"
+B_cells_color = ""
+Th_color = "#08415C"
+Th0_color = "#93B5C6"
+Th1_color = "#D6C3C9"
+Th2_color = "#A5D8FF"
+Tpato17_color = "#BBE1C3"
+Treg17_color = "#324376"
 grid_border = 1
 barrier_color = "#F3D9A5"
 pygame.font.init()
