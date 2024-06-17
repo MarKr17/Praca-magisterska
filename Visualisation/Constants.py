@@ -17,15 +17,15 @@ APC_color = "#CE8147"
 Plasma_color = "#DB3069"
 B_cells_color = "#AE1E4E"
 
-t_naive_cell_color = "#bd4089"
-Tpato17_color = "#782060"
-Treg17_color = "#330036"
+t_naive_cell_color = "#D114A7"
+Tpato17_color = "#AD0A9B"
+Treg17_color = "#88008F"
 
 
-Th_color = "#74B3CE"
-Th0_color = "#4f86a0"
-Th1_color = "#2c5c75"
-Th2_color = "#07354B"
+Th_color = "#4EA9D0"
+Th0_color = "#4696BA"
+Th1_color = "#35708C"
+Th2_color = "#2c5c75"
 
 
 grid_border = 1
