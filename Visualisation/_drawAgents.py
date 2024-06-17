@@ -1,6 +1,8 @@
 import pygame
 from Agents.Plasma_cell import Plasma_cell
-from Visualisation.Constants import (grid_background, GRID_POS,
+from Visualisation.Constants import (Th0_color, Th1_color, Th2_color, Th_color,
+                                     Tpato17_color, Treg17_color,
+                                     grid_background, GRID_POS,
                                      virus_color, APC_color,
                                      t_naive_cell_color, Plasma_color)
 from Visualisation.Gradients import (neuron_gradient, myelin_gradient,
@@ -10,6 +12,12 @@ from Agents.B_cell import B_cell
 from Agents.Neuron import Neuron
 from Agents.Virus import Virus
 from Agents.APC import APC
+from Agents.Th_cell import Th_cell
+from Agents.Th0 import Th0
+from Agents.Th1 import Th1
+from Agents.Th2 import Th2
+from Agents.Tpato17 import Tpato17
+from Agents.Treg17 import Treg17
 
 
 def drawAgents(self, GRID_SIZE):
@@ -34,6 +42,19 @@ def drawAgents(self, GRID_SIZE):
                 surf = drawAPC(radius)
             elif type(a) is Plasma_cell:
                 surf = drawPlasma(radius)
+            elif type(a) is Th_cell:
+                surf = drawTh_cell(radius)
+            elif type(a) is Th0:
+                surf = drawTh0(radius)
+            elif type(a) is Th1:
+                surf = drawTh1(radius)
+            elif type(a) is Th2:
+                surf = drawTh2(radius)
+            elif type(a) is Tpato17:
+                surf = drawTpato17(radius)
+            elif type(a) is Treg17:
+                surf = drawTreg17(radius)
+
             rect = surf.get_rect()
             rect.centerx = int(X)
             rect.centery = int(Y)
@@ -87,4 +108,46 @@ def drawPlasma(radius):
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, Plasma_color, (radius, radius), radius)
+    return surf
+
+
+def drawTh_cell(radius):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, Th_color, (radius, radius), radius)
+    return surf
+
+
+def drawTh0(radius):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, Th0_color, (radius, radius), radius)
+    return surf
+
+
+def drawTh1(radius):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, Th1_color, (radius, radius), radius)
+    return surf
+
+
+def drawTh2(radius):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, Th2_color, (radius, radius), radius)
+    return surf
+
+
+def drawTpato17(radius):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, Tpato17_color, (radius, radius), radius)
+    return surf
+
+
+def drawTreg17(radius):
+    surf = pygame.Surface((2*radius, 2*radius),
+                          pygame.SRCALPHA, 32)
+    pygame.draw.circle(surf, Treg17_color, (radius, radius), radius)
     return surf
