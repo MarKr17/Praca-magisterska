@@ -18,7 +18,11 @@ class MSModel(mesa.Model):
                                  compute_Th_cells, compute_Th0_cells,
                                  compute_Th1_cells, compute_Th2_cells,
                                  compute_Tpato17_cells, compute_Treg17_cells,
-                                 compute_APC_cells)
+                                 compute_APC_cells, compute_cytokine_levels,
+                                 compute_IFN_levels, compute_TGF_levels,
+                                 compute_IL_2_levels, compute_IL_4_levels,
+                                 compute_IL_6_levels, compute_IL_17_levels,
+                                 compute_IL_21_levels, compute_IL_22_levels)
         self.num_t = 20  # number of T-cells
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
@@ -61,7 +65,7 @@ class MSModel(mesa.Model):
         self.MBP_antibody_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_antibody_matrix = np.zeros((self.size, self.size),
                                               dtype=int)
-        self.cytokine_dis_rate = 5
+        self.cytokine_dis_rate = 0
         self.infection_chance = 5
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
@@ -79,7 +83,16 @@ class MSModel(mesa.Model):
                              "Th1 population": compute_Th1_cells,
                              "Th2 population": compute_Th2_cells,
                              "Tpato17 population": compute_Tpato17_cells,
-                             "Treg17 population": compute_Treg17_cells}
+                             "Treg17 population": compute_Treg17_cells,
+                             "Cytokine levels": compute_cytokine_levels,
+                             "IFN levels": compute_IFN_levels,
+                             "TGF levels": compute_TGF_levels,
+                             "IL-2 levels": compute_IL_2_levels,
+                             "IL-4 levels": compute_IL_4_levels,
+                             "IL-6 levels": compute_IL_6_levels,
+                             "IL-17 levels": compute_IL_17_levels,
+                             "IL-21 levels": compute_IL_21_levels,
+                             "IL-22 levels": compute_IL_22_levels}
         )
         self.createNeurons()
         self.createT_naive_cells()

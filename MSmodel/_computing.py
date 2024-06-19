@@ -10,6 +10,7 @@ from Agents.Th1 import Th1
 from Agents.Th2 import Th2
 from Agents.Tpato17 import Tpato17
 from Agents.Treg17 import Treg17
+import numpy as np
 
 
 def compute_T_naive_cells(self):
@@ -114,3 +115,48 @@ def compute_Treg17_cells(self):
         if type(agent) is Treg17:
             T += 1
     return T
+
+
+def compute_cytokine_levels(self):
+    levels = np.sum(self.cytokin_matrix)
+    return levels
+
+
+def compute_IFN_levels(self):
+    levels = np.sum(self.IFN_matrix)
+    return levels
+
+
+def compute_TGF_levels(self):
+    levels = np.sum(self.TGF_matrix)
+    return levels
+
+
+def compute_IL_2_levels(self):
+    levels = np.sum(self.IL_2_matrix)
+    return levels
+
+
+def compute_IL_4_levels(self):
+    levels = np.sum(self.IL_4_matrix)
+    return levels
+
+
+def compute_IL_6_levels(self):
+    levels = np.sum(self.IL_6_matrix)
+    return levels
+
+
+def compute_IL_17_levels(self):
+    levels = np.sum(self.IL_17_matrix)
+    return levels
+
+
+def compute_IL_21_levels(self):
+    levels = np.sum(self.IL_21_matrix)
+    return levels
+
+
+def compute_IL_22_levels(self):
+    levels = np.sum(self.IL_22_matrix)
+    return levels

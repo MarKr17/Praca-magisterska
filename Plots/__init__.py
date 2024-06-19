@@ -30,6 +30,9 @@ class Plots():
                                         "Th2 population": Th2_color},
                            "Misc_cells": {"APC population": APC_color,
                                           "Virus population": virus_color}}
+        self.Cytokines = ["Cytokine levels", "IFN levels", "TGF levels",
+                          "IL-2 levels", "IL-4 levels", "IL-6 levels",
+                          "IL-17 levels", "IL-21 levels", "IL-22 levels"]
 
     def Plot(self):
         colors = [t_naive_cell_color,
@@ -71,5 +74,15 @@ class Plots():
         plot.set(title=cells_category,
                  ylabel="Number of agents", xlabel="Step")
         filepath = os.path.join(self.folder_path, cells_category + ".jpg")
+        plt.savefig(filepath, dpi=300)
+        plt.clf()
+
+    def Plot_cytokine_levels(self):
+        for cytokine in self.Cytokines:
+            plot = sns.lineplot(data=self.data[cytokine],
+                                label=cytokine)
+        plot.set(title="Cytokine levels",
+                 ylabel="Amount", xlabel="Step")
+        filepath = os.path.join(self.folder_path, "Cytokine levels.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
