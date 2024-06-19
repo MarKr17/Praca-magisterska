@@ -4,9 +4,9 @@ from Visualisation.Constants import (Th0_color, Th1_color, Th2_color, Th_color,
                                      Tpato17_color, Treg17_color,
                                      grid_background, GRID_POS,
                                      virus_color, APC_color,
-                                     t_naive_cell_color, Plasma_color)
-from Visualisation.Gradients import (neuron_gradient, myelin_gradient,
-                                     b_gradient)
+                                     t_naive_cell_color, Plasma_color,
+                                     B_cells_color)
+from Visualisation.Gradients import (neuron_gradient, myelin_gradient)
 from Agents.T_naive_cell import T_naive_cell
 from Agents.B_cell import B_cell
 from Agents.Neuron import Neuron
@@ -35,7 +35,7 @@ def drawAgents(self, GRID_SIZE):
             elif type(a) is T_naive_cell:
                 surf = drawT_naive_cell(radius)
             elif type(a) is B_cell:
-                surf = drawB_cell(radius, a)
+                surf = drawB_cell(radius)
             elif type(a) is Virus:
                 surf = drawVirus(radius/2)
             elif type(a) is APC:
@@ -81,12 +81,10 @@ def drawT_naive_cell(radius):
     return surf
 
 
-def drawB_cell(radius, Cell):
-    i = int(Cell.health/2-1)
-    color = b_gradient[i]
+def drawB_cell(radius):
     surf = pygame.Surface((2*radius, 2*radius),
                           pygame.SRCALPHA, 32)
-    pygame.draw.circle(surf, color, (radius, radius), radius)
+    pygame.draw.circle(surf, B_cells_color, (radius, radius), radius)
     return surf
 
 
