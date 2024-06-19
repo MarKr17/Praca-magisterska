@@ -207,3 +207,21 @@ def computeB_cells_activated(self):
             if agent.activated:
                 B += 1
     return B
+
+
+def computeB_cells_lytic(self):
+    B = 0
+    for agent in self.schedule.agents:
+        if type(agent) is B_cell:
+            if agent.infection_state == "lytic":
+                B += 1
+    return B
+
+
+def computeB_cells_latent(self):
+    B = 0
+    for agent in self.schedule.agents:
+        if type(agent) is B_cell:
+            if agent.infection_state == "latent":
+                B += 1
+    return B

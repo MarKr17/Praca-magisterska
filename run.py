@@ -16,6 +16,5 @@ plots.Plot_cells_by_category("Th_cells")
 plots.Plot_cells_by_category("Misc_cells")
 plots.Plot_cytokine_levels()
 plots.Plot_protein_levels()
-plots.Plot_one("B cells antigen presented")
-plots.Plot_one("APC antigen attached")
-plots.Plot_one("B cells activated")
+plots.Plot_multiple(["B cells latent", "B cells lytic", "B cells activated",
+                     "B cells antigen presented"])
