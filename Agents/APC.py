@@ -37,7 +37,7 @@ class APC(Cell):
             n = APC(self.model.ID, self.model, self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
-            self.tiredness += 2
+            self.tiredness += 1
 
     def antigen_attachment(self):
         MBP = self.model.MBP_matrix[self.pos[0], self.pos[1]]
@@ -82,7 +82,7 @@ class APC(Cell):
 
     def cytokine_release(self):
         if self.antigen_attached == "EBNA1":
-            self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 1
-            self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 1
-            self.model.TGF_matrix[self.pos[0], self.pos[1]] += 1
+            self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 2
+            self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
+            self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
             self.tiredness += 1
