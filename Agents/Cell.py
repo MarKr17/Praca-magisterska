@@ -9,7 +9,7 @@ class Cell(Agent):
         super().__init__(unique_id, model)
 
         # Create the agent's attribute and set the initial values.
-        self.health = 50
+        self.health = 100
         self.tiredness = 0
         self.proliferation_rate = proliferation_rate
         self.penetration_chance = 25

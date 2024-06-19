@@ -198,3 +198,12 @@ def compute_APC_antigen_attached(self):
             if agent.antigen_attached != '':
                 apc += 1
     return apc
+
+
+def computeB_cells_activated(self):
+    B = 0
+    for agent in self.schedule.agents:
+        if type(agent) is B_cell:
+            if agent.activated:
+                B += 1
+    return B

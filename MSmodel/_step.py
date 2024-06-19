@@ -34,7 +34,5 @@ def adding_agents(self):
 
 
 def start_infection(self):
-    r = random.randint(0, 100)
-    if r < self.infection_chance:
-        n = random. randint(1, 50)
-        self.createViruses(n)
+    if self.schedule.steps == 5:
+        self.createViruses(50)

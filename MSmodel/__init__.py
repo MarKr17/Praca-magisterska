@@ -27,7 +27,8 @@ class MSModel(mesa.Model):
                                  compute_MBP_antibody_levels,
                                  compute_EBNA1_antibody_levels,
                                  computeB_cells_presented,
-                                 compute_APC_antigen_attached)
+                                 compute_APC_antigen_attached,
+                                 computeB_cells_activated)
         self.num_t = 20  # number of T-cells
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
@@ -109,7 +110,8 @@ class MSModel(mesa.Model):
                              "B cells antigen presented":
                                  computeB_cells_presented,
                              "APC antigen attached":
-                                 compute_APC_antigen_attached}
+                                 compute_APC_antigen_attached,
+                             "B cells activated": computeB_cells_activated}
         )
         self.createNeurons()
         self.createT_naive_cells()
