@@ -6,6 +6,7 @@ class Plasma_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
         self.antigen_presented = ''
+        self.health = 10
         self.antibody_production_rate = 50
 
     def step(self):

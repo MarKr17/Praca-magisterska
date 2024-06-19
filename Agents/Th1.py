@@ -5,6 +5,7 @@ import random
 class Th1(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
+        self.health = 10
 
     def step(self):
         self.move()

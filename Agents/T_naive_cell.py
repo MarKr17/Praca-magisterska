@@ -8,6 +8,7 @@ class T_naive_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
         self.antigen_presented = ''
+        self.health = 10
         self.activated = False
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
 

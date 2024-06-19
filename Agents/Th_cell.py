@@ -8,6 +8,7 @@ class Th_cell(Cell):
         super().__init__(unique_id, model, proliferation_rate)
         self.antigen_presented = ''
         self.activated = False
+        self.health = 15
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
 
     def step(self):
