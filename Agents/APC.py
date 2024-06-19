@@ -24,6 +24,9 @@ class APC(Cell):
             self.phagocytosis()
         if self.antigen_attached != '':
             self.antigen_attachment()
+        else:
+            self.antigen_presentation()
+        self.cytokine_release()
         self.calculate_dmg()
         if self.health <= 0:
             self.death
@@ -58,7 +61,7 @@ class APC(Cell):
             b = random.choice(neighbors)
             b.antigen_presented = self.antigen_attached
             self.antigen_attached = ''
-        self.tiredness += 1
+            self.tiredness += 1
 
     def phagocytosis(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
@@ -83,3 +86,4 @@ class APC(Cell):
             self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 2
             self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
             self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
+            self.tiredness += 1
