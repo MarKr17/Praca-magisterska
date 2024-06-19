@@ -39,7 +39,7 @@ class B_cell(Cell):
             if a == 1:
                 neighborhood.remove(n)
         for n in neighborhood:
-            v = Virus(self.model.ID, self.model)
+            v = Virus(self.model.ID, self.model, self.model.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(v)
             self.tiredness += 1

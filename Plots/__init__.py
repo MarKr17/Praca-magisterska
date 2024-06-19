@@ -98,3 +98,12 @@ class Plots():
         filepath = os.path.join(self.folder_path, "Protein levels.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
+
+    def Plot_one(self, name):
+        plot = sns.lineplot(data=self.data[name],
+                            label=name)
+        plot.set(title=name,
+                 ylabel="Amount", xlabel="Step")
+        filepath = os.path.join(self.folder_path, name + ".jpg")
+        plt.savefig(filepath, dpi=300)
+        plt.clf()

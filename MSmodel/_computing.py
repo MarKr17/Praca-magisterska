@@ -180,3 +180,21 @@ def compute_MBP_antibody_levels(self):
 def compute_EBNA1_antibody_levels(self):
     levels = np.sum(self.EBNA1_antibody_matrix)
     return levels
+
+
+def computeB_cells_presented(self):
+    B = 0
+    for agent in self.schedule.agents:
+        if type(agent) is B_cell:
+            if agent.antigen_presented != '':
+                B += 1
+    return B
+
+
+def compute_APC_antigen_attached(self):
+    apc = 0
+    for agent in self.schedule.agents:
+        if type(agent) is APC:
+            if agent.antigen_attached != '':
+                apc += 1
+    return apc

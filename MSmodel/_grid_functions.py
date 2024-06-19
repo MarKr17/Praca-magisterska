@@ -58,41 +58,41 @@ def dissolve_cytokine(self):
     if r < self.cytokine_dis_rate:
 
         self.IFN_matrix = self.IFN_matrix-1
-        self.IFN_matrix = np.clip(self.IFN_matrix, 0, None)
+        self.IFN_matrix = np.clip(self.IFN_matrix, 0, 100)
 
         self.TGF_matrix = self.TGF_matrix-1
-        self.TGF_matrix = np.clip(self.TGF_matrix, 0, None)
+        self.TGF_matrix = np.clip(self.TGF_matrix, 0, 100)
 
         self.IL_2_matrix = self.IL_2_matrix-1
-        self.IL_2_matrix = np.clip(self.IL_2_matrix, 0, None)
+        self.IL_2_matrix = np.clip(self.IL_2_matrix, 0, 100)
 
         self.IL_4_matrix = self.IL_4_matrix-1
-        self.IL_4_matrix = np.clip(self.IL_4_matrix, 0, None)
+        self.IL_4_matrix = np.clip(self.IL_4_matrix, 0, 100)
 
         self.IL_6_matrix = self.IL_6_matrix-1
-        self.IL_6_matrix = np.clip(self.IL_6_matrix, 0, None)
+        self.IL_6_matrix = np.clip(self.IL_6_matrix, 0, 100)
 
         self.IL_17_matrix = self.IL_17_matrix-1
-        self.IL_17_matrix = np.clip(self.IL_17_matrix, 0, None)
+        self.IL_17_matrix = np.clip(self.IL_17_matrix, 0, 100)
 
         self.IL_21_matrix = self.IL_21_matrix-1
-        self.IL_21_matrix = np.clip(self.IL_21_matrix, 0, None)
+        self.IL_21_matrix = np.clip(self.IL_21_matrix, 0, 100)
 
         self.IL_22_matrix = self.IL_22_matrix-1
-        self.IL_22_matrix = np.clip(self.IL_22_matrix, 0, None)
+        self.IL_22_matrix = np.clip(self.IL_22_matrix, 0, 100)
 
         self.MBP_matrix = self.MBP_matrix-1
-        self.MPB_matrix = np.clip(self.MBP_matrix, 0, None)
+        self.MPB_matrix = np.clip(self.MBP_matrix, 0, 100)
 
         self.EBNA1_matrix = self.EBNA1_matrix-1
-        self.EBNA1_matrix = np.clip(self.EBNA1_matrix, 0, None)
+        self.EBNA1_matrix = np.clip(self.EBNA1_matrix, 0, 100)
 
         self.MBP_antibody_matrix = self.MBP_antibody_matrix-1
-        self.MPB_antibody_matrix = np.clip(self.MBP_antibody_matrix, 0, None)
+        self.MPB_antibody_matrix = np.clip(self.MBP_antibody_matrix, 0, 100)
 
         self.EBNA1_antibody_matrix = self.EBNA1_antibody_matrix-1
         self.EBNA1_antibody_matrix = np.clip(self.EBNA1_antibody_matrix,
-                                             0, None)
+                                             0, 100)
 
 
 def possible_positions(self):

@@ -25,12 +25,15 @@ class MSModel(mesa.Model):
                                  compute_IL_21_levels, compute_IL_22_levels,
                                  compute_MBP_levels, compute_EBNA1_levels,
                                  compute_MBP_antibody_levels,
-                                 compute_EBNA1_antibody_levels)
+                                 compute_EBNA1_antibody_levels,
+                                 computeB_cells_presented,
+                                 compute_APC_antigen_attached)
         self.num_t = 20  # number of T-cells
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
         self.num_APC = 20  # number of APCs
-        self.APC_health = 50
+        self.APC_health = 20
+        self.proliferation_rate = 20
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],
@@ -69,7 +72,7 @@ class MSModel(mesa.Model):
         self.MBP_antibody_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_antibody_matrix = np.zeros((self.size, self.size),
                                               dtype=int)
-        self.cytokine_dis_rate = 0
+        self.cytokine_dis_rate = 5
         self.infection_chance = 5
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
@@ -102,7 +105,11 @@ class MSModel(mesa.Model):
                              "MBP antibody levels":
                                  compute_MBP_antibody_levels,
                              "EBNA1 antibody levels":
-                                 compute_EBNA1_antibody_levels}
+                                 compute_EBNA1_antibody_levels,
+                             "B cells antigen presented":
+                                 computeB_cells_presented,
+                             "APC antigen attached":
+                                 compute_APC_antigen_attached}
         )
         self.createNeurons()
         self.createT_naive_cells()

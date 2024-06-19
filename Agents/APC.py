@@ -23,7 +23,7 @@ class APC(Cell):
         r = random.randint(0, 99)
         if r < self.phagocytosis_rate:
             self.phagocytosis()
-        if self.antigen_attached != '':
+        if self.antigen_attached == '':
             self.antigen_attachment()
         else:
             self.antigen_presentation()
@@ -85,7 +85,7 @@ class APC(Cell):
 
     def cytokine_release(self):
         if self.antigen_attached == "EBNA1":
-            self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 2
-            self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
-            self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
+            self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 10
+            self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 10
+            self.model.TGF_matrix[self.pos[0], self.pos[1]] += 10
             self.tiredness += 1
