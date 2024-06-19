@@ -9,7 +9,7 @@ class Cell(Agent):
         super().__init__(unique_id, model)
 
         # Create the agent's attribute and set the initial values.
-        self.health = 100
+        self.health = 20
         self.tiredness = 0
         self.proliferation_rate = proliferation_rate
         self.penetration_chance = 25
@@ -21,7 +21,7 @@ class Cell(Agent):
         self.model.kill_agents.append(self)
 
     def calculate_dmg(self):
-        dmg = int(self.tiredness / 50)
+        dmg = int(self.tiredness / 2)
         self.health -= dmg
         if self.health < 0:
             self.health = 0

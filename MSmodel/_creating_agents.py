@@ -22,7 +22,7 @@ def createNeurons(self):
 def createT_naive_cells(self):
     positions = self.possible_positions()
     for i in range(self.num_t):
-        a = T_naive_cell(self.ID, self, 
+        a = T_naive_cell(self.ID, self,
                          proliferation_rate=self.proliferation_rate)
         # Add the agent to the scheduler
         self.schedule.add(a)
@@ -34,7 +34,7 @@ def createT_naive_cells(self):
 def createThcells(self):
     positions = self.possible_positions()
     for i in range(self.num_t):
-        a = Th_cell(self.ID, self, 
+        a = Th_cell(self.ID, self,
                     proliferation_rate=self.proliferation_rate)
         # Add the agent to the scheduler
         self.schedule.add(a)

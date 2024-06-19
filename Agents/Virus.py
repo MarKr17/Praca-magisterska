@@ -22,7 +22,6 @@ class Virus(Cell):
             self.infect()
         self.calculate_dmg()
         if self.health < 1:
-            self.EBNA1_release()
             self.death()
 
     def move(self):
@@ -39,8 +38,9 @@ class Virus(Cell):
         self.model.grid.move_agent(self, new_position)
 
     def death(self):
-        self.model.kill_agents.append(self)
-        self.EBNA1_release
+        if self not in self.model.kill_agents:
+            self.model.kill_agents.append(self)
+            self.EBNA1_release
 
     def infect(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)

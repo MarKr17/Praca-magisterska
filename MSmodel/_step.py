@@ -4,6 +4,7 @@ import random
 def step(self):
     """Advance the model by one step."""
     self.kill_agents = []
+    self.new_agents = []
     self.schedule.step()
     with open("agents.txt", 'w') as f:
         for key, value in self.schedule._agents.items():
@@ -22,7 +23,6 @@ def killing_agents(self):
     for x in self.kill_agents:
         self.schedule.remove(x)
         self.grid.remove_agent(x)
-        self.kill_agents.remove(x)
 
 
 def adding_agents(self):
@@ -31,7 +31,6 @@ def adding_agents(self):
         positions = self.possible_positions()
         pos = random.choice(positions)
         self.grid.place_agent(n, pos)
-        self.new_agents.remove(n)
 
 
 def start_infection(self):
