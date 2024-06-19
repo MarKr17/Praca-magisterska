@@ -105,7 +105,6 @@ class Visualisation():
                 self.controls.dropdown.disable()
             elif self.controls.dropdown.getSelected():
                 self.model.hypothesis = self.controls.dropdown.getSelected()
-                print(self.model.hypothesis)
             pygame.display.flip()  # Refresh on-screen display
             self.clock.tick(self.controls.slider.getValue())
             self.screen.fill(GREY)  # Fill the display with a solid color

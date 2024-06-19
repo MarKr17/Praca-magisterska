@@ -7,7 +7,7 @@ import random
 class T_naive_cell(Cell):
     def __init__(self, unique_id, model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
-        self.antigen_attached = ''
+        self.antigen_presented = ''
         self.activated = False
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
 
@@ -21,7 +21,7 @@ class T_naive_cell(Cell):
             self.death()
 
     def activation(self):
-        if self.antigen_attached != '':
+        if self.antigen_presented != '':
             self.activated = True
             self.proliferation_rate = self.activated_proliferation_rate
 

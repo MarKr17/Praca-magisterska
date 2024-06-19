@@ -1,12 +1,13 @@
 from mesa.model import Model
 from Agents.Cell import Cell
+from Agents.B_cell import B_cell
 import random
 
 
 class Virus(Cell):
     def __init__(self, unique_id: int, model: Model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
-        self.health = 1
+        self.health = 10
         self.placement = 0
         self.infection_rate = self.proliferation_rate
         self.current_infection_rate = 50
@@ -14,7 +15,7 @@ class Virus(Cell):
 
     def step(self):
         self.move()
-        self.cytokin_effect()
+        self.cytokine_effect()
         self.antibody_attachement()
         r = random.randint(0, 99)
         if r < self.current_infection_rate:
@@ -42,7 +43,6 @@ class Virus(Cell):
         self.EBNA1_release
 
     def infect(self):
-        from Agents.B_cell import B_cell
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
         neighbors_copy = neighbors.copy()
         for n in neighbors_copy:
@@ -53,9 +53,9 @@ class Virus(Cell):
             b.infection_state = "latent"
         self.tiredness += 1
 
-    def cytokin_effect(self):
-        cytokin = self.model.cytokin_matrix[self.pos[0]][self.pos[1]]
-        self.health -= cytokin//10
+    def cytokine_effect(self):
+        cytokine = self.model.cytokin_matrix[self.pos[0]][self.pos[1]]
+        self.health -= int(cytokine/10)
 
     def antibody_attachement(self):
         neighborhood = self.model.grid.get_neighborhood(

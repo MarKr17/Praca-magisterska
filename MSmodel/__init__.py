@@ -29,7 +29,8 @@ class MSModel(mesa.Model):
         self.num_t = 20  # number of T-cells
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
-        self.num_APC = 10  # number of APCs
+        self.num_APC = 20  # number of APCs
+        self.APC_health = 50
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],

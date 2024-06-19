@@ -8,13 +8,14 @@ import random
 
 
 class APC(Cell):
-    def __init__(self, unique_id, model, proliferation_rate):
+    def __init__(self, unique_id, model, proliferation_rate, health):
         super().__init__(unique_id, model, proliferation_rate)
         self.MHC_grow_rate = 5
         self.num_MHC = 0
         self.antigen_attached = ''
         self.phagocytosis_rate = 50
         self.antibodies_threshold = 5
+        self.health = health
 
     def step(self):
         self.move()
@@ -34,7 +35,8 @@ class APC(Cell):
     def proliferation(self):
         r = random.randint(0, 99)
         if r < self.proliferation_rate:
-            n = APC(self.model.ID, self.model, self.proliferation_rate)
+            n = APC(self.model.ID, self.model, self.proliferation_rate,
+                    self.model.APC_health)
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1
@@ -49,7 +51,7 @@ class APC(Cell):
             else:
                 self.antigen_attached = "EBNA1"
                 self.model.EBNA1_matrix[self.pos[0], self.pos[1]] -= 1
-        self.tiredness += 1
+            self.tiredness += 1
 
     def antigen_presentation(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
