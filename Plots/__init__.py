@@ -5,7 +5,11 @@ import matplotlib.pyplot as plt
 from Visualisation.Gradients import (myelin_gradient,
                                      neuron_gradient)
 from Visualisation.Constants import (virus_color, B_cells_color,
-                                     t_naive_cell_color)
+                                     t_naive_cell_color, Plasma_color,
+                                     Tpato17_color, Th_color,
+                                     Th0_color, Treg17_color,
+                                     Th1_color, Th2_color,
+                                     APC_color)
 
 
 class Plots():
@@ -15,6 +19,17 @@ class Plots():
         self.Plots = {}
         self.folder = "test"
         self.folder_path = os.path.join(os.getcwd(), "test")
+        self.Cells_dict = {"B_cells": {"B-cell population": B_cells_color,
+                                       "Plasma cell population": Plasma_color},
+                           "T_cells": {"T-cell population": t_naive_cell_color,
+                                       "Tpato17 population": Tpato17_color,
+                                       "Treg17 population": Treg17_color},
+                           "Th_cells": {"Th-cell population": Th_color,
+                                        "Th0 population": Th0_color,
+                                        "Th1 population": Th1_color,
+                                        "Th2 population": Th2_color},
+                           "Misc_cells": {"APC population": APC_color,
+                                          "Virus population": virus_color}}
 
     def Plot(self):
         colors = [t_naive_cell_color,
@@ -45,5 +60,16 @@ class Plots():
             i += 1
         plot.set(title=key, ylabel="Number of agents", xlabel="Step")
         filepath = os.path.join(self.folder_path, "combined.jpg")
+        plt.savefig(filepath, dpi=300)
+        plt.clf()
+
+    def Plot_cells_by_category(self, cells_category):
+        cells = self.Cells_dict[cells_category]
+        for key in cells.keys():
+            plot = sns.lineplot(data=self.data[key], color=cells[key],
+                                label=key)
+        plot.set(title=cells_category,
+                 ylabel="Number of agents", xlabel="Step")
+        filepath = os.path.join(self.folder_path, cells_category + ".jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()

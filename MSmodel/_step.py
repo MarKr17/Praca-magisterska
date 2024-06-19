@@ -3,7 +3,6 @@ import random
 
 def step(self):
     """Advance the model by one step."""
-    self.datacollector.collect(self)
     self.kill_agents = []
     self.schedule.step()
     with open("agents.txt", 'w') as f:
@@ -15,6 +14,7 @@ def step(self):
     self.update_cytokin_matrix()
     self.barrier_cytokin_effect()
     self.start_infection()
+    self.datacollector.collect(self)
 
 
 def killing_agents(self):
