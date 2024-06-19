@@ -1,3 +1,4 @@
+import random
 
 
 def step(self):
@@ -8,6 +9,7 @@ def step(self):
         for key, value in self.schedule._agents.items():
             f.write('%s:%s\n' % (key, value))
     self.killing_agents()
+    self.adding_agents()
     self.dissolve_cytokine()
     self.cytokin_diffusion()
     self.update_cytokin_matrix()
@@ -26,9 +28,9 @@ def killing_agents(self):
 def adding_agents(self):
     for n in self.new_agents:
         self.schedule.add(n)
-        x = self.random.randrange(self.grid.width)
-        y = self.random.randrange(self.grid.height)
-        self.grid.place_agent(n, (x, y))
+        positions = self.possible_positions()
+        pos = random.choice(positions)
+        self.grid.place_agent(n, pos)
         self.new_agents.remove(n)
 
 
