@@ -21,7 +21,7 @@ class Cell(Agent):
         self.model.kill_agents.append(self)
 
     def calculate_dmg(self):
-        dmg = int(self.tiredness/2)
+        dmg = int(self.tiredness)
         self.health -= dmg
         if self.health < 0:
             self.health = 0

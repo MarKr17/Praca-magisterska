@@ -21,9 +21,9 @@ class Treg17(Cell):
                        self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
-            self.tiredness += 1
+            self.tiredness += 2
 
     def cytokine_release(self):
-        self.model.IL_17_matrix[self.pos[0], self.pos[1]] += 2
-        self.model.IL_22_matrix[self.pos[0], self.pos[1]] += 2
+        self.model.IL_17_matrix[self.pos[0], self.pos[1]] += 1
+        self.model.IL_22_matrix[self.pos[0], self.pos[1]] += 1
         self.tiredness += 1

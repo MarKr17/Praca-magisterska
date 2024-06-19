@@ -53,7 +53,7 @@ class B_cell(Cell):
             n.antigen_presented = self.antigen_presented
             self.model.ID += 1
             self.model.new_agents.append(n)
-            self.tiredness += 1
+            self.tiredness += 2
 
     def differentiation(self):
         r = random.randint(0, 99)

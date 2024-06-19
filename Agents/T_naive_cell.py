@@ -32,7 +32,7 @@ class T_naive_cell(Cell):
                              self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
-            self.tiredness += 1
+            self.tiredness += 2
 
     def differentiation(self):
         r = random.randint(0, 99)

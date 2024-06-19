@@ -25,12 +25,12 @@ class Th0(Cell):
                     self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
-            self.tiredness += 1
+            self.tiredness += 2
 
     def cytokine_release(self):
-        self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 2
-        self.model.IL_4_matrix[self.pos[0], self.pos[1]] += 2
-        self.model.IFN_matrix[self.pos[0], self.pos[1]] += 2
+        self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 1
+        self.model.IL_4_matrix[self.pos[0], self.pos[1]] += 1
+        self.model.IFN_matrix[self.pos[0], self.pos[1]] += 1
         self.tiredness += 1
 
     def differentiation(self):
