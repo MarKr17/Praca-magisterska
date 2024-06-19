@@ -81,6 +81,19 @@ def dissolve_cytokine(self):
         self.IL_22_matrix = self.IL_22_matrix-1
         self.IL_22_matrix = np.clip(self.IL_22_matrix, 0, None)
 
+        self.MBP_matrix = self.MBP_matrix-1
+        self.MPB_matrix = np.clip(self.MBP_matrix, 0, None)
+
+        self.EBNA1_matrix = self.EBNA1_matrix-1
+        self.EBNA1_matrix = np.clip(self.EBNA1_matrix, 0, None)
+
+        self.MBP_antibody_matrix = self.MBP_antibody_matrix-1
+        self.MPB_antibody_matrix = np.clip(self.MBP_antibody_matrix, 0, None)
+
+        self.EBNA1_antibody_matrix = self.EBNA1_antibody_matrix-1
+        self.EBNA1_antibody_matrix = np.clip(self.EBNA1_antibody_matrix,
+                                             0, None)
+
 
 def possible_positions(self):
     positions = []
