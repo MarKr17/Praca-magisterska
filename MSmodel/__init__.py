@@ -22,7 +22,10 @@ class MSModel(mesa.Model):
                                  compute_IFN_levels, compute_TGF_levels,
                                  compute_IL_2_levels, compute_IL_4_levels,
                                  compute_IL_6_levels, compute_IL_17_levels,
-                                 compute_IL_21_levels, compute_IL_22_levels)
+                                 compute_IL_21_levels, compute_IL_22_levels,
+                                 compute_MBP_levels, compute_EBNA1_levels,
+                                 compute_MBP_antibody_levels,
+                                 compute_EBNA1_antibody_levels)
         self.num_t = 20  # number of T-cells
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
@@ -92,7 +95,13 @@ class MSModel(mesa.Model):
                              "IL-6 levels": compute_IL_6_levels,
                              "IL-17 levels": compute_IL_17_levels,
                              "IL-21 levels": compute_IL_21_levels,
-                             "IL-22 levels": compute_IL_22_levels}
+                             "IL-22 levels": compute_IL_22_levels,
+                             "MBP levels": compute_MBP_levels,
+                             "EBNA1 levels": compute_EBNA1_levels,
+                             "MBP antibody levels":
+                                 compute_MBP_antibody_levels,
+                             "EBNA1 antibody levels":
+                                 compute_EBNA1_antibody_levels}
         )
         self.createNeurons()
         self.createT_naive_cells()

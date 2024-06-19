@@ -33,6 +33,8 @@ class Plots():
         self.Cytokines = ["Cytokine levels", "IFN levels", "TGF levels",
                           "IL-2 levels", "IL-4 levels", "IL-6 levels",
                           "IL-17 levels", "IL-21 levels", "IL-22 levels"]
+        self.Proteins = ["MBP levels", "EBNA1 levels", "MBP antibody levels",
+                         "EBNA1 antibody levels"]
 
     def Plot(self):
         colors = [t_naive_cell_color,
@@ -84,5 +86,15 @@ class Plots():
         plot.set(title="Cytokine levels",
                  ylabel="Amount", xlabel="Step")
         filepath = os.path.join(self.folder_path, "Cytokine levels.jpg")
+        plt.savefig(filepath, dpi=300)
+        plt.clf()
+
+    def Plot_protein_levels(self):
+        for protein in self.Proteins:
+            plot = sns.lineplot(data=self.data[protein],
+                                label=protein)
+        plot.set(title="Protein levels",
+                 ylabel="Amount", xlabel="Step")
+        filepath = os.path.join(self.folder_path, "Protein levels.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()

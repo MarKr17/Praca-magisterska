@@ -160,3 +160,23 @@ def compute_IL_21_levels(self):
 def compute_IL_22_levels(self):
     levels = np.sum(self.IL_22_matrix)
     return levels
+
+
+def compute_MBP_levels(self):
+    levels = np.sum(self.MBP_matrix)
+    return levels
+
+
+def compute_EBNA1_levels(self):
+    levels = np.sum(self.EBNA1_matrix)
+    return levels
+
+
+def compute_MBP_antibody_levels(self):
+    levels = np.sum(self.MBP_antibody_matrix)
+    return levels
+
+
+def compute_EBNA1_antibody_levels(self):
+    levels = np.sum(self.EBNA1_antibody_matrix)
+    return levels
