@@ -73,4 +73,4 @@ class Virus(Cell):
     def EBNA1_release(self):
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True)
         for n in neighborhood:
-            self.model.MBP_matrix[n[0]][n[1]] += 1
+            self.model.EBNA1_matrix[n[0]][n[1]] += 1

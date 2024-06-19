@@ -29,7 +29,7 @@ class APC(Cell):
         self.cytokine_release()
         self.calculate_dmg()
         if self.health <= 0:
-            self.death
+            self.death()
 
     def proliferation(self):
         r = random.randint(0, 99)
