@@ -36,6 +36,9 @@ class Plots():
         self.Proteins = ["MBP levels", "EBNA1 levels", "MBP antibody levels",
                          "EBNA1 antibody levels"]
 
+        self.Demyelination = {"Neuron population": neuron_gradient[9],
+                              "Myelin health": myelin_gradient[9]}
+
     def Plot(self):
         colors = [t_naive_cell_color,
                   B_cells_color,
@@ -52,19 +55,14 @@ class Plots():
             plt.clf()
             i += 1
 
-    def Plot_combined(self):
-        colors = [t_naive_cell_color,
-                  B_cells_color,
-                  neuron_gradient[len(neuron_gradient)-1],
-                  myelin_gradient[len(myelin_gradient)-1],
-                  virus_color]
-        i = 0
-        for key in self.data:
-            plot = sns.lineplot(data=self.data[key], color=colors[i],
+    def Plot_demyelination(self):
+        for key in self.Demyelination.keys():
+            plot = sns.lineplot(data=self.data[key],
+                                color=self.Demyelination[key],
                                 label=key)
-            i += 1
-        plot.set(title=key, ylabel="Number of agents", xlabel="Step")
-        filepath = os.path.join(self.folder_path, "combined.jpg")
+        plot.set(title="Demyelination",
+                 ylabel="Neuron number and Myelin helath", xlabel="Step")
+        filepath = os.path.join(self.folder_path, "Demyelination.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
 
@@ -112,7 +110,7 @@ class Plots():
         for name in list:
             plot = sns.lineplot(data=self.data[name],
                                 label=name)
-        plot.set(title="Protein levels",
+        plot.set(title=','.join(str(x) for x in list),
                  ylabel="Amount", xlabel="Step")
         filepath = os.path.join(self.folder_path,
                                 ','.join(str(x) for x in list)+".jpg")

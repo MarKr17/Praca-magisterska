@@ -85,7 +85,7 @@ class MSModel(mesa.Model):
                              "B-cell population": compute_B_cells,
                              "APC population": compute_APC_cells,
                              "Neuron population": compute_Neurons,
-                             "Myelin population": compute_Myelin,
+                             "Myelin health": compute_Myelin,
                              "Virus population": compute_Virus,
                              "Plasma cell population": computePlasma_cells,
                              "Th0 population": compute_Th0_cells,
