@@ -35,8 +35,7 @@ class MSModel(mesa.Model):
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
         self.num_APC = 20  # number of APCs
-        self.APC_health = 20
-        self.proliferation_rate = 5
+        self.proliferation_rate = 1
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],
@@ -116,6 +115,7 @@ class MSModel(mesa.Model):
                              "B cells activated": computeB_cells_activated,
                              "B cells latent": computeB_cells_latent,
                              "B cells lytic": computeB_cells_lytic}
+
         )
         self.createNeurons()
         self.createT_naive_cells()

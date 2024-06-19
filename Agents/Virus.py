@@ -7,10 +7,10 @@ import random
 class Virus(Cell):
     def __init__(self, unique_id: int, model: Model, proliferation_rate):
         super().__init__(unique_id, model, proliferation_rate)
-        self.health = 10
+        self.health = 50
         self.placement = 0
         self.infection_rate = self.proliferation_rate
-        self.current_infection_rate = 50
+        self.current_infection_rate = 20
         self.attached_antibodies = 0
 
     def step(self):
@@ -40,7 +40,7 @@ class Virus(Cell):
     def death(self):
         if self not in self.model.kill_agents:
             self.model.kill_agents.append(self)
-            self.EBNA1_release
+            self.EBNA1_release()
 
     def infect(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
@@ -73,4 +73,4 @@ class Virus(Cell):
     def EBNA1_release(self):
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True)
         for n in neighborhood:
-            self.model.EBNA1_matrix[n[0]][n[1]] += 1
+            self.model.EBNA1_matrix[n[0]][n[1]] += 5

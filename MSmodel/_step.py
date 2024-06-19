@@ -35,4 +35,4 @@ def adding_agents(self):
 
 def start_infection(self):
     if self.schedule.steps == 5:
-        self.createViruses(50)
+        self.createViruses(100)

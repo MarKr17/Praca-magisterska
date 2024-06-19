@@ -70,8 +70,7 @@ def create_APCs(self):
     positions = self.possible_positions()
     for i in range(self.num_APC):
         a = APC(self.ID, self,
-                proliferation_rate=self.proliferation_rate,
-                health=self.APC_health)
+                proliferation_rate=self.proliferation_rate)
         # Add the agent to the scheduler
         self.schedule.add(a)
         pos = random.choice(positions)
