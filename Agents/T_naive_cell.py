@@ -15,8 +15,12 @@ class T_naive_cell(Cell):
     def step(self):
         self.move()
         self.activation()
-        self.proliferation()
-        self.differentiation()
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            if self.activated:
+                self.differentiation()
+            else:
+                self.proliferation()
         self.calculate_dmg()
         if self.health <= 0:
             self.death()
@@ -27,29 +31,25 @@ class T_naive_cell(Cell):
             self.proliferation_rate = self.activated_proliferation_rate
 
     def proliferation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = T_naive_cell(self.model.ID, self.model,
-                             self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 2
+        n = T_naive_cell(self.model.ID, self.model,
+                         self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 2
 
     def differentiation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate and self.activated:
-            IL6 = self.model.IL_6_matrix[self.pos[0], self.pos[1]]
-            TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
+        IL6 = self.model.IL_6_matrix[self.pos[0], self.pos[1]]
+        TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
 
-            IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
-            TNF = self.model.TNF_matrix[self.pos[0], self.pos[1]]
+        IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
+        TNF = self.model.TNF_matrix[self.pos[0], self.pos[1]]
 
-            if IL6 + TGF > IL21 + TNF:
-                n = Treg17(self.model.ID, self.model,
-                           self.proliferation_rate)
-            else:
-                n = Tpato17(self.model.ID, self.model,
-                            self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 1
+        if IL6 + TGF > IL21 + TNF:
+            n = Treg17(self.model.ID, self.model,
+                       self.proliferation_rate)
+        else:
+            n = Tpato17(self.model.ID, self.model,
+                        self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 1
