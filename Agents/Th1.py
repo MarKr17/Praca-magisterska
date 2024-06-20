@@ -3,9 +3,10 @@ import random
 
 
 class Th1(Cell):
-    def __init__(self, unique_id, model, proliferation_rate):
-        super().__init__(unique_id, model, proliferation_rate)
-        self.health = 10
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
+        self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
+        self.health = self.model.Health["T-cell"]
 
     def step(self):
         self.move()
@@ -18,8 +19,7 @@ class Th1(Cell):
     def proliferation(self):
         r = random.randint(0, 99)
         if r < self.proliferation_rate:
-            n = Th1(self.model.ID, self.model,
-                    self.proliferation_rate)
+            n = Th1(self.model.ID, self.model)
             self.model.ID += 1
             self.model.new_agents.append(n)
             self.tiredness += 1

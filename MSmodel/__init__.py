@@ -35,7 +35,18 @@ class MSModel(mesa.Model):
         self.num_th = 20  # number of Th-cells
         self.num_b = 20  # number of B-cells
         self.num_APC = 20  # number of APCs
-        self.proliferation_rate = 2
+        self.Cell_numbers = {"T-cell": 20,
+                             "Th-cell": 20,
+                             "B-cell": 20,
+                             "APC": 20}
+        self.Proliferation_rate = {"T-cell": 2,
+                                   "Th-cell": 2,
+                                   "B-cell": 2,
+                                   "APC": 2}
+        self.Health = {"T-cell": 50,
+                       "Th-cell": 50,
+                       "B-cell": 50,
+                       "APC": 50}
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],

@@ -5,12 +5,12 @@ import random
 
 
 class Virus(Cell):
-    def __init__(self, unique_id: int, model: Model, proliferation_rate):
-        super().__init__(unique_id, model, proliferation_rate)
+    def __init__(self, unique_id: int, model: Model):
+        super().__init__(unique_id, model)
         self.health = 50
         self.placement = 0
-        self.infection_rate = self.proliferation_rate
-        self.current_infection_rate = 20
+        self.infection_rate = 20
+        self.current_infection_rate = self.infection_rate
         self.attached_antibodies = 0
 
     def step(self):

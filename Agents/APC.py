@@ -8,15 +8,15 @@ import random
 
 
 class APC(Cell):
-    def __init__(self, unique_id, model, proliferation_rate):
-        super().__init__(unique_id, model, proliferation_rate)
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
         self.MHC_grow_rate = 5
         self.num_MHC = 0
         self.antigen_attached = ''
         self.phagocytosis_rate = 50
         self.antibodies_threshold = 5
-        self.proliferation_rate = 4
-        self.health = 100
+        self.proliferation_rate = self.model.Proliferation_rate["APC"]
+        self.health = self.model.Health["APC"]
 
     def step(self):
         self.move()
@@ -36,7 +36,7 @@ class APC(Cell):
             self.death()
 
     def proliferation(self):
-        n = APC(self.model.ID, self.model, self.proliferation_rate)
+        n = APC(self.model.ID, self.model)
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
@@ -88,3 +88,9 @@ class APC(Cell):
             self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
             self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
             self.tiredness += 1
+
+    def calculate_dmg(self):
+        dmg = int(self.tiredness/8)
+        self.health -= dmg
+        if self.health < 0:
+            self.health = 0

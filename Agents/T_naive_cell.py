@@ -5,10 +5,11 @@ import random
 
 
 class T_naive_cell(Cell):
-    def __init__(self, unique_id, model, proliferation_rate):
-        super().__init__(unique_id, model, proliferation_rate)
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
         self.antigen_presented = ''
-        self.health = 10
+        self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
+        self.health = self.model.Health["T-cell"]
         self.activated = False
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
 
@@ -31,8 +32,7 @@ class T_naive_cell(Cell):
             self.proliferation_rate = self.activated_proliferation_rate
 
     def proliferation(self):
-        n = T_naive_cell(self.model.ID, self.model,
-                         self.proliferation_rate)
+        n = T_naive_cell(self.model.ID, self.model)
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
@@ -45,11 +45,9 @@ class T_naive_cell(Cell):
         TNF = self.model.TNF_matrix[self.pos[0], self.pos[1]]
 
         if IL6 + TGF > IL21 + TNF:
-            n = Treg17(self.model.ID, self.model,
-                       self.proliferation_rate)
+            n = Treg17(self.model.ID, self.model)
         else:
-            n = Tpato17(self.model.ID, self.model,
-                        self.proliferation_rate)
+            n = Tpato17(self.model.ID, self.model)
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1

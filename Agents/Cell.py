@@ -4,14 +4,14 @@ from Agents.Agent import Agent
 
 class Cell(Agent):
 
-    def __init__(self, unique_id, model, proliferation_rate):
+    def __init__(self, unique_id, model):
         # Pass the parameters to the parent class.
         super().__init__(unique_id, model)
 
         # Create the agent's attribute and set the initial values.
         self.health = 50
         self.tiredness = 0
-        self.proliferation_rate = proliferation_rate
+        self.proliferation_rate = 0
         self.penetration_chance = 25
 
     def step(self):

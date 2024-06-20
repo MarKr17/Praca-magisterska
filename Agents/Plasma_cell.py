@@ -3,11 +3,12 @@ import random
 
 
 class Plasma_cell(Cell):
-    def __init__(self, unique_id, model, proliferation_rate):
-        super().__init__(unique_id, model, proliferation_rate)
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
         self.antigen_presented = ''
-        self.health = 10
         self.antibody_production_rate = 50
+        self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
+        self.health = self.model.Health["B-cell"]
 
     def step(self):
         self.move()
@@ -21,7 +22,7 @@ class Plasma_cell(Cell):
             self.death()
 
     def proliferation(self):
-        n = Plasma_cell(self.model.ID, self.model, self.proliferation_rate)
+        n = Plasma_cell(self.model.ID, self.model)
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1

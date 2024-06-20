@@ -4,14 +4,16 @@ import random
 
 
 class B_cell(Cell):
-    def __init__(self, unique_id, model, proliferation_rate):
-        super().__init__(unique_id, model, proliferation_rate)
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
         self.infection_state = ""
         self.activated = False
         self.proteins = []
         self.antigen_presented = ''
         self.cytokine_activation_threshold = 5
         self.lytic_threshold = 5
+        self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
+        self.health = self.model.Health["B-cell"]
 
     def step(self):
         self.move()
@@ -40,14 +42,14 @@ class B_cell(Cell):
             if a == 1:
                 neighborhood.remove(n)
         for n in neighborhood:
-            v = Virus(self.model.ID, self.model, self.model.proliferation_rate)
+            v = Virus(self.model.ID, self.model)
             self.model.ID += 1
             self.model.new_agents.append(v)
             self.tiredness += 1
         self.tiredness += 1
 
     def proliferation(self):
-        n = B_cell(self.model.ID, self.model, self.proliferation_rate)
+        n = B_cell(self.model.ID, self.model)
         n.infectrion_state = self.infection_state
         n.antigen_presented = self.antigen_presented
         self.model.ID += 1
@@ -55,7 +57,7 @@ class B_cell(Cell):
         self.tiredness += 2
 
     def differentiation(self):
-        n = Plasma_cell(self.model.ID, self.model, self.proliferation_rate)
+        n = Plasma_cell(self.model.ID, self.model)
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
