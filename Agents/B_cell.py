@@ -17,11 +17,12 @@ class B_cell(Cell):
         self.move()
         self.activation()
         self.infection_switch()
-        if self.infection_state == "lytic":
-            self.viral_replication()
-            self.health = 0
-        else:
-            if self.activated is True:
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            if self.infection_state == "lytic":
+                self.viral_replication()
+                self.health = 0
+            elif self.activated is True:
                 self.differentiation()
             else:
                 self.proliferation()
@@ -46,22 +47,18 @@ class B_cell(Cell):
         self.tiredness += 1
 
     def proliferation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = B_cell(self.model.ID, self.model, self.proliferation_rate)
-            n.infectrion_state = self.infection_state
-            n.antigen_presented = self.antigen_presented
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 2
+        n = B_cell(self.model.ID, self.model, self.proliferation_rate)
+        n.infectrion_state = self.infection_state
+        n.antigen_presented = self.antigen_presented
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 2
 
     def differentiation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = Plasma_cell(self.model.ID, self.model, self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 1
+        n = Plasma_cell(self.model.ID, self.model, self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 1
 
     def activation(self):
         if self.infection_state != "lytic":
