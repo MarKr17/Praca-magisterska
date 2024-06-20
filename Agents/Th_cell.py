@@ -15,8 +15,13 @@ class Th_cell(Cell):
         self.move()
         self.activation()
         self.cytokine_release()
-        self.proliferation()
-        self.differentiation()
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            IL2 = self.model.IL_2_matrix[self.pos[0], self.pos[1]]
+            if IL2 > 0:
+                self.differentiation()
+            else:
+                self.proliferation()
         self.calculate_dmg()
         if self.health <= 0:
             self.death()
@@ -27,13 +32,11 @@ class Th_cell(Cell):
             self.proliferation_rate = self.activated_proliferation_rate
 
     def proliferation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = Th_cell(self.model.ID, self.model,
-                        self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 2
+        n = Th_cell(self.model.ID, self.model,
+                    self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 1
 
     def cytokine_release(self):
         if self.activated:
@@ -41,11 +44,8 @@ class Th_cell(Cell):
             self.tiredness += 1
 
     def differentiation(self):
-        r = random.randint(0, 99)
-        IL2 = self.model.IL_2_matrix[self.pos[0], self.pos[1]]
-        if r < self.proliferation_rate and IL2 > 0:
-            n = Th0(self.model.ID, self.model,
-                    self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 1
+        n = Th0(self.model.ID, self.model,
+                self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 1

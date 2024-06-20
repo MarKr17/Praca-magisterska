@@ -35,7 +35,7 @@ class T_naive_cell(Cell):
                          self.proliferation_rate)
         self.model.ID += 1
         self.model.new_agents.append(n)
-        self.tiredness += 2
+        self.tiredness += 1
 
     def differentiation(self):
         IL6 = self.model.IL_6_matrix[self.pos[0], self.pos[1]]
