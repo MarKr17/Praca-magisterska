@@ -15,29 +15,31 @@ class APC(Cell):
         self.antigen_attached = ''
         self.phagocytosis_rate = 50
         self.antibodies_threshold = 5
+        self.proliferation_rate = 4
+        self.health = 100
 
     def step(self):
         self.move()
-        self.proliferation()
         r = random.randint(0, 99)
-        if r < self.phagocytosis_rate:
+        if r < self.proliferation_rate:
+            self.proliferation()
+        elif r < self.phagocytosis_rate:
             self.phagocytosis()
-        if self.antigen_attached == '':
-            self.antigen_attachment()
         else:
             self.antigen_presentation()
+        if self.antigen_attached == '':
+            self.antigen_attachment()
+
         self.cytokine_release()
         self.calculate_dmg()
         if self.health <= 0:
             self.death()
 
     def proliferation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = APC(self.model.ID, self.model, self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 1
+        n = APC(self.model.ID, self.model, self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 1
 
     def antigen_attachment(self):
         MBP = self.model.MBP_matrix[self.pos[0], self.pos[1]]
