@@ -7,6 +7,7 @@ class Th1(Cell):
         super().__init__(unique_id, model)
         self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
         self.health = self.model.Health["T-cell"]
+        self.dmg_factor = self.model.Dmg_factor["T-cell"]
 
     def step(self):
         self.move()

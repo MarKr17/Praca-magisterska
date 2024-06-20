@@ -10,6 +10,7 @@ class Th_cell(Cell):
         self.activated = False
         self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
         self.health = self.model.Health["T-cell"]
+        self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
 
     def step(self):

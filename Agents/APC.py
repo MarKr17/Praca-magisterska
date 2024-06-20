@@ -17,6 +17,7 @@ class APC(Cell):
         self.antibodies_threshold = 5
         self.proliferation_rate = self.model.Proliferation_rate["APC"]
         self.health = self.model.Health["APC"]
+        self.dmg_factor = self.model.Dmg_factor["APC"]
 
     def step(self):
         self.move()
@@ -88,9 +89,3 @@ class APC(Cell):
             self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
             self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
             self.tiredness += 1
-
-    def calculate_dmg(self):
-        dmg = int(self.tiredness/8)
-        self.health -= dmg
-        if self.health < 0:
-            self.health = 0

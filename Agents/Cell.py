@@ -13,6 +13,7 @@ class Cell(Agent):
         self.tiredness = 0
         self.proliferation_rate = 0
         self.penetration_chance = 25
+        self.dmg_factor = 1
 
     def step(self):
         self.move()
@@ -21,7 +22,7 @@ class Cell(Agent):
         self.model.kill_agents.append(self)
 
     def calculate_dmg(self):
-        dmg = int(self.tiredness)
+        dmg = int(self.tiredness/self.dmg_factor)
         self.health -= dmg
         if self.health < 0:
             self.health = 0

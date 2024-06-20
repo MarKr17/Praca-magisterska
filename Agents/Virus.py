@@ -7,11 +7,12 @@ import random
 class Virus(Cell):
     def __init__(self, unique_id: int, model: Model):
         super().__init__(unique_id, model)
-        self.health = 50
-        self.placement = 0
-        self.infection_rate = 20
+        self.health = self.model.Health["Virus"]
+        self.infection_rate = self.model.Proliferation_rate["Virus"]
+        self.dmg_factor = self.model.Dmg_factor["Virus"]
         self.current_infection_rate = self.infection_rate
         self.attached_antibodies = 0
+        self.placement = 0
 
     def step(self):
         self.move()

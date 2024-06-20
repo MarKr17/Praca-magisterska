@@ -10,6 +10,7 @@ class Th0(Cell):
         self.antigen_presented = ''
         self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
         self.health = self.model.Health["T-cell"]
+        self.dmg_factor = self.model.Dmg_factor["T-cell"]
 
     def step(self):
         self.move()

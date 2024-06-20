@@ -14,6 +14,7 @@ class B_cell(Cell):
         self.lytic_threshold = 5
         self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
         self.health = self.model.Health["B-cell"]
+        self.dmg_factor = self.model.Dmg_factor["B-cell"]
 
     def step(self):
         self.move()

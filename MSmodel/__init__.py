@@ -31,22 +31,28 @@ class MSModel(mesa.Model):
                                  computeB_cells_activated,
                                  computeB_cells_latent,
                                  computeB_cells_lytic)
-        self.num_t = 20  # number of T-cells
-        self.num_th = 20  # number of Th-cells
-        self.num_b = 20  # number of B-cells
-        self.num_APC = 20  # number of APCs
+
         self.Cell_numbers = {"T-cell": 20,
                              "Th-cell": 20,
                              "B-cell": 20,
-                             "APC": 20}
+                             "APC": 20,
+                             "Virus": 50}
         self.Proliferation_rate = {"T-cell": 2,
                                    "Th-cell": 2,
                                    "B-cell": 2,
-                                   "APC": 2}
+                                   "APC": 2,
+                                   "Virus": 2}
         self.Health = {"T-cell": 50,
                        "Th-cell": 50,
                        "B-cell": 50,
-                       "APC": 50}
+                       "APC": 50,
+                       "Virus": 50}
+
+        self.Dmg_factor = {"T-cell": 1,
+                           "Th-cell": 1,
+                           "B-cell": 1,
+                           "APC": 1,
+                           "Virus": 1}
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],

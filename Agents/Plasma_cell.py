@@ -9,6 +9,7 @@ class Plasma_cell(Cell):
         self.antibody_production_rate = 50
         self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
         self.health = self.model.Health["B-cell"]
+        self.dmg_factor = self.model.Dmg_factor["B-cell"]
 
     def step(self):
         self.move()
