@@ -13,20 +13,24 @@ class Th0(Cell):
     def step(self):
         self.move()
         self.cytokine_release()
-        self.proliferation()
-        self.differentiation()
+        r = random.randint(0, 99)
+        if r < self.proliferation_rate:
+            IL4 = self.model.IL_4_matrix[self.pos[0], self.pos[1]]
+            IFN = self.model.IFN_matrix[self.pos[0], self.pos[1]]
+            if IL4 + IFN > 0:
+                self.differentiation(IL4, IFN)
+            else:
+                self.proliferation()
         self.calculate_dmg()
         if self.health <= 0:
             self.death()
 
     def proliferation(self):
-        r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            n = Th0(self.model.ID, self.model,
-                    self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 2
+        n = Th0(self.model.ID, self.model,
+                self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 2
 
     def cytokine_release(self):
         self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 1
@@ -34,17 +38,13 @@ class Th0(Cell):
         self.model.IFN_matrix[self.pos[0], self.pos[1]] += 1
         self.tiredness += 1
 
-    def differentiation(self):
-        r = random.randint(0, 99)
-        IL4 = self.model.IL_4_matrix[self.pos[0], self.pos[1]]
-        IFN = self.model.IFN_matrix[self.pos[0], self.pos[1]]
-        if r < self.proliferation_rate:
-            if IL4 > IFN:
-                n = Th2(self.model.ID, self.model,
-                        self.proliferation_rate)
-            else:
-                n = Th1(self.model.ID, self.model,
-                        self.proliferation_rate)
-            self.model.ID += 1
-            self.model.new_agents.append(n)
-            self.tiredness += 1
+    def differentiation(self, IL4, IFN):
+        if IL4 > IFN:
+            n = Th2(self.model.ID, self.model,
+                    self.proliferation_rate)
+        else:
+            n = Th1(self.model.ID, self.model,
+                    self.proliferation_rate)
+        self.model.ID += 1
+        self.model.new_agents.append(n)
+        self.tiredness += 1
