@@ -22,7 +22,7 @@ class Th1(Cell):
                     self.proliferation_rate)
             self.model.ID += 1
             self.model.new_agents.append(n)
-            self.tiredness += 2
+            self.tiredness += 1
 
     def cytokine_release(self):
         self.model.IFN_matrix[self.pos[0], self.pos[1]] += 1
