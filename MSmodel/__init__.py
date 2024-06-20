@@ -11,7 +11,7 @@ class MSModel(mesa.Model):
                                   possible_positions, update_cytokin_matrix,
                                   barrier_cytokin_effect)
 
-    def __init__(self):
+    def __init__(self, Cell_numbers, Proliferation_rate, Health, Dmg_factor):
         from ._computing import (compute_B_cells, compute_Myelin,
                                  compute_Neurons, compute_T_naive_cells,
                                  compute_Virus, computePlasma_cells,
@@ -31,28 +31,10 @@ class MSModel(mesa.Model):
                                  computeB_cells_activated,
                                  computeB_cells_latent,
                                  computeB_cells_lytic)
-
-        self.Cell_numbers = {"T-cell": 20,
-                             "Th-cell": 20,
-                             "B-cell": 20,
-                             "APC": 20,
-                             "Virus": 50}
-        self.Proliferation_rate = {"T-cell": 2,
-                                   "Th-cell": 2,
-                                   "B-cell": 2,
-                                   "APC": 2,
-                                   "Virus": 2}
-        self.Health = {"T-cell": 50,
-                       "Th-cell": 50,
-                       "B-cell": 50,
-                       "APC": 50,
-                       "Virus": 50}
-
-        self.Dmg_factor = {"T-cell": 1,
-                           "Th-cell": 1,
-                           "B-cell": 1,
-                           "APC": 1,
-                           "Virus": 1}
+        self.Cell_numbers = Cell_numbers
+        self.Proliferation_rate = Proliferation_rate
+        self.Health = Health
+        self.Dmg_factor = Dmg_factor
         self.size = 30
         self.neuron_number = 9
         self.neuron_positions = [[12, 12], [15, 12], [18, 12],
