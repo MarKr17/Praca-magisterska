@@ -13,11 +13,11 @@ from Visualisation.Constants import (virus_color, B_cells_color,
 
 
 class Plots():
-    def __init__(self, datacollector):
+    def __init__(self, datacollector, folder):
         self.datacollector = datacollector
         self.data = self.datacollector.get_model_vars_dataframe()
         self.Plots = {}
-        self.folder = "test"
+        self.folder = folder
         self.folder_path = os.path.join(os.getcwd(), "test")
         self.Cells_dict = {"B_cells": {"B-cell population": B_cells_color,
                                        "Plasma cell population": Plasma_color},

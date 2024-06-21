@@ -31,7 +31,7 @@ model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
 visualisation = Visualisation(model)
 visualisation.run()
 
-plots = Plots(model.datacollector)
+plots = Plots(model.datacollector, "test")
 # plots.Plot_combined()
 plots.Plot_cells_by_category("T_cells")
 plots.Plot_cells_by_category("B_cells")
