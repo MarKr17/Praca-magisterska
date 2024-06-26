@@ -40,8 +40,9 @@ class Controls():
         self.dropdown = Dropdown(self.screen, x,
                                  int(self.pos[1]+self.height/6),
                                  int(self.width/6), int(self.height/6),
-                                 name='Hipoteza',
+                                 name='Hipothesis',
                                  choices=[
+                                        'None',
                                         'Molecullar mimicry',
                                         'Bystander activation',
                                         'Epitope spreading',

@@ -52,6 +52,7 @@ class Visualisation():
         self.clock = pygame.time.Clock()
         self.grid.fill(grid_background)
         self.drawGrid(self.GRID_SIZE)
+        # self.drawCytokine(self.GRID_SIZE)
         self.screen.blit(self.grid, (0, 0))
         self.controls = Controls(self.screen, self.GRID_SIZE,
                                  self.GRID_SIZE/10,
@@ -104,7 +105,6 @@ class Visualisation():
                 self.controls.dropdown.disable()
             elif self.controls.dropdown.getSelected():
                 self.model.hypothesis = self.controls.dropdown.getSelected()
-                print(self.model.hypothesis)
             pygame.display.flip()  # Refresh on-screen display
             self.clock.tick(self.controls.slider.getValue())
             self.screen.fill(GREY)  # Fill the display with a solid color
