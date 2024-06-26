@@ -55,7 +55,7 @@ class MSModel(mesa.Model):
         for i in [6, 24]:
             for j in range(6, 25):
                 self.barrier[i][j] = 100
-        self.hypothesis = "Molecular mimicry"
+        self.hypothesis = ""
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add
         self.ID = 0  # id number that is available at the moment
