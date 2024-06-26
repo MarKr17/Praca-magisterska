@@ -1,6 +1,7 @@
 from Agents.Neuron import Neuron
 from Agents.B_cell import B_cell
 from Agents.T_naive_cell import T_naive_cell
+from Agents.Th_cell import Th_cell
 from Agents.Virus import Virus
 from Agents.APC import APC
 import random
@@ -20,8 +21,19 @@ def createNeurons(self):
 
 def createT_naive_cells(self):
     positions = self.possible_positions()
-    for i in range(self.num_t):
-        a = T_naive_cell(self.ID, self, proliferation_rate=0)
+    for i in range(self.Cell_numbers["T-cell"]):
+        a = T_naive_cell(self.ID, self)
+        # Add the agent to the scheduler
+        self.schedule.add(a)
+        pos = random.choice(positions)
+        self.grid.place_agent(a, pos)
+        self.ID += 1
+
+
+def createThcells(self):
+    positions = self.possible_positions()
+    for i in range(self.Cell_numbers["Th-cell"]):
+        a = Th_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
         pos = random.choice(positions)
@@ -31,8 +43,8 @@ def createT_naive_cells(self):
 
 def createB_cells(self):
     positions = self.possible_positions()
-    for i in range(self.num_b):
-        a = B_cell(self.ID, self, proliferation_rate=0)
+    for i in range(self.Cell_numbers["B-cell"]):
+        a = B_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
         pos = random.choice(positions)
@@ -53,8 +65,8 @@ def createViruses(self, n):
 
 def create_APCs(self):
     positions = self.possible_positions()
-    for i in range(self.num_APC):
-        a = APC(self.ID, self, proliferation_rate=0)
+    for i in range(self.Cell_numbers["APC"]):
+        a = APC(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
         pos = random.choice(positions)

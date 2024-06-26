@@ -1,8 +1,11 @@
 import pygame
-from Visualisation.Constants import (WHITE, BLACK, font_small, font_medium,
+from Visualisation.Constants import (WHITE, BLACK, B_cells_color, Plasma_color,
+                                     Th0_color, Th1_color, Th2_color, Th_color,
+                                     Tpato17_color, Treg17_color, font_small,
+                                     font_medium,
                                      font_title, virus_color, APC_color,
                                      t_naive_cell_color)
-from Visualisation.Gradients import (b_gradient, cytokine_gradient,
+from Visualisation.Gradients import (cytokine_gradient,
                                      neuron_gradient, myelin_gradient)
 pygame.font.init()
 
@@ -18,51 +21,51 @@ def drawLegend(self, LEGEND_SIZE):
     textRect.center = (LEGEND_SIZE[0]/2, 30)
     surf.blit(text, textRect)
     width = closestNumber(int(LEGEND_SIZE[0]*0.75), 10)
+    Cells_dict = {"B_cells": {"B-cell": B_cells_color,
+                              "Plasma cell": Plasma_color},
+                  "T_cells": {"T-cell": t_naive_cell_color,
+                              "Tpato17-cell": Tpato17_color,
+                              "Treg17-cell": Treg17_color},
+                  "Th_cells": {"Th-cell": Th_color,
+                               "Th0-cell": Th0_color,
+                               "Th1-cell": Th1_color,
+                               "Th2-cell": Th2_color},
+                  "Misc_cells": {"APC": APC_color,
+                                 "Virus": virus_color}}
 
-    # Create legend for t_naive cells
-    s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
-    pygame.draw.circle(s, t_naive_cell_color, (10, 10), 10)
-    name = font_medium.render("Naive T-cell", True, BLACK)
-    surf.blit(name, (25, 50))
-    surf.blit(s, (130, 50))
+    # figuring out the x of the two columns
+    xs = [25, int(width/2) + 25]
+    n = False
+    y = 80
+    # drawing cells legend
+    for cells in Cells_dict:
+        for cell in Cells_dict[cells]:
+            s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
+            pygame.draw.circle(s, Cells_dict[cells][cell], (10, 10), 10)
+            name = font_medium.render(cell, True, BLACK)
+            surf.blit(name, (xs[int(n)], y))
+            surf.blit(s, (xs[int(n)] + 100, y))
+            if n:
+                y += 50
+            n = not n
+        y += 60
+        n = False
 
-    # Create stripe for gradient of b-cells
-    stripe = drawStripe(b_gradient, h_max=20, width=width)
-    name = font_medium.render("B-cells", True, BLACK)
-    surf.blit(name, (25, 130))
-    surf.blit(stripe, (25, 150))
+    # drawing gradients
+    x = 25
+    y += 50
+    Gradients_dict = {"Cytokinase": drawStripe(cytokine_gradient,
+                                               h_max=100, width=width),
+                      "Neuron":  drawStripe(neuron_gradient, h_max=10,
+                                            width=width),
+                      "Myelin": drawStripe(myelin_gradient, h_max=10,
+                                           width=width)}
 
-    # Create stripe for cytokine gradient
-    stripe = drawStripe(cytokine_gradient, h_max=100, width=width)
-    name = font_medium.render("Cytokinase", True, BLACK)
-    surf.blit(name, (25, 210))
-    surf.blit(stripe, (25, 230))
-
-    # Crate stripe for myelin gradient
-    stripe = drawStripe(neuron_gradient, h_max=10, width=width)
-    name = font_medium.render("Neuron", True, BLACK)
-    surf.blit(name, (25, 290))
-    surf.blit(stripe, (25, 310))
-
-    # Crate stripe for neuron gradient
-    stripe = drawStripe(myelin_gradient, h_max=10, width=width)
-    name = font_medium.render("Myelin", True, BLACK)
-    surf.blit(name, (25, 370))
-    surf.blit(stripe, (25, 390))
-
-    # Create legend for Virus
-    s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
-    pygame.draw.circle(s, virus_color, (10, 10), 10)
-    name = font_medium.render("Virus", True, BLACK)
-    surf.blit(name, (25, 450))
-    surf.blit(s, (80, 450))
-
-    # Create legend for APC
-    s = pygame.Surface((20, 20), pygame.SRCALPHA, 32)
-    pygame.draw.circle(s, APC_color, (10, 10), 10)
-    name = font_medium.render("APC", True, BLACK)
-    surf.blit(name, (25, 500))
-    surf.blit(s, (80, 500))
+    for g in Gradients_dict:
+        name = font_medium.render(g, True, BLACK)
+        surf.blit(name, (x, y))
+        surf.blit(Gradients_dict[g], (x, y+20))
+        y += 80
 
     self.screen.blit(surf, pos)
 
