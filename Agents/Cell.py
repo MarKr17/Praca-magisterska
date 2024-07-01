@@ -41,12 +41,18 @@ class Cell(Agent):
         x = new_position[0]
         y = new_position[1]
         if self.model.areas[x][y] == 1:
+            chance = self.penetration_chance + 100 - self.model.barrier[x][y]
+            chance = int(chance/100)
             r = random.randint(0, 100)
-            if r < self.penetration_chance:
+            if r < chance:
                 for i in [-2, -1, 1, 2]:
                     for j in [-2, -1, 1, 2]:
                         if self.model.areas[x+i][y+j] == self.o_side:
                             new_position = (x+i, y+j)
+                            if self.o_side == 1:
+                                self.o_side = 2
+                            else:
+                                self.o_side = 1
                             break
             else:
                 new_position = self.pos
