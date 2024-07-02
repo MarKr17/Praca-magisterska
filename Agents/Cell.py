@@ -12,7 +12,6 @@ class Cell(Agent):
         self.health = 50
         self.tiredness = 0
         self.proliferation_rate = 0
-        self.penetration_chance = 25
         self.dmg_factor = 1
 
     def step(self):
@@ -28,6 +27,24 @@ class Cell(Agent):
             self.health = 0
 
     def move(self):
+        positions = self.possible_positions()
+        new_position = self.random.choice(positions)
+        x = new_position[0]
+        y = new_position[1]
+        if self.model.areas[x][y] == 1:
+            chance = 100 - self.model.barrier[x][y]
+            r = random.randint(0, 100)
+            if r < chance:
+                for i in [-2, -1, 1, 2]:
+                    for j in [-2, -1, 1, 2]:
+                        if self.model.areas[x+i][y+j] == self.o_side:
+                            new_position = (x+i, y+j)
+            else:
+                new_position = self.pos
+        self.model.grid.move_agent(self, new_position)
+        self.calculate_side()
+
+    def possible_positions(self):
         positions = self.model.grid.get_neighborhood(
             self.pos,
             moore=True,
@@ -37,18 +54,16 @@ class Cell(Agent):
             if self.area != 2:
                 if self.model.areas[pos[0]][pos[1]] == 2:
                     positions.remove(pos)
-        new_position = self.random.choice(positions)
-        x = new_position[0]
-        y = new_position[1]
-        if self.model.areas[x][y] == 1:
-            r = random.randint(0, 100)
-            if r < self.penetration_chance:
-                for i in [-2, -1, 1, 2]:
-                    for j in [-2, -1, 1, 2]:
-                        if self.model.areas[x+i][y+j] == self.o_side:
-                            new_position = (x+i, y+j)
-                            break
-            else:
-                new_position = self.pos
-        self.area = self.model.areas[new_position[0]][new_position[1]]
-        self.model.grid.move_agent(self, new_position)
+            if self.area != 0:
+                if self.model.areas[pos[0]][pos[1]] == 0:
+                    positions.remove(pos)
+        return positions
+
+    def child_pos(self):
+        positions = self.possible_positions()
+        positions_copy = positions.copy()
+        for pos in positions_copy:
+            if self.model.areas[pos[0]][pos[1]] == 1:
+                positions.remove(pos)
+        pos = self.random.choice(positions)
+        return pos

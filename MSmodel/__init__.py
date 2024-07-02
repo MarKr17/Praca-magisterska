@@ -41,20 +41,21 @@ class MSModel(mesa.Model):
                                  [12, 15], [15, 15], [18, 15],
                                  [12, 18], [15, 18], [18, 18]]
         self.areas = np.zeros((self.size, self.size), dtype=int)
+        self.barrier = np.zeros((self.size, self.size), dtype=float)
         for i in range(6, 25):
             self.areas[i][6] = 1
+            self.barrier[i][6] = 100
+
             self.areas[i][24] = 1
+            self.barrier[i][24] = 100
             if i in [6, 24]:
                 for j in range(6, 25):
                     self.areas[i][j] = 1
+                    self.barrier[i][j] = 100
         for i in range(7, 24):
             for j in range(7, 24):
                 self.areas[i][j] = 2
 
-        self.barrier = np.zeros((self.size, self.size), dtype=float)
-        for i in [6, 24]:
-            for j in range(6, 25):
-                self.barrier[i][j] = 100
         self.hypothesis = ""
         self.kill_agents = []  # list of agents that died
         self.new_agents = []  # list of new agents to add

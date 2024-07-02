@@ -1,6 +1,3 @@
-import random
-
-
 def step(self):
     """Advance the model by one step."""
     self.kill_agents = []
@@ -28,9 +25,7 @@ def killing_agents(self):
 def adding_agents(self):
     for n in self.new_agents:
         self.schedule.add(n)
-        positions = self.possible_positions()
-        pos = random.choice(positions)
-        self.grid.place_agent(n, pos)
+        self.grid.place_agent(n, n.pos)
 
 
 def start_infection(self):

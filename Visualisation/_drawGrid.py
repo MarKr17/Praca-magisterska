@@ -40,6 +40,8 @@ def drawBarrier(self, GRID_SIZE):
             if self.model.areas[x][y] == 1:
                 s = pygame.Surface((a, a), pygame.SRCALPHA)   # per-pixel alpha
                 s.fill(barrier_color)
+                b = self.model.barrier[x][y]
+                s.set_alpha(int(b*2.55))
                 rect = s.get_rect()
                 pygame.draw.rect(s, GREY, rect, grid_border)
                 self.grid.blit(s, (X, Y))

@@ -22,6 +22,8 @@ class Th1(Cell):
         if r < self.proliferation_rate:
             n = Th1(self.model.ID, self.model)
             self.model.ID += 1
+            n.pos = self.child_pos()
+            n.calculate_side()
             self.model.new_agents.append(n)
             self.tiredness += 1
 
