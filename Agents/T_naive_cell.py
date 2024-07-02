@@ -13,6 +13,7 @@ class T_naive_cell(Cell):
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.activated = False
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
+        self.reactive_to = ""
 
     def step(self):
         self.move()
