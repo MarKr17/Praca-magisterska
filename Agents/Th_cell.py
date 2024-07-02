@@ -12,7 +12,7 @@ class Th_cell(Cell):
         self.health = self.model.Health["T-cell"]
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
-        self.reactive_to = ""
+        self.reactive_to = "EBNA1"
 
     def step(self):
         self.move()
@@ -33,6 +33,10 @@ class Th_cell(Cell):
         if self.antigen_presented in self.reactive_to:
             self.activated = True
             self.proliferation_rate = self.activated_proliferation_rate
+        elif (self.model.hypothesis == "Bystander activation" and
+              self.reactive_to == "MBP"):
+            if self.model.cytokin_matrix[self.pos] >= self.cytokine_threshold:
+                self.activated = True
 
     def proliferation(self):
         n = Th_cell(self.model.ID, self.model)

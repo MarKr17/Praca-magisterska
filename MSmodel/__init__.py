@@ -7,7 +7,8 @@ class MSModel(mesa.Model):
                                    createT_naive_cells, createViruses,
                                    create_APCs, createThcells)
     from ._step import (step, killing_agents, adding_agents, start_infection,
-                        hypothesis_switch, molecullar_mimicry)
+                        hypothesis_switch, molecullar_mimicry,
+                        bystander_activation)
     from ._grid_functions import (cytokin_diffusion, dissolve_cytokine,
                                   possible_positions, update_cytokin_matrix,
                                   barrier_cytokin_effect)
