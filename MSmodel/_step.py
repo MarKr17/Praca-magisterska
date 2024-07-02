@@ -52,5 +52,19 @@ def molecullar_mimicry(self):
             agent.reactive_to = ["EBNA1", "MBP"]
 
 
-# def bystander_activation(self):
+def bystander_activation(self):
+    # number of auto-reactive t-cells
+    nt = int(self.Cell_numbers["T-cell"]*0.2)
+    # number of auto-reactive th-cells 
+    nth = int(self.Cell_numbers["Th-cell"]*0.2)
+    for agent in self.schedule.agents:
+        name = type(agent).__name__
+        name = str(name)
+        if name == 'T_naive cell' and nt > 0:
+            agent.reactive_to = "MBP"
+            nt -= 1
+        elif name == 'Th_cell' and nth > 0:
+            agent.reactive_to = "MBP"
+            nth -= 1
+
 # def epitope_spreading(self):

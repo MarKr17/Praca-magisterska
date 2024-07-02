@@ -8,7 +8,7 @@ class Treg17(Cell):
         self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
         self.health = self.model.Health["T-cell"]
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
-        self.reactive_to = ""
+        self.reactive_to = "EBNA1"
 
     def step(self):
         self.move()

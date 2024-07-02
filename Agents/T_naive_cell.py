@@ -13,7 +13,8 @@ class T_naive_cell(Cell):
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.activated = False
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
-        self.reactive_to = ""
+        self.reactive_to = "EBNA1"
+        self.cytokine_threshold = 10
 
     def step(self):
         self.move()
@@ -32,6 +33,10 @@ class T_naive_cell(Cell):
         if self.antigen_presented in self.reactive_to:
             self.activated = True
             self.proliferation_rate = self.activated_proliferation_rate
+        elif (self.model.hypothesis == "Bystander activation" and
+              self.reactive_to == "MBP"):
+            if self.model.cytokin_matrix[self.pos] >= self.cytokine_threshold:
+                self.activated = True
 
     def proliferation(self):
         n = T_naive_cell(self.model.ID, self.model)
@@ -47,9 +52,8 @@ class T_naive_cell(Cell):
         TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
 
         IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
-        TNF = self.model.TNF_matrix[self.pos[0], self.pos[1]]
 
-        if IL6 + TGF > IL21 + TNF:
+        if IL6 + TGF > IL21:
             n = Treg17(self.model.ID, self.model)
         else:
             n = Tpato17(self.model.ID, self.model)
