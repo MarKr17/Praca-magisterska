@@ -34,6 +34,8 @@ class T_naive_cell(Cell):
 
     def proliferation(self):
         n = T_naive_cell(self.model.ID, self.model)
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
@@ -49,6 +51,8 @@ class T_naive_cell(Cell):
             n = Treg17(self.model.ID, self.model)
         else:
             n = Tpato17(self.model.ID, self.model)
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1

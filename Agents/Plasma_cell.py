@@ -24,6 +24,8 @@ class Plasma_cell(Cell):
 
     def proliferation(self):
         n = Plasma_cell(self.model.ID, self.model)
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1

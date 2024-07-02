@@ -25,8 +25,9 @@ def createT_naive_cells(self):
         a = T_naive_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
-        pos = random.choice(positions)
-        self.grid.place_agent(a, pos)
+        a.pos = random.choice(positions)
+        self.grid.place_agent(a, a.pos)
+        a.calculate_side()
         self.ID += 1
 
 
@@ -36,8 +37,9 @@ def createThcells(self):
         a = Th_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
-        pos = random.choice(positions)
-        self.grid.place_agent(a, pos)
+        a.pos = random.choice(positions)
+        self.grid.place_agent(a, a.pos)
+        a.calculate_side()
         self.ID += 1
 
 
@@ -47,8 +49,9 @@ def createB_cells(self):
         a = B_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
-        pos = random.choice(positions)
-        self.grid.place_agent(a, pos)
+        a.pos = random.choice(positions)
+        self.grid.place_agent(a, a.pos)
+        a.calculate_side()
         self.ID += 1
 
 
@@ -58,8 +61,9 @@ def createViruses(self, n):
         a = Virus(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
-        pos = random.choice(positions)
-        self.grid.place_agent(a, pos)
+        a.pos = random.choice(positions)
+        self.grid.place_agent(a, a.pos)
+        a.calculate_side()
         self.ID += 1
 
 
@@ -69,6 +73,7 @@ def create_APCs(self):
         a = APC(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
-        pos = random.choice(positions)
-        self.grid.place_agent(a, pos)
+        a.pos = random.choice(positions)
+        self.grid.place_agent(a, a.pos)
+        a.calculate_side()
         self.ID += 1

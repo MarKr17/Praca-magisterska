@@ -44,6 +44,7 @@ class B_cell(Cell):
                 neighborhood.remove(n)
         for n in neighborhood:
             v = Virus(self.model.ID, self.model)
+            v.pos = n
             self.model.ID += 1
             self.model.new_agents.append(v)
             self.tiredness += 1
@@ -53,12 +54,16 @@ class B_cell(Cell):
         n = B_cell(self.model.ID, self.model)
         n.infectrion_state = self.infection_state
         n.antigen_presented = self.antigen_presented
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 2
 
     def differentiation(self):
         n = Plasma_cell(self.model.ID, self.model)
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1

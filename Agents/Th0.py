@@ -29,6 +29,8 @@ class Th0(Cell):
 
     def proliferation(self):
         n = Th0(self.model.ID, self.model)
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
@@ -44,6 +46,8 @@ class Th0(Cell):
             n = Th2(self.model.ID, self.model)
         else:
             n = Th1(self.model.ID, self.model)
+        n.pos = self.child_pos()
+        n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
