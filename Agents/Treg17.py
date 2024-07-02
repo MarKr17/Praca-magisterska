@@ -25,6 +25,7 @@ class Treg17(Cell):
             self.model.ID += 1
             n.pos = self.child_pos()
             n.calculate_side()
+            n.reactive_to = self.reactive_to
             self.model.new_agents.append(n)
             self.tiredness += 1
 

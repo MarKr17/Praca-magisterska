@@ -30,7 +30,7 @@ class Th_cell(Cell):
             self.death()
 
     def activation(self):
-        if self.antigen_presented != '':
+        if self.antigen_presented in self.reactive_to:
             self.activated = True
             self.proliferation_rate = self.activated_proliferation_rate
 
@@ -38,6 +38,7 @@ class Th_cell(Cell):
         n = Th_cell(self.model.ID, self.model)
         n.pos = self.child_pos()
         n.calculate_side()
+        n.reactive_to = self.reactive_to
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
@@ -51,6 +52,7 @@ class Th_cell(Cell):
         n = Th0(self.model.ID, self.model)
         n.pos = self.child_pos()
         n.calculate_side()
+        n.reactive_to = self.reactive_to
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
