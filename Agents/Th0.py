@@ -11,6 +11,7 @@ class Th0(Cell):
         self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
         self.health = self.model.Health["T-cell"]
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
+        self.reactive_to = ""
 
     def step(self):
         self.move()
@@ -31,6 +32,7 @@ class Th0(Cell):
         n = Th0(self.model.ID, self.model)
         n.pos = self.child_pos()
         n.calculate_side()
+        n.reactive_to = self.reactive_to
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
@@ -48,6 +50,7 @@ class Th0(Cell):
             n = Th1(self.model.ID, self.model)
         n.pos = self.child_pos()
         n.calculate_side()
+        n.reactive_to = self.reactive_to
         self.model.ID += 1
         self.model.new_agents.append(n)
         self.tiredness += 1
