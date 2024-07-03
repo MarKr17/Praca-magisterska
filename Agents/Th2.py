@@ -9,7 +9,6 @@ class Th2(Cell):
         self.health = self.model.Health["T-cell"]
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.reactive_to = "EBNA1"
-        self.MBP_exposure = 0
 
     def step(self):
         self.move()
