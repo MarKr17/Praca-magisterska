@@ -15,6 +15,7 @@ class T_naive_cell(Cell):
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
         self.reactive_to = "EBNA1"
         self.cytokine_threshold = 10
+        self.MBP_exposure = 0
 
     def step(self):
         self.move()
