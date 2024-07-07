@@ -62,10 +62,14 @@ class APC(Cell):
             if not isinstance(n, (B_cell, Plasma_cell, Th_cell)):
                 neighbors.remove(n)
         if len(neighbors) > 0:
-            b = random.choice(neighbors)
-            b.antigen_presented = self.antigen_attached
+            agent = random.choice(neighbors)
+            agent.antigen_presented = self.antigen_attached
             self.antigen_attached = ''
             self.tiredness += 1
+            name = type(agent).__name__
+            name = str(name)
+            if name in ['T-cell', 'Th-cell']:
+                self.epitope_spreading(agent)
 
     def phagocytosis(self):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
@@ -91,3 +95,7 @@ class APC(Cell):
             self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
             self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
             self.tiredness += 1
+
+    def epitope_spreading(self, agent):
+        if agent.antigen_presented == 'MBP':
+            agent.MBP_exposure += 1

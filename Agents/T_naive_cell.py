@@ -15,6 +15,7 @@ class T_naive_cell(Cell):
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
         self.reactive_to = "EBNA1"
         self.cytokine_threshold = 10
+        self.MBP_exposure = 0
 
     def step(self):
         self.move()
@@ -36,6 +37,11 @@ class T_naive_cell(Cell):
         elif (self.model.hypothesis == "Bystander activation" and
               self.reactive_to == "MBP"):
             if self.model.cytokin_matrix[self.pos] >= self.cytokine_threshold:
+                self.activated = True
+        elif (self.model.hypothesis == "Epitope spreading" and
+              self.antigen_presented == 'MBP'):
+            r = random.randint(0, 99)
+            if r < self.MBP_exposure:
                 self.activated = True
 
     def proliferation(self):
