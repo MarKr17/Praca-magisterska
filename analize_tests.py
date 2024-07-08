@@ -53,7 +53,8 @@ dmg_avg = avg_cells_df(dmg_list)
 
 folder_name = os.path.join(test_path, "test_results")
 
-proliferation_avg.to_csv(os.path.join(folder_name, "Average_proliferation.csv"),
+proliferation_avg.to_csv(os.path.join(folder_name,
+                         "Average_proliferation.csv"),
                          index=False)
 health_avg.to_csv(os.path.join(folder_name, "Average_health.csv"), index=False)
 dmg_avg.to_csv(os.path.join(folder_name, "Average_dmg.csv"), index=False)
