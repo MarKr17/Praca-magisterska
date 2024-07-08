@@ -30,7 +30,7 @@ Dmg_factor = {"T-cell": 1,
 model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
 visualisation = Visualisation(model)
 visualisation.run()
-'''
+
 plots = Plots(model.datacollector, "test")
 # plots.Plot_combined()
 plots.Plot_cells_by_category("T_cells")
@@ -42,4 +42,3 @@ plots.Plot_protein_levels()
 plots.Plot_multiple(["B cells latent", "B cells lytic", "B cells activated",
                      "B cells antigen presented", "APC antigen attached"])
 plots.Plot_demyelination()
-'''
