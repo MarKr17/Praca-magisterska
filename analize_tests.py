@@ -34,6 +34,8 @@ def avg_cells_df(df_list):
                 "test": df['test'].iloc[0]}
         dfc = dfc._append(avgs, ignore_index=True)
         dfc["mean"] = dfc.mean(axis=1)
+        dfc["min"] = dfc.min(axis=1)
+        dfc["max"] = dfc.max(axis=1)
     return dfc
 
 
@@ -56,4 +58,23 @@ health_avg.to_csv(os.path.join(folder_name, "Average_health.csv"), index=False)
 dmg_avg.to_csv(os.path.join(folder_name, "Average_dmg.csv"), index=False)
 
 proliferation_chosen = proliferation_avg.loc[math.isclose(
-    proliferation_avg['mean'], 20, rel_tol=5)]
+    proliferation_avg['mean'], 20, rel_tol=5) and
+    proliferation_avg[min] > 10
+    and proliferation_avg[max] < 40]
+
+health_chosen = health_avg.loc[math.isclose(
+    health_avg['mean'], 20, rel_tol=5) and
+    health_avg[min] > 10
+    and health_avg[max] < 40]
+
+dmg_chosen = dmg_avg.loc[math.isclose(
+    dmg_avg['mean'], 20, rel_tol=5) and
+    dmg_avg[min] > 10
+    and dmg_avg[max] < 40]
+
+proliferation_chosen.to_csv(os.path.join(folder_name,
+                                         "proliferation_chosen.csv"))
+health_chosen.to_csv(os.path.join(folder_name, "health_chosen.csv"))
+dmg_chosen.to_csv(os.path.join(folder_name, "dmg_chosen.csv"))
+
+print(proliferation_chosen)

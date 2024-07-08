@@ -115,4 +115,4 @@ def dmg_test(folder_path, steps):
 
 # proliferation_test(folder_path, 100)
 # health_test(folder_path, 100)
-dmg_test(folder_path, 100)
+# dmg_test(folder_path, 100)
