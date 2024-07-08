@@ -1,6 +1,7 @@
-from itertools import combinations_with_replacement
+from itertools import permutations
+from itertools import product
 import os
-from MSmodel import MSModel
+import pandas as pd
 
 Cell_numbers = {"T-cell": 20,
                 "Th-cell": 20,
@@ -31,3 +32,40 @@ dmg = []
 
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
+test_path = os.path.join(folder_path, "general")
+folder_name = os.path.join(test_path, "test_results")
+
+
+def read_chosen(filename):
+    df = pd.read_csv(os.path.join(folder_name, filename))
+    list = df['test'].to_list()
+    return list
+
+
+proliferation = read_chosen("proliferation_chosen.csv")
+health = read_chosen("health_chosen.csv")
+dmg = read_chosen("dmg_chosen.csv")
+
+print(len(proliferation))
+print(len(health))
+print(len(dmg))
+
+max_len = max(len(proliferation), len(health), len(dmg))
+'''
+if len(proliferation) == max_len:
+    proliferation_comb = list(permutations(proliferation, r=max_len))
+    health_comb = list(product(health, repeat=max_len))
+    dmg_comb = list(product(dmg, repeat=max_len))
+elif len(health) == max_len:
+    proliferation_comb = list(product(proliferation, repeat=max_len))
+    health_comb = list(permutations(health, r=max_len))
+    dmg_comb = list(product(dmg, repeat=max_len))
+elif len(dmg) == max_len:
+    proliferation_comb = list(product(proliferation, repeat=max_len))
+    health_comb = list(product(health, repeat=max_len))
+    dmg_comb = list(permutations(dmg, r=max_len))
+
+print(len(proliferation_comb))
+print(len(health_comb))
+print(len(dmg_comb))
+'''

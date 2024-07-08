@@ -1,6 +1,5 @@
 import pandas as pd
 import os
-import math
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
 test_path = os.path.join(folder_path, "general")
@@ -33,9 +32,9 @@ def avg_cells_df(df_list):
                 "Virus": df.loc[:, 'Virus population'].mean(),
                 "test": df['test'].iloc[0]}
         dfc = dfc._append(avgs, ignore_index=True)
-        dfc["mean"] = dfc.mean(axis=1)
-        dfc["min"] = dfc.min(axis=1)
-        dfc["max"] = dfc.max(axis=1)
+        dfc["mean"] = dfc.iloc[:, : 5].mean(axis=1)
+        dfc["min"] = dfc.iloc[:, : 5].min(axis=1)
+        dfc["max"] = dfc.iloc[:, : 5].max(axis=1)
     return dfc
 
 
@@ -59,24 +58,20 @@ proliferation_avg.to_csv(os.path.join(folder_name,
 health_avg.to_csv(os.path.join(folder_name, "Average_health.csv"), index=False)
 dmg_avg.to_csv(os.path.join(folder_name, "Average_dmg.csv"), index=False)
 
-proliferation_chosen = proliferation_avg.loc[math.isclose(
-    proliferation_avg['mean'], 20, rel_tol=5) and
-    proliferation_avg[min] > 10
-    and proliferation_avg[max] < 40]
+proliferation_chosen = proliferation_avg.loc[
+    (proliferation_avg['min'] > 1)
+    & (proliferation_avg['max'] < 35)]
 
-health_chosen = health_avg.loc[math.isclose(
-    health_avg['mean'], 20, rel_tol=5) and
-    health_avg[min] > 10
-    and health_avg[max] < 40]
+health_chosen = health_avg.loc[
+    (health_avg['min'] > 2)
+    & (health_avg['max'] < 30)]
 
-dmg_chosen = dmg_avg.loc[math.isclose(
-    dmg_avg['mean'], 20, rel_tol=5) and
-    dmg_avg[min] > 10
-    and dmg_avg[max] < 40]
+dmg_chosen = dmg_avg.loc[
+    (dmg_avg['min'] > 2)
+    & (dmg_avg['max'] < 40)]
+
 
 proliferation_chosen.to_csv(os.path.join(folder_name,
                                          "proliferation_chosen.csv"))
 health_chosen.to_csv(os.path.join(folder_name, "health_chosen.csv"))
 dmg_chosen.to_csv(os.path.join(folder_name, "dmg_chosen.csv"))
-
-print(proliferation_chosen)
