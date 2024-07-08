@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-
+import math
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
 test_path = os.path.join(folder_path, "general")
@@ -33,20 +33,27 @@ def avg_cells_df(df_list):
                 "Virus": df.loc[:, 'Virus population'].mean(),
                 "test": df['test'].iloc[0]}
         dfc = dfc._append(avgs, ignore_index=True)
+        dfc["mean"] = dfc.mean(axis=1)
     return dfc
 
 
 folder_name = os.path.join(test_path, "proliferation_test")
 proliferation_list = create_df_list(folder_name)
 proliferation_avg = avg_cells_df(proliferation_list)
-proliferation_avg.to_csv(os.path.join(folder_name, "Average.csv"), index=False)
 
 folder_name = os.path.join(test_path, "health_test")
 health_list = create_df_list(folder_name)
 health_avg = avg_cells_df(health_list)
-health_avg.to_csv(os.path.join(folder_name, "Average.csv"), index=False)
 
 folder_name = os.path.join(test_path, "dmg_test")
 dmg_list = create_df_list(folder_name)
 dmg_avg = avg_cells_df(dmg_list)
-dmg_avg.to_csv(os.path.join(folder_name, "Average.csv"), index=False)
+
+folder_name = os.path.join(test_path, "test_results")
+
+proliferation_avg.to_csv(os.path.join(folder_name, "Average_proliferation.csv"), index=False)
+health_avg.to_csv(os.path.join(folder_name, "Average_health.csv"), index=False)
+dmg_avg.to_csv(os.path.join(folder_name, "Average_dmg.csv"), index=False)
+
+proliferation_chosen = proliferation_avg.loc[math.isclose(
+    proliferation_avg['mean'], 20, rel_tol=5)]

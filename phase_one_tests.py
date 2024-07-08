@@ -1,4 +1,4 @@
-from itertools import combinations_with_replacement
+from itertools import product
 import os
 from MSmodel import MSModel
 
@@ -34,9 +34,8 @@ def proliferation_test(folder_path, steps):
     test_path = os.path.join(folder_path, "general")
     proliferation_range = [*range(1, 4, 1)]
 
-    proliferation_comb = list(combinations_with_replacement(
-                              proliferation_range, 5))
-
+    proliferation_comb = list(product(
+                              proliferation_range, repeat=5))
     folder_name = os.path.join(test_path, "proliferation_test")
     if not os.path.exists(folder_name):
         os.makedirs(folder_name)
@@ -44,7 +43,8 @@ def proliferation_test(folder_path, steps):
     count = 1
     for comb in proliferation_comb:
         i = 0
-        print("Conducting test number {}".format(count))
+        print("Conducting test number {} out of {}".format
+              (count, len(proliferation_comb)))
         for key in proliferation_rate:
             proliferation_rate[key] = comb[i]
             i += 1
@@ -61,8 +61,8 @@ def health_test(folder_path, steps):
     health = Health.copy()
     test_path = os.path.join(folder_path, "general")
     health_range = [*range(10, 71, 20)]
-    health_comb = list(combinations_with_replacement(
-                              health_range, 5))
+    health_comb = list(product(
+                              health_range, repeat=5))
 
     folder_name = os.path.join(test_path, "health_test")
     if not os.path.exists(folder_name):
@@ -71,7 +71,8 @@ def health_test(folder_path, steps):
     count = 1
     for comb in health_comb:
         i = 0
-        print("Conducting test number {}".format(count))
+        print("Conducting test number {} out of {}".format(
+            count, len(health_comb)))
         for key in health:
             health[key] = comb[i]
             i += 1
@@ -88,8 +89,8 @@ def dmg_test(folder_path, steps):
     dmg_factor = Dmg_factor.copy()
     test_path = os.path.join(folder_path, "general")
     dmg_range = [*range(1, 4, 1)]
-    dmg_comb = list(combinations_with_replacement(
-                              dmg_range, 5))
+    dmg_comb = list(product(
+                              dmg_range, repeat=5))
 
     folder_name = os.path.join(test_path, "dmg_test")
     if not os.path.exists(folder_name):
@@ -98,7 +99,8 @@ def dmg_test(folder_path, steps):
     count = 1
     for comb in dmg_comb:
         i = 0
-        print("Conducting test number {}".format(count))
+        print("Conducting test number {} out of {}".format(
+            count, len(dmg_comb)))
         for key in dmg_factor:
             dmg_factor[key] = comb[i]
             i += 1
@@ -111,6 +113,6 @@ def dmg_test(folder_path, steps):
         count += 1
 
 
-# proliferation_test(folder_path, 200)
-# health_test(folder_path, 200)
-dmg_test(folder_path, 200)
+# proliferation_test(folder_path, 100)
+# health_test(folder_path, 100)
+dmg_test(folder_path, 100)
