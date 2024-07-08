@@ -39,14 +39,14 @@ def avg_cells_df(df_list):
 folder_name = os.path.join(test_path, "proliferation_test")
 proliferation_list = create_df_list(folder_name)
 proliferation_avg = avg_cells_df(proliferation_list)
-proliferation_avg.to_csv(os.path.join(folder_name, "Average"), index=False)
+proliferation_avg.to_csv(os.path.join(folder_name, "Average.csv"), index=False)
 
 folder_name = os.path.join(test_path, "health_test")
 health_list = create_df_list(folder_name)
 health_avg = avg_cells_df(health_list)
-health_avg.to_csv(os.path.join(folder_name, "Average"), index=False)
+health_avg.to_csv(os.path.join(folder_name, "Average.csv"), index=False)
 
 folder_name = os.path.join(test_path, "dmg_test")
 dmg_list = create_df_list(folder_name)
 dmg_avg = avg_cells_df(dmg_list)
-dmg_avg.to_csv(os.path.join(folder_name, "Average"), index=False)
+dmg_avg.to_csv(os.path.join(folder_name, "Average.csv"), index=False)
