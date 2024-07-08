@@ -55,7 +55,7 @@ def molecullar_mimicry(self):
 def bystander_activation(self):
     # number of auto-reactive t-cells
     nt = int(self.Cell_numbers["T-cell"]*0.2)
-    # number of auto-reactive th-cells 
+    # number of auto-reactive th-cells
     nth = int(self.Cell_numbers["Th-cell"]*0.2)
     for agent in self.schedule.agents:
         name = type(agent).__name__
@@ -67,4 +67,12 @@ def bystander_activation(self):
             agent.reactive_to = "MBP"
             nth -= 1
 
-# def epitope_spreading(self):
+
+def epitope_spreading(self):
+    myelin_dmg = 5
+    for agent in self.schedule.agents:
+        name = type(agent).__name__
+        name = str(name)
+        if name == 'Neuron':
+            agent.myelin_health -= myelin_dmg
+            agent.MBP_release(myelin_dmg)
