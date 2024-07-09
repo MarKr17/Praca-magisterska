@@ -3,7 +3,7 @@ import os
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
 test_path = os.path.join(folder_path, "mixed")
-folder_name = os.path.join(test_path, "test")
+folder_name = os.path.join(test_path, "tests")
 
 
 def create_df_list(folder_name):
@@ -41,9 +41,16 @@ def avg_cells_df(df_list, folder_name):
 
 
 df_list = create_df_list(folder_name)
-folder_name = os.path.join(test_path, "test_results")
+folder_name = os.path.join(test_path, "results")
 if os.listdir(folder_name) == []:
     averages = avg_cells_df(df_list, folder_name)
 else:
     averages = pd.read_csv(os.path.join(folder_name, "Averages.csv"))
 
+avg_chosen = averages.loc[
+    (averages['min'] > 1.2)
+    & (averages['max'] < 31)
+    & (averages['mean'] > 15)]
+
+print(len(avg_chosen))
+avg_chosen.to_csv(os.path.join(folder_name, "Chosen.csv"), index=False)

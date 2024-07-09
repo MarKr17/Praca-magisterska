@@ -90,4 +90,4 @@ health = read_chosen("health_chosen.csv")
 dmg = read_chosen("dmg_chosen.csv")
 
 combinations = create_combinations(proliferation, health, dmg)
-conduct_tests(combinations, 200)
+#conduct_tests(combinations, 200)
