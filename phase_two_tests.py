@@ -27,7 +27,7 @@ Dmg_factor = {"T-cell": 1,
 
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
-test_path = os.path.join(folder_path, "general")
+test_path = os.path.join(folder_path, "general", "second-ranges")
 folder_name = os.path.join(test_path, "test_results")
 
 
@@ -59,7 +59,7 @@ def create_combinations(proliferation, health, dmg):
 
 
 def conduct_tests(combinations, steps):
-    test_path = os.path.join(folder_path, "mixed")
+    test_path = os.path.join(folder_path, "mixed", "second-ranges")
     folder_name = os.path.join(test_path, "tests")
     # Conducting tests
     i = 0
@@ -90,4 +90,5 @@ health = read_chosen("health_chosen.csv")
 dmg = read_chosen("dmg_chosen.csv")
 
 combinations = create_combinations(proliferation, health, dmg)
+print(len(combinations))
 # conduct_tests(combinations, 200)
