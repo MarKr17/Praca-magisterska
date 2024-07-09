@@ -25,19 +25,6 @@ class Virus(Cell):
         if self.health < 1:
             self.death()
 
-    def move(self):
-        positions = self.model.grid.get_neighborhood(
-            self.pos,
-            moore=True,
-            include_center=False)
-        positions_copy = positions.copy()
-        for pos in positions_copy:
-            a = self.model.areas[pos[0]][pos[1]]
-            if a == 1 or a == 2:
-                positions.remove(pos)
-        new_position = random.choice(positions)
-        self.model.grid.move_agent(self, new_position)
-
     def death(self):
         if self not in self.model.kill_agents:
             self.model.kill_agents.append(self)

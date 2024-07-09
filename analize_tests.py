@@ -38,33 +38,43 @@ def avg_cells_df(df_list):
     return dfc
 
 
-folder_name = os.path.join(test_path, "proliferation_test")
-proliferation_list = create_df_list(folder_name)
-proliferation_avg = avg_cells_df(proliferation_list)
-
-folder_name = os.path.join(test_path, "health_test")
-health_list = create_df_list(folder_name)
-health_avg = avg_cells_df(health_list)
-
-folder_name = os.path.join(test_path, "dmg_test")
-dmg_list = create_df_list(folder_name)
-dmg_avg = avg_cells_df(dmg_list)
-
 folder_name = os.path.join(test_path, "test_results")
 
-proliferation_avg.to_csv(os.path.join(folder_name,
-                         "Average_proliferation.csv"),
-                         index=False)
-health_avg.to_csv(os.path.join(folder_name, "Average_health.csv"), index=False)
-dmg_avg.to_csv(os.path.join(folder_name, "Average_dmg.csv"), index=False)
+if os.listdir(folder_name) == []:
+    folder_name = os.path.join(test_path, "proliferation_test")
+    proliferation_list = create_df_list(folder_name)
+    proliferation_avg = avg_cells_df(proliferation_list)
 
+    folder_name = os.path.join(test_path, "health_test")
+    health_list = create_df_list(folder_name)
+    health_avg = avg_cells_df(health_list)
+
+    folder_name = os.path.join(test_path, "dmg_test")
+    dmg_list = create_df_list(folder_name)
+    dmg_avg = avg_cells_df(dmg_list)
+
+    proliferation_avg.to_csv(os.path.join(folder_name,
+                             "Average_proliferation.csv"),
+                             index=False)
+    health_avg.to_csv(os.path.join(folder_name, "Average_health.csv"),
+                      index=False)
+    dmg_avg.to_csv(os.path.join(folder_name, "Average_dmg.csv"), index=False)
+else:
+    proliferation_avg = pd.read_csv(os.path.join(folder_name,
+                                                 "Average_proliferation.csv"))
+    health_avg = pd.read_csv(os.path.join(folder_name,
+                                          "Average_health.csv"))
+    dmg_avg = pd.read_csv(os.path.join(folder_name,
+                                       "Average_dmg.csv"))
+
+folder_name = os.path.join(test_path, "test_results")
 proliferation_chosen = proliferation_avg.loc[
     (proliferation_avg['min'] > 1)
-    & (proliferation_avg['max'] < 35)]
+    & (proliferation_avg['max'] < 31)]
 
 health_chosen = health_avg.loc[
     (health_avg['min'] > 2)
-    & (health_avg['max'] < 30)]
+    & (health_avg['max'] < 25)]
 
 dmg_chosen = dmg_avg.loc[
     (dmg_avg['min'] > 2)

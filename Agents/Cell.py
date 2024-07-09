@@ -28,21 +28,22 @@ class Cell(Agent):
 
     def move(self):
         positions = self.possible_positions()
-        new_position = self.random.choice(positions)
-        x = new_position[0]
-        y = new_position[1]
-        if self.model.areas[x][y] == 1:
-            chance = 100 - self.model.barrier[x][y]
-            r = random.randint(0, 100)
-            if r < chance:
-                for i in [-2, -1, 1, 2]:
-                    for j in [-2, -1, 1, 2]:
-                        if self.model.areas[x+i][y+j] == self.o_side:
-                            new_position = (x+i, y+j)
-            else:
-                new_position = self.pos
-        self.model.grid.move_agent(self, new_position)
-        self.calculate_side()
+        if len(positions) > 0:
+            new_position = self.random.choice(positions)
+            x = new_position[0]
+            y = new_position[1]
+            if self.model.areas[x][y] == 1:
+                chance = 100 - self.model.barrier[x][y]
+                r = random.randint(0, 100)
+                if r < chance:
+                    for i in [-2, -1, 1, 2]:
+                        for j in [-2, -1, 1, 2]:
+                            if self.model.areas[x+i][y+j] == self.o_side:
+                                new_position = (x+i, y+j)
+                else:
+                    new_position = self.pos
+            self.model.grid.move_agent(self, new_position)
+            self.calculate_side()
 
     def possible_positions(self):
         positions = self.model.grid.get_neighborhood(
