@@ -29,7 +29,7 @@ Dmg_factor = {"T-cell": 1,
 # creates a list from 5 to 50, with a step of 5 [5, 10,...]
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
-test_path = os.path.join(folder_path, "general", "second-ranges")
+test_path = os.path.join(folder_path, "general", "s-ranges")
 
 
 def proliferation_test(folder_path, steps):
@@ -110,5 +110,5 @@ def dmg_test(folder_path, steps):
 
 
 # proliferation_test(folder_path, 100)
-# health_test(folder_path, 100)
-dmg_test(folder_path, 100)
+health_test(folder_path, 100)
+#dmg_test(folder_path, 100)
