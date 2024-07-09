@@ -8,9 +8,9 @@ class Th_cell(Cell):
         super().__init__(unique_id, model)
         self.antigen_presented = ''
         self.activated = False
-        self.proliferation_rate = self.model.Proliferation_rate["T-cell"]
-        self.health = self.model.Health["T-cell"]
-        self.dmg_factor = self.model.Dmg_factor["T-cell"]
+        self.proliferation_rate = self.model.Proliferation_rate["Th-cell"]
+        self.health = self.model.Health["Th-cell"]
+        self.dmg_factor = self.model.Dmg_factor["Th-cell"]
         self.activated_proliferation_rate = int(1.5*self.proliferation_rate)
         self.reactive_to = "EBNA1"
         self.MBP_exposure = 0
