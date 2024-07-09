@@ -48,8 +48,8 @@ else:
     averages = pd.read_csv(os.path.join(folder_name, "Averages.csv"))
 
 avg_chosen = averages.loc[
-    (averages['min'] > 1.2)
-    & (averages['max'] < 31)
+    (averages['min'] >= 2)
+    & (averages['max'] < 50)
     & (averages['mean'] > 15)]
 
 print(len(avg_chosen))

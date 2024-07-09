@@ -1,6 +1,9 @@
 from itertools import product
 import os
 from MSmodel import MSModel
+proliferation_range = [*range(1, 7, 2)]
+health_range = [*range(5, 81, 25)]
+dmg_range = [*range(1, 21, 5)]
 
 Cell_numbers = {"T-cell": 20,
                 "Th-cell": 20,
@@ -24,16 +27,13 @@ Dmg_factor = {"T-cell": 1,
               "APC": 1,
               "Virus": 1}
 # creates a list from 5 to 50, with a step of 5 [5, 10,...]
-dmg_range = [*range(1, 21, 1)]
 folder_path = os.path.join(os.getcwd(), "tests")
 folder_path = os.path.join(folder_path, "no-hip")
+test_path = os.path.join(folder_path, "general", "second-ranges")
 
 
 def proliferation_test(folder_path, steps):
     proliferation_rate = Proliferation_rate.copy()
-    test_path = os.path.join(folder_path, "general")
-    proliferation_range = [*range(1, 4, 1)]
-
     proliferation_comb = list(product(
                               proliferation_range, repeat=5))
     folder_name = os.path.join(test_path, "proliferation_test")
@@ -59,8 +59,6 @@ def proliferation_test(folder_path, steps):
 
 def health_test(folder_path, steps):
     health = Health.copy()
-    test_path = os.path.join(folder_path, "general")
-    health_range = [*range(10, 71, 20)]
     health_comb = list(product(
                               health_range, repeat=5))
 
@@ -87,8 +85,6 @@ def health_test(folder_path, steps):
 
 def dmg_test(folder_path, steps):
     dmg_factor = Dmg_factor.copy()
-    test_path = os.path.join(folder_path, "general")
-    dmg_range = [*range(1, 4, 1)]
     dmg_comb = list(product(
                               dmg_range, repeat=5))
 
@@ -115,4 +111,4 @@ def dmg_test(folder_path, steps):
 
 # proliferation_test(folder_path, 100)
 # health_test(folder_path, 100)
-# dmg_test(folder_path, 100)
+dmg_test(folder_path, 100)

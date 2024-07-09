@@ -64,7 +64,7 @@ def conduct_tests(combinations, steps):
     # Conducting tests
     i = 0
     for combination in combinations:
-        print("Conducting test {} of {}".format(i, len(combinations)))
+        print("Conducting test {} of {}".format(i+1, len(combinations)))
         test_name = ' '.join([str(elem) for elem in combination])
         file_name = os.path.join(folder_name, test_name+".csv")
         comb = [s[1:] for s in combination]
@@ -90,4 +90,4 @@ health = read_chosen("health_chosen.csv")
 dmg = read_chosen("dmg_chosen.csv")
 
 combinations = create_combinations(proliferation, health, dmg)
-#conduct_tests(combinations, 200)
+# conduct_tests(combinations, 200)

@@ -27,6 +27,21 @@ Dmg_factor = {"T-cell": 1,
               "Virus": 1}
 
 
+def parameters_from_test(list):
+    comb = [s[1:] for s in list]
+    proliferation = comb[0].split('-')
+    health = comb[1].split('-')
+    dmg = comb[2].split('-')
+    j = 0
+    for key in Proliferation_rate:
+        Proliferation_rate[key] = int(proliferation[j])
+        Health[key] = int(health[j])
+        Dmg_factor[key] = int(dmg[j])
+        j += 1
+
+
+parameters_from_test(["P1-2-1-1-3", "H70-50-10-50-10", "D3-2-3-3-1"])
+
 model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
 visualisation = Visualisation(model)
 visualisation.run()
