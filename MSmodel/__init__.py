@@ -76,7 +76,7 @@ class MSModel(mesa.Model):
         self.MBP_antibody_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_antibody_matrix = np.zeros((self.size, self.size),
                                               dtype=int)
-        self.cytokine_dis_rate = 5
+        self.cytokine_dis_rate = 7
         self.infection_chance = 5
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
@@ -120,7 +120,7 @@ class MSModel(mesa.Model):
 
         )
         self.createNeurons()
-        self.createT_naive_cells()
-        self.createThcells()
-        self.createB_cells()
-        self.create_APCs()
+        self.createT_naive_cells(self.Cell_numbers["T-cell"])
+        self.createThcells(self.Cell_numbers["Th-cell"])
+        self.createB_cells(self.Cell_numbers["B-cell"])
+        self.create_APCs(self.Cell_numbers["APC"])

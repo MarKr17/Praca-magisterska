@@ -3,12 +3,12 @@ from MSmodel import MSModel
 from Visualisation import Visualisation
 # from plots import create_plots
 from Plots import Plots
-
+import os
 Cell_numbers = {"T-cell": 20,
                 "Th-cell": 40,
                 "B-cell": 20,
                 "APC": 20,
-                "Virus": 50}
+                "Virus": 200}
 Proliferation_rate = {"T-cell": 1,
                       "Th-cell": 1,
                       "B-cell": 1,
@@ -40,13 +40,14 @@ def parameters_from_test(list):
         j += 1
 
 
-parameters_from_test(["P1-3-2-1-3", "H70-100-5-50-10", "D3-8-1-3-1"])
+parameters_from_test(["P1-1-1-1-50", "H70-80-5-70-10", "D2-8-1-8-1"])
 
 model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
 visualisation = Visualisation(model)
 visualisation.run()
 
-plots = Plots(model.datacollector, "test")
+folder_name = os.path.join("test", model.hypothesis)
+plots = Plots(model.datacollector, folder_name)
 # plots.Plot_combined()
 plots.Plot_cells_by_category("T_cells")
 plots.Plot_cells_by_category("B_cells")

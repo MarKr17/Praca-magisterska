@@ -66,5 +66,8 @@ class Cell(Agent):
         for pos in positions_copy:
             if self.model.areas[pos[0]][pos[1]] == 1:
                 positions.remove(pos)
-        pos = self.random.choice(positions)
+        if len(positions) == 0:
+            pos = self.pos
+        else:
+            pos = self.random.choice(positions)
         return pos

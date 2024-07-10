@@ -21,11 +21,11 @@ class B_cell(Cell):
         self.activation()
         self.infection_switch()
         r = random.randint(0, 99)
-        if r < self.proliferation_rate:
-            if self.infection_state == "lytic":
-                self.viral_replication()
-                self.health = 0
-            elif self.activated is True:
+        if self.infection_state == "lytic":
+            self.viral_replication()
+            self.health = 0
+        elif r < self.proliferation_rate:
+            if self.activated is True:
                 self.differentiation()
             else:
                 self.proliferation()
@@ -36,7 +36,8 @@ class B_cell(Cell):
     def viral_replication(self):
         from Agents.Virus import Virus
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True,
-                                                        include_center=False)
+                                                        include_center=False,
+                                                        radius=3)
         neighborhood_copy = neighborhood.copy()
         for n in neighborhood_copy:
             a = self.model.areas[n[0]][n[1]]

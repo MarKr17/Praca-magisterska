@@ -2,6 +2,11 @@ def step(self):
     """Advance the model by one step."""
     if self.schedule.steps == 0:
         self.hypothesis_switch()
+    elif self.schedule.steps % 100 == 0:
+        self.createT_naive_cells(int(self.Cell_numbers["T-cell"]/2))
+        self.createThcells(int(self.Cell_numbers["Th-cell"]/2))
+        self.createB_cells(int(self.Cell_numbers["B-cell"]/2))
+        self.create_APCs(int(self.Cell_numbers["APC"]/2))
     self.kill_agents = []
     self.new_agents = []
     self.schedule.step()

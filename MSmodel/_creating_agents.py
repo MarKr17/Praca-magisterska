@@ -19,9 +19,9 @@ def createNeurons(self):
         self.ID += 1
 
 
-def createT_naive_cells(self):
+def createT_naive_cells(self, number):
     positions = self.possible_positions()
-    for i in range(self.Cell_numbers["T-cell"]):
+    for i in range(number):
         a = T_naive_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
@@ -31,9 +31,9 @@ def createT_naive_cells(self):
         self.ID += 1
 
 
-def createThcells(self):
+def createThcells(self, number):
     positions = self.possible_positions()
-    for i in range(self.Cell_numbers["Th-cell"]):
+    for i in range(number):
         a = Th_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
@@ -43,9 +43,9 @@ def createThcells(self):
         self.ID += 1
 
 
-def createB_cells(self):
+def createB_cells(self, number):
     positions = self.possible_positions()
-    for i in range(self.Cell_numbers["B-cell"]):
+    for i in range(number):
         a = B_cell(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)
@@ -67,9 +67,9 @@ def createViruses(self, n):
         self.ID += 1
 
 
-def create_APCs(self):
+def create_APCs(self, number):
     positions = self.possible_positions()
-    for i in range(self.Cell_numbers["APC"]):
+    for i in range(number):
         a = APC(self.ID, self)
         # Add the agent to the scheduler
         self.schedule.add(a)

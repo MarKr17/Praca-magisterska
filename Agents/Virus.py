@@ -39,6 +39,7 @@ class Virus(Cell):
         if len(neighbors) > 0:
             b = random.choice(neighbors)
             b.infection_state = "latent"
+            b.dmg_factor = b.dmg_factor*10
         self.tiredness += 1
 
     def cytokine_effect(self):
