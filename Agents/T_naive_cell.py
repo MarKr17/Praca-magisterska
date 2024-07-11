@@ -59,7 +59,7 @@ class T_naive_cell(Cell):
 
         IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
 
-        if IL6 + TGF > IL21:
+        if IL6 + TGF > IL21*1.5:
             n = Treg17(self.model.ID, self.model)
         else:
             n = Tpato17(self.model.ID, self.model)
