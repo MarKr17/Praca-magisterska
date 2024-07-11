@@ -111,6 +111,7 @@ def possible_positions(self):
 def barrier_cytokin_effect(self):
     for i in [6, 24]:
         for j in range(6, 25):
-            self.barrier[i][j] += self.IFN_matrix[i][j]/100
-            self.barrier[i][j] -= self.IL_22_matrix[i][j]/100
-            self.barrier[i][j] -= self.IL_17_matrix[i][j]/100
+            if self.barrier[i][j] < 100:
+                self.barrier[i][j] += int(self.IFN_matrix[i][j])
+            self.barrier[i][j] -= int(self.IL_22_matrix[i][j])
+            self.barrier[i][j] -= int(self.IL_17_matrix[i][j])

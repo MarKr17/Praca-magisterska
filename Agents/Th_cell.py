@@ -55,7 +55,8 @@ class Th_cell(Cell):
 
     def cytokine_release(self):
         if self.activated:
-            self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 1
+            self.model.IL_2_matrix[self.pos[0],
+                                   self.pos[1]] += self.model.cytokine_amount
             self.tiredness += 1
 
     def differentiation(self):

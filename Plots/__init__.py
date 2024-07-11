@@ -18,7 +18,8 @@ class Plots():
         self.data = self.datacollector.get_model_vars_dataframe()
         self.Plots = {}
         self.folder = folder
-        self.folder_path = os.path.join(os.getcwd(), "test")
+        if not os.path.exists(folder):
+            os.makedirs(folder)
         self.Cells_dict = {"B_cells": {"B-cell population": B_cells_color,
                                        "Plasma cell population": Plasma_color},
                            "T_cells": {"T-cell population": t_naive_cell_color,
@@ -50,7 +51,7 @@ class Plots():
             plot = sns.lineplot(data=self.data[key], color=colors[i])
             plot.set(title=key, ylabel="Number of agents", xlabel="Step")
             filename = key + ".jpg"
-            filepath = os.path.join(self.folder_path, filename)
+            filepath = os.path.join(self.folder, filename)
             plt.savefig(filepath, dpi=300)
             plt.clf()
             i += 1
@@ -62,7 +63,7 @@ class Plots():
                                 label=key)
         plot.set(title="Demyelination",
                  ylabel="Neuron number and Myelin helath", xlabel="Step")
-        filepath = os.path.join(self.folder_path, "Demyelination.jpg")
+        filepath = os.path.join(self.folder, "Demyelination.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
 
@@ -73,7 +74,7 @@ class Plots():
                                 label=key)
         plot.set(title=cells_category,
                  ylabel="Number of agents", xlabel="Step")
-        filepath = os.path.join(self.folder_path, cells_category + ".jpg")
+        filepath = os.path.join(self.folder, cells_category + ".jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
 
@@ -83,7 +84,7 @@ class Plots():
                                 label=cytokine)
         plot.set(title="Cytokine levels",
                  ylabel="Amount", xlabel="Step")
-        filepath = os.path.join(self.folder_path, "Cytokine levels.jpg")
+        filepath = os.path.join(self.folder, "Cytokine levels.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
 
@@ -93,7 +94,7 @@ class Plots():
                                 label=protein)
         plot.set(title="Protein levels",
                  ylabel="Amount", xlabel="Step")
-        filepath = os.path.join(self.folder_path, "Protein levels.jpg")
+        filepath = os.path.join(self.folder, "Protein levels.jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
 
@@ -102,7 +103,7 @@ class Plots():
                             label=name)
         plot.set(title=name,
                  ylabel="Amount", xlabel="Step")
-        filepath = os.path.join(self.folder_path, name + ".jpg")
+        filepath = os.path.join(self.folder, name + ".jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()
 
@@ -112,7 +113,7 @@ class Plots():
                                 label=name)
         plot.set(title=','.join(str(x) for x in list),
                  ylabel="Amount", xlabel="Step")
-        filepath = os.path.join(self.folder_path,
+        filepath = os.path.join(self.folder,
                                 ','.join(str(x) for x in list)+".jpg")
         plt.savefig(filepath, dpi=300)
         plt.clf()

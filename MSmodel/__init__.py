@@ -76,8 +76,9 @@ class MSModel(mesa.Model):
         self.MBP_antibody_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_antibody_matrix = np.zeros((self.size, self.size),
                                               dtype=int)
-        self.cytokine_dis_rate = 7
+        self.cytokine_dis_rate = 10
         self.infection_chance = 5
+        self.cytokine_amount = 10
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)

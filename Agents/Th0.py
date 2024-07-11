@@ -39,9 +39,12 @@ class Th0(Cell):
         self.tiredness += 1
 
     def cytokine_release(self):
-        self.model.IL_2_matrix[self.pos[0], self.pos[1]] += 1
-        self.model.IL_4_matrix[self.pos[0], self.pos[1]] += 1
-        self.model.IFN_matrix[self.pos[0], self.pos[1]] += 1
+        self.model.IL_2_matrix[self.pos[0],
+                               self.pos[1]] += self.model.cytokine_amount
+        self.model.IL_4_matrix[self.pos[0],
+                               self.pos[1]] += self.model.cytokine_amount
+        self.model.IFN_matrix[self.pos[0],
+                              self.pos[1]] += self.model.cytokine_amount
         self.tiredness += 1
 
     def differentiation(self, IL4, IFN):

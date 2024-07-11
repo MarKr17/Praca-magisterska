@@ -2,6 +2,7 @@ from Agents.Cell import Cell
 from Agents.B_cell import B_cell
 from Agents.Plasma_cell import Plasma_cell
 from Agents.Neuron import Neuron
+from Agents.T_naive_cell import T_naive_cell
 from Agents.Th_cell import Th_cell
 from Agents.Virus import Virus
 import random
@@ -59,7 +60,7 @@ class APC(Cell):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
         neighbors_copy = neighbors.copy()
         for n in neighbors_copy:
-            if not isinstance(n, (B_cell, Plasma_cell, Th_cell)):
+            if not isinstance(n, (B_cell, Plasma_cell, Th_cell, T_naive_cell)):
                 neighbors.remove(n)
         if len(neighbors) > 0:
             agent = random.choice(neighbors)
@@ -68,7 +69,7 @@ class APC(Cell):
             self.tiredness += 1
             name = type(agent).__name__
             name = str(name)
-            if name in ['T-cell', 'Th-cell']:
+            if name in ['T_naive_cell', 'Th_cell']:
                 self.epitope_spreading(agent)
 
     def phagocytosis(self):
@@ -91,9 +92,12 @@ class APC(Cell):
 
     def cytokine_release(self):
         if self.antigen_attached == "EBNA1":
-            self.model.IL_6_matrix[self.pos[0], self.pos[1]] += 2
-            self.model.IL_21_matrix[self.pos[0], self.pos[1]] += 2
-            self.model.TGF_matrix[self.pos[0], self.pos[1]] += 2
+            self.model.IL_6_matrix[self.pos[0],
+                                   self.pos[1]] += self.model.cytokine_amount
+            self.model.IL_21_matrix[self.pos[0],
+                                    self.pos[1]] += self.model.cytokine_amount
+            self.model.TGF_matrix[self.pos[0],
+                                  self.pos[1]] += self.model.cytokine_amount
             self.tiredness += 1
 
     def epitope_spreading(self, agent):

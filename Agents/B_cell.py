@@ -37,7 +37,7 @@ class B_cell(Cell):
         from Agents.Virus import Virus
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True,
                                                         include_center=False,
-                                                        radius=3)
+                                                        radius=4)
         neighborhood_copy = neighborhood.copy()
         for n in neighborhood_copy:
             a = self.model.areas[n[0]][n[1]]
