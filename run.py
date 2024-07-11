@@ -4,11 +4,11 @@ from Visualisation import Visualisation
 # from plots import create_plots
 from Plots import Plots
 import os
-Cell_numbers = {"T-cell": 20,
-                "Th-cell": 20,
-                "B-cell": 20,
-                "APC": 20,
-                "Virus": 200}
+Cell_numbers = {"T-cell": 30,
+                "Th-cell": 30,
+                "B-cell": 50,
+                "APC": 30,
+                "Virus": 100}
 Proliferation_rate = {"T-cell": 1,
                       "Th-cell": 1,
                       "B-cell": 1,
@@ -40,7 +40,7 @@ def parameters_from_test(list):
         j += 1
 
 
-parameters_from_test(["P2-2-1-2-50", "H20-100-5-100-10", "D2-5-2-10-1"])
+parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])
 
 model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
 visualisation = Visualisation(model)

@@ -1,0 +1,8 @@
+powracająca infekcja i komórki git:
+Cell_numbers = {"T-cell": 30,
+                "Th-cell": 30,
+                "B-cell": 50,
+                "APC": 30,
+                "Virus": 100}
+
+parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])

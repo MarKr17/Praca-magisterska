@@ -16,7 +16,7 @@ def step(self):
     self.killing_agents()
     self.adding_agents()
     self.dissolve_cytokine()
-    self.cytokin_diffusion()
+    self.cytokin_diffusion(2)
     self.update_cytokin_matrix()
     self.barrier_cytokin_effect()
     self.start_infection()

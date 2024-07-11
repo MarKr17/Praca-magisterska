@@ -27,6 +27,7 @@ class Cell(Agent):
             self.health = 0
 
     def move(self):
+        self.calculate_side()
         positions = self.possible_positions()
         if len(positions) > 0:
             new_position = self.random.choice(positions)
@@ -52,12 +53,8 @@ class Cell(Agent):
             include_center=False)
         positions_copy = positions.copy()
         for pos in positions_copy:
-            if self.area != 2:
-                if self.model.areas[pos[0]][pos[1]] == 2:
-                    positions.remove(pos)
-            if self.area != 0:
-                if self.model.areas[pos[0]][pos[1]] == 0:
-                    positions.remove(pos)
+            if self.model.areas[pos] == self.o_side:
+                positions.remove(pos)
         return positions
 
     def child_pos(self):
