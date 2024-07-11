@@ -38,8 +38,7 @@ class Virus(Cell):
                 neighbors.remove(n)
         if len(neighbors) > 0:
             b = random.choice(neighbors)
-            b.infection_state = "latent"
-            b.dmg_factor = b.dmg_factor*10
+            b.infection("latent")
         self.tiredness += 1
 
     def cytokine_effect(self):

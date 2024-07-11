@@ -11,7 +11,8 @@ class MSModel(mesa.Model):
                         bystander_activation, epitope_spreading)
     from ._grid_functions import (cytokin_diffusion, dissolve_cytokine,
                                   possible_positions, update_cytokin_matrix,
-                                  barrier_cytokin_effect)
+                                  barrier_cytokin_effect,
+                                  calculate_cytokine_effect)
 
     def __init__(self, Cell_numbers, Proliferation_rate, Health, Dmg_factor):
         from ._computing import (compute_B_cells, compute_Myelin,
@@ -78,7 +79,7 @@ class MSModel(mesa.Model):
                                               dtype=int)
         self.cytokine_dis_rate = 5
         self.infection_chance = 5
-        self.cytokine_amount = 5
+        self.cytokine_amount = 3
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)

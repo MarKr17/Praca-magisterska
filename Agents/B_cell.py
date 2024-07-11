@@ -53,7 +53,7 @@ class B_cell(Cell):
 
     def proliferation(self):
         n = B_cell(self.model.ID, self.model)
-        n.infectrion_state = self.infection_state
+        n.infection(self.infection_state)
         n.antigen_presented = self.antigen_presented
         n.pos = self.child_pos()
         n.calculate_side()
@@ -83,3 +83,9 @@ class B_cell(Cell):
             TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
             if TGF >= self.lytic_threshold:
                 self.infection_state = "lytic"
+
+    def infection(self, state):
+        if state == "latent":
+            self.infection_state = "latent"
+            self.health = self.health * 10
+            self.dmg_factor = self.dmg_factor * 10
