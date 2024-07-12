@@ -34,7 +34,10 @@ class Cell(Agent):
             x = new_position[0]
             y = new_position[1]
             if self.model.areas[x][y] == 1:
-                chance = 100 - self.model.barrier[x][y]
+                if self.model.barrier[x][y] == 0:
+                    chance = 100
+                else:
+                    chance = 100 - int(self.model.barrier[x][y]*0.99)
                 r = random.randint(0, 100)
                 if r < chance:
                     for i in [-2, -1, 1, 2]:

@@ -18,21 +18,22 @@ def update_cytokin_matrix(self):
 
 
 def cytokin_diffusion(self, radius):
-    self.IFN_matrix = diffusion(self.IFN_matrix, radius)
-    self.TGF_matrix = diffusion(self.TGF_matrix, radius)
-    self.IL_2_matrix = diffusion(self.IL_2_matrix, radius)
-    self.IL_4_matrix = diffusion(self.IL_4_matrix, radius)
-    self.IL_6_matrix = diffusion(self.IL_6_matrix, radius)
-    self.IL_17_matrix = diffusion(self.IL_17_matrix, radius)
-    self.IL_21_matrix = diffusion(self.IL_21_matrix, radius)
-    self.IL_22_matrix = diffusion(self.IL_22_matrix, radius)
-    self.MBP_matrix = diffusion(self.MBP_matrix, radius)
-    self.EBNA1_matrix = diffusion(self.EBNA1_matrix, radius)
-    self.MBP_antibody_matrix = diffusion(self.MBP_antibody_matrix, radius)
-    self.EBNA1_antibody_matrix = diffusion(self.EBNA1_antibody_matrix, radius)
+    self.IFN_matrix = self.diffusion(self.IFN_matrix, radius)
+    self.TGF_matrix = self.diffusion(self.TGF_matrix, radius)
+    self.IL_2_matrix = self.diffusion(self.IL_2_matrix, radius)
+    self.IL_4_matrix = self.diffusion(self.IL_4_matrix, radius)
+    self.IL_6_matrix = self.diffusion(self.IL_6_matrix, radius)
+    self.IL_17_matrix = self.diffusion(self.IL_17_matrix, radius)
+    self.IL_21_matrix = self.diffusion(self.IL_21_matrix, radius)
+    self.IL_22_matrix = self.diffusion(self.IL_22_matrix, radius)
+    self.MBP_matrix = self.diffusion(self.MBP_matrix, radius)
+    self.EBNA1_matrix = self.diffusion(self.EBNA1_matrix, radius)
+    self.MBP_antibody_matrix = self.diffusion(self.MBP_antibody_matrix, radius)
+    self.EBNA1_antibody_matrix = self.diffusion(self.EBNA1_antibody_matrix,
+                                                radius)
 
 
-def diffusion(matrix, radius):
+def diffusion(self, matrix, radius):
     for x in range(radius, len(matrix)-radius):
         for y in range(radius, len(matrix)-radius):
             # averege amount of cytokine in neighbor cells
@@ -42,19 +43,19 @@ def diffusion(matrix, radius):
                 pos = (x, y)
                 positions = []
                 positions.append(pos)
-                for i in range(x-radius, x+radius):
-                    for j in range(y-radius, y+radius):
-                        if i == x and j == y:
-                            continue
-                        elif matrix[i][j] < min:
-                            pos = (i, j)
-                            positions = []
-                            positions.append(pos)
-                            sum = min
-                            min = matrix[i][j]
-                        elif matrix[i][j] == min:
-                            positions.append(pos)
-                            sum += matrix[i][j]
+                neighborhood = self.grid.get_neighborhood(pos, moore=True,
+                                                          include_center=False,
+                                                          radius=radius)
+                for n in neighborhood:
+                    if matrix[n] < min:
+                        pos = n
+                        positions = []
+                        positions.append(pos)
+                        sum = min
+                        min = matrix[n]
+                    elif matrix[n] == min:
+                        positions.append(pos)
+                        sum += matrix[n]
                 # r = math.floor((matrix[x][y] - min)/2)
                 r = int((matrix[x][y] - min)/len(positions))
                 matrix[x][y] -= r
@@ -129,6 +130,6 @@ def barrier_cytokin_effect(self):
 
 def calculate_cytokine_effect(self, i, j):
     if self.barrier[i][j] < 100:
-        self.barrier[i][j] += int(self.IFN_matrix[i][j]*5)
-    self.barrier[i][j] -= int(self.IL_22_matrix[i][j]*5)
-    self.barrier[i][j] -= int(self.IL_17_matrix[i][j]*5)
+        self.barrier[i][j] += int(self.IFN_matrix[i][j]*1)
+    self.barrier[i][j] -= int(self.IL_22_matrix[i][j]*10)
+    self.barrier[i][j] -= int(self.IL_17_matrix[i][j]*10)

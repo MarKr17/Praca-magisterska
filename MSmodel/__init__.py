@@ -9,7 +9,8 @@ class MSModel(mesa.Model):
     from ._step import (step, killing_agents, adding_agents, start_infection,
                         hypothesis_switch, molecullar_mimicry,
                         bystander_activation, epitope_spreading)
-    from ._grid_functions import (cytokin_diffusion, dissolve_cytokine,
+    from ._grid_functions import (cytokin_diffusion, diffusion,
+                                  dissolve_cytokine,
                                   possible_positions, update_cytokin_matrix,
                                   barrier_cytokin_effect,
                                   calculate_cytokine_effect)
@@ -78,8 +79,7 @@ class MSModel(mesa.Model):
         self.EBNA1_antibody_matrix = np.zeros((self.size, self.size),
                                               dtype=int)
         self.cytokine_dis_rate = 40
-        self.infection_chance = 5
-        self.cytokine_amount = 2
+        self.cytokine_amount = 3
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)

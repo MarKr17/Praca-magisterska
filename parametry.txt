@@ -6,3 +6,5 @@ Cell_numbers = {"T-cell": 30,
                 "Virus": 100}
 
 parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])
+self.cytokine_dis_rate = 40
+        self.cytokine_amount = 2

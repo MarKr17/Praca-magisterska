@@ -7,7 +7,7 @@ import os
 Cell_numbers = {"T-cell": 30,
                 "Th-cell": 30,
                 "B-cell": 50,
-                "APC": 30,
+                "APC": 40,
                 "Virus": 100}
 Proliferation_rate = {"T-cell": 1,
                       "Th-cell": 1,

@@ -7,13 +7,14 @@ class Plasma_cell(Cell):
         super().__init__(unique_id, model)
         self.antigen_presented = ''
         self.antibody_production_rate = 50
-        self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
+        self.proliferation_rate = int(self.model.Proliferation_rate["B-cell"]
+                                      / 2)
         self.health = self.model.Health["B-cell"]
         self.dmg_factor = self.model.Dmg_factor["B-cell"]
 
     def step(self):
         self.move()
-        r = random.randint(0, 99)
+        r = random.randint(0, 100)
         if r < self.proliferation_rate:
             self.proliferation()
         if self.antigen_presented != '' and r < self.antibody_production_rate:

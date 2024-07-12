@@ -11,7 +11,7 @@ class B_cell(Cell):
         self.proteins = []
         self.antigen_presented = ''
         self.cytokine_activation_threshold = 5
-        self.lytic_threshold = 5
+        self.lytic_threshold = 20
         self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
         self.health = self.model.Health["B-cell"]
         self.dmg_factor = self.model.Dmg_factor["B-cell"]
