@@ -2,6 +2,7 @@ import pygame
 import pygame_widgets
 from Visualisation.Constants import (grid_background, GREY)
 from Visualisation.Controls import Controls
+import os
 
 
 def closestNumber(n, m):
@@ -29,6 +30,7 @@ class Visualisation():
     def __init__(self, model):
         self.model = model
         self.size = model.size
+        self.screenshot_count = 1
         pygame.init()
         self.infoObject = pygame.display.Info()
         self.screen = pygame.display.set_mode((self.infoObject.current_w*0.99,
@@ -105,6 +107,14 @@ class Visualisation():
                 self.controls.dropdown.disable()
             elif self.controls.dropdown.getSelected():
                 self.model.hypothesis = self.controls.dropdown.getSelected()
+            if self.model.step() % 100 == 0:
+                folder = os.path.join("test", self.model.hypothesis)
+                if not os.path.exists(folder):
+                    os.makedirs(folder)
+                filename = "screenshot" + str(self.screenshot_count) + ".jpg"
+                file_path = os.path.join(self.folder, filename)
+                pygame.image.save(self.screen, file_path)
+                self.screenshot_count += 1
             pygame.display.flip()  # Refresh on-screen display
             self.clock.tick(self.controls.slider.getValue())
             self.screen.fill(GREY)  # Fill the display with a solid color
