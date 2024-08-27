@@ -6,24 +6,24 @@ from Plots import Plots
 import os
 Cell_numbers = {"T-cell": 30,
                 "Th-cell": 30,
-                "B-cell": 50,
-                "APC": 20,
-                "Virus": 200}
-Proliferation_rate = {"T-cell": 1,
-                      "Th-cell": 1,
-                      "B-cell": 1,
+                "B-cell": 20,
+                "APC": 50,
+                "Virus": 500}
+Proliferation_rate = {"T-cell": 3,
+                      "Th-cell": 3,
+                      "B-cell": 2,
                       "APC": 2,
-                      "Virus": 2}
-Health = {"T-cell": 20,
+                      "Virus": 100}
+Health = {"T-cell": 10,
           "Th-cell": 20,
           "B-cell": 20,
-          "APC": 30,
-          "Virus": 20}
+          "APC": 40,
+          "Virus": 10}
 
-Dmg_factor = {"T-cell": 1,
-              "Th-cell": 1,
-              "B-cell": 1,
-              "APC": 1,
+Dmg_factor = {"T-cell": 2,
+              "Th-cell": 2,
+              "B-cell": 2,
+              "APC": 2,
               "Virus": 1}
 
 
@@ -52,10 +52,11 @@ def dicts_to_name():
         health += '-' + str(Health[agent])
         dmg += '-' + str(Dmg_factor[agent])
     name = cell_num + proliferation + health + dmg
+    print(name)
     return name
 
 
-parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])
+#parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])
 
 name = dicts_to_name()
 folder_name = os.path.join("test", name)

@@ -12,7 +12,7 @@ class T_naive_cell(Cell):
         self.health = self.model.Health["T-cell"]
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.activated = False
-        self.activated_proliferation_rate = int(self.proliferation_rate)
+        self.activated_proliferation_rate = int(self.proliferation_rate)*2
         self.reactive_to = "EBNA1"
         self.cytokine_threshold = 10
         self.MBP_exposure = 0
@@ -38,11 +38,13 @@ class T_naive_cell(Cell):
               self.reactive_to == "MBP"):
             if self.model.cytokin_matrix[self.pos] >= self.cytokine_threshold:
                 self.activated = True
+                self.proliferation_rate = self.activated_proliferation_rate
         elif (self.model.hypothesis == "Epitope spreading" and
               self.antigen_presented == 'MBP'):
             r = random.randint(0, 99)
             if r < self.MBP_exposure:
                 self.activated = True
+                self.proliferation_rate = self.activated_proliferation_rate
 
     def proliferation(self):
         n = T_naive_cell(self.model.ID, self.model)

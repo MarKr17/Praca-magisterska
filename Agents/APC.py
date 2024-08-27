@@ -49,6 +49,7 @@ class APC(Cell):
         MBP = self.model.MBP_matrix[self.pos[0], self.pos[1]]
         EBNA1 = self.model.EBNA1_matrix[self.pos[0], self.pos[1]]
         if MBP + EBNA1 != 0:
+            self.tiredness += 1
             if MBP > EBNA1:
                 self.antigen_attached = "MBP"
                 self.model.MBP_matrix[self.pos[0], self.pos[1]] -= 1

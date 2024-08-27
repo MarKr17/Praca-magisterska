@@ -27,13 +27,14 @@ def drawAgents(self, GRID_SIZE):
     self.drawBarrier(GRID_SIZE)
     for (cell_contents, x, y) in self.model.grid.coord_iter():
         radius = GRID_SIZE/self.size/2 - 5
+        radius2 = radius * 0.8
         X = x*GRID_SIZE/self.size+GRID_SIZE/self.size/2
         Y = y*GRID_SIZE/self.size+GRID_SIZE/self.size/2
         for a in cell_contents:
             if type(a) is Neuron:
                 surf = drawNeuron(radius, a)
             elif type(a) is T_naive_cell:
-                surf = drawT_naive_cell(radius)
+                surf = drawT_naive_cell(radius2)
             elif type(a) is B_cell:
                 surf = drawB_cell(radius)
             elif type(a) is Virus:
@@ -43,17 +44,17 @@ def drawAgents(self, GRID_SIZE):
             elif type(a) is Plasma_cell:
                 surf = drawPlasma(radius)
             elif type(a) is Th_cell:
-                surf = drawTh_cell(radius)
+                surf = drawTh_cell(radius2)
             elif type(a) is Th0:
-                surf = drawTh0(radius)
+                surf = drawTh0(radius2)
             elif type(a) is Th1:
-                surf = drawTh1(radius)
+                surf = drawTh1(radius2)
             elif type(a) is Th2:
-                surf = drawTh2(radius)
+                surf = drawTh2(radius2)
             elif type(a) is Tpato17:
-                surf = drawTpato17(radius)
+                surf = drawTpato17(radius2)
             elif type(a) is Treg17:
-                surf = drawTreg17(radius)
+                surf = drawTreg17(radius2)
 
             rect = surf.get_rect()
             rect.centerx = int(X)

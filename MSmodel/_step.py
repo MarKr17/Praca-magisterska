@@ -3,10 +3,10 @@ def step(self):
     if self.schedule.steps == 0:
         self.hypothesis_switch()
     elif self.schedule.steps % 100 == 0:
-        self.createT_naive_cells(int(self.Cell_numbers["T-cell"]/2))
-        self.createThcells(int(self.Cell_numbers["Th-cell"]/2))
-        self.createB_cells(int(self.Cell_numbers["B-cell"]/2))
-        self.create_APCs(int(self.Cell_numbers["APC"]/2))
+        self.createT_naive_cells(int(self.Cell_numbers["T-cell"]))
+        self.createThcells(int(self.Cell_numbers["Th-cell"]))
+        self.createB_cells(int(self.Cell_numbers["B-cell"]))
+        self.create_APCs(int(self.Cell_numbers["APC"]))
     self.kill_agents = []
     self.new_agents = []
     self.schedule.step()
@@ -37,7 +37,7 @@ def adding_agents(self):
 
 def start_infection(self):
     if self.schedule.steps == 5:
-        self.createViruses(50)
+        self.createViruses(self.Cell_numbers["Virus"])
 
 
 def hypothesis_switch(self):

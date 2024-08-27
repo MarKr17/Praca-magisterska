@@ -12,7 +12,7 @@ class Cell(Agent):
         self.health = 50
         self.tiredness = 0
         self.proliferation_rate = 0
-        self.dmg_factor = 1
+        self.move_counter = 0
 
     def step(self):
         self.move()
@@ -25,6 +25,7 @@ class Cell(Agent):
         self.health -= dmg
         if self.health < 0:
             self.health = 0
+        self.tiredness = 0
 
     def move(self):
         self.calculate_side()
@@ -48,6 +49,7 @@ class Cell(Agent):
                     new_position = self.pos
             self.model.grid.move_agent(self, new_position)
             self.calculate_side()
+            self.tiredness += 1
 
     def possible_positions(self):
         positions = self.model.grid.get_neighborhood(

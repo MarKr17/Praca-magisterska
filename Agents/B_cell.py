@@ -11,7 +11,7 @@ class B_cell(Cell):
         self.proteins = []
         self.antigen_presented = ''
         self.cytokine_activation_threshold = 5
-        self.lytic_threshold = 20
+        self.lytic_threshold = 10
         self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
         self.health = self.model.Health["B-cell"]
         self.dmg_factor = self.model.Dmg_factor["B-cell"]
@@ -37,7 +37,7 @@ class B_cell(Cell):
         from Agents.Virus import Virus
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True,
                                                         include_center=False,
-                                                        radius=3)
+                                                        radius=4)
         neighborhood_copy = neighborhood.copy()
         for n in neighborhood_copy:
             a = self.model.areas[n[0]][n[1]]
@@ -59,7 +59,7 @@ class B_cell(Cell):
         n.calculate_side()
         self.model.ID += 1
         self.model.new_agents.append(n)
-        self.tiredness += 2
+        self.tiredness += 1
 
     def differentiation(self):
         n = Plasma_cell(self.model.ID, self.model)
@@ -81,6 +81,7 @@ class B_cell(Cell):
     def infection_switch(self):
         if self.infection_state == "latent":
             TGF = self.model.TGF_matrix[self.pos[0], self.pos[1]]
+            self.health = self.health * 2
             if TGF >= self.lytic_threshold:
                 self.infection_state = "lytic"
 
