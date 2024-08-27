@@ -27,8 +27,9 @@ def closestNumber(n, m):
 
 
 class Visualisation():
-    def __init__(self, model):
+    def __init__(self, model, folder_name):
         self.model = model
+        self.folder_name = folder_name
         self.size = model.size
         self.screenshot_count = 0
         pygame.init()
@@ -109,9 +110,9 @@ class Visualisation():
                 if self.model.schedule.steps % 100 == 0:
                     print(self.model.schedule.steps)
                     if self.model.hypothesis == "":
-                        folder = os.path.join("test", "base")
+                        folder = os.path.join(self.folder_name, "base")
                     else:
-                        folder = os.path.join("test", self.model.hypothesis)
+                        folder = os.path.join(self.folder_name, self.model.hypothesis)
                     if not os.path.exists(folder):
                         os.makedirs(folder)
                     filename = "screenshot" + str(self.screenshot_count) + ".jpg"

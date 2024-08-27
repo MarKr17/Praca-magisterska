@@ -7,8 +7,8 @@ import os
 Cell_numbers = {"T-cell": 30,
                 "Th-cell": 30,
                 "B-cell": 50,
-                "APC": 40,
-                "Virus": 100}
+                "APC": 20,
+                "Virus": 200}
 Proliferation_rate = {"T-cell": 1,
                       "Th-cell": 1,
                       "B-cell": 1,
@@ -17,13 +17,13 @@ Proliferation_rate = {"T-cell": 1,
 Health = {"T-cell": 20,
           "Th-cell": 20,
           "B-cell": 20,
-          "APC": 100,
+          "APC": 30,
           "Virus": 20}
 
 Dmg_factor = {"T-cell": 1,
               "Th-cell": 1,
               "B-cell": 1,
-              "APC": 2,
+              "APC": 1,
               "Virus": 1}
 
 
@@ -40,15 +40,33 @@ def parameters_from_test(list):
         j += 1
 
 
+def dicts_to_name():
+    agents = ["T-cell", "Th-cell", "B-cell", "APC", "Virus"]
+    cell_num = "C"
+    proliferation = "P"
+    health = "H"
+    dmg = "D"
+    for agent in agents:
+        cell_num += '-' + str(Cell_numbers[agent])
+        proliferation += '-' + str(Proliferation_rate[agent])
+        health += '-' + str(Health[agent])
+        dmg += '-' + str(Dmg_factor[agent])
+    name = cell_num + proliferation + health + dmg
+    return name
+
+
 parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])
 
+name = dicts_to_name()
+folder_name = os.path.join("test", name)
 model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
-visualisation = Visualisation(model)
+visualisation = Visualisation(model, folder_name)
 visualisation.run()
+
 if model.hypothesis == "":
-    folder = os.path.join("test", "base")
+    folder = os.path.join(folder_name, "base")
 else:
-    folder = os.path.join("test", model.hypothesis)
+    folder = os.path.join(folder_name, model.hypothesis)
 plots = Plots(model.datacollector, folder)
 # plots.Plot_combined()
 plots.Plot_cells_by_category("T_cells")
