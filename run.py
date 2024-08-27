@@ -45,9 +45,11 @@ parameters_from_test(["P2-2-2-2-50", "H20-100-20-70-20", "D2-5-1-10-2"])
 model = MSModel(Cell_numbers, Proliferation_rate, Health, Dmg_factor)
 visualisation = Visualisation(model)
 visualisation.run()
-
-folder_name = os.path.join("test", model.hypothesis)
-plots = Plots(model.datacollector, folder_name)
+if model.hypothesis == "":
+    folder = os.path.join("test", "base")
+else:
+    folder = os.path.join("test", model.hypothesis)
+plots = Plots(model.datacollector, folder)
 # plots.Plot_combined()
 plots.Plot_cells_by_category("T_cells")
 plots.Plot_cells_by_category("B_cells")
