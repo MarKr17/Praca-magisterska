@@ -11,7 +11,8 @@ class Th0(Cell):
         self.proliferation_rate = self.model.Proliferation_rate["Th-cell"]
         self.health = self.model.Health["Th-cell"]
         self.dmg_factor = self.model.Dmg_factor["Th-cell"]
-        self.reactive_to = "EBNA1"
+        self.reactive_to = ["EBNA1"]
+        self.cytokine_threshold = 2
         self.MBP_exposure = 0
 
     def step(self):
@@ -21,7 +22,7 @@ class Th0(Cell):
         if r < self.proliferation_rate:
             IL4 = self.model.IL_4_matrix[self.pos[0], self.pos[1]]
             IFN = self.model.IFN_matrix[self.pos[0], self.pos[1]]
-            if IL4 + IFN > 0:
+            if IL4 + IFN > self.cytokine_threshold:
                 self.differentiation(IL4, IFN)
             else:
                 self.proliferation()

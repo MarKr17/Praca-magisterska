@@ -13,8 +13,8 @@ class T_naive_cell(Cell):
         self.dmg_factor = self.model.Dmg_factor["T-cell"]
         self.activated = False
         self.activated_proliferation_rate = int(self.proliferation_rate)*2
-        self.reactive_to = "EBNA1"
-        self.cytokine_threshold = 10
+        self.reactive_to = ["EBNA1"]
+        self.cytokine_threshold = 5
         self.MBP_exposure = 0
 
     def step(self):
@@ -34,8 +34,8 @@ class T_naive_cell(Cell):
         if self.antigen_presented in self.reactive_to:
             self.activated = True
             self.proliferation_rate = self.activated_proliferation_rate
-        elif (self.model.hypothesis == "Bystander activation" and
-              self.reactive_to == "MBP"):
+        elif (self.model.hypothesis == "Bystander activation" and "MBP" in
+              self.reactive_to):
             if self.model.cytokin_matrix[self.pos] >= self.cytokine_threshold:
                 self.activated = True
                 self.proliferation_rate = self.activated_proliferation_rate

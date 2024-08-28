@@ -11,17 +11,19 @@ class B_cell(Cell):
         self.proteins = []
         self.antigen_presented = ''
         self.cytokine_activation_threshold = 5
-        self.lytic_threshold = 10
+        self.lytic_threshold = 5
         self.proliferation_rate = self.model.Proliferation_rate["B-cell"]
         self.health = self.model.Health["B-cell"]
         self.dmg_factor = self.model.Dmg_factor["B-cell"]
+        self.viral_replication_rate = self.model.Proliferation_rate["Virus"]
+        self.activated_proliferation_rate = self.proliferation_rate*2
 
     def step(self):
         self.move()
         self.activation()
         self.infection_switch()
         r = random.randint(0, 99)
-        if self.infection_state == "lytic":
+        if self.infection_state == "lytic" and r < self.viral_replication_rate:
             self.viral_replication()
             self.health = 0
         elif r < self.proliferation_rate:
@@ -37,7 +39,7 @@ class B_cell(Cell):
         from Agents.Virus import Virus
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True,
                                                         include_center=False,
-                                                        radius=4)
+                                                        radius=3)
         neighborhood_copy = neighborhood.copy()
         for n in neighborhood_copy:
             a = self.model.areas[n[0]][n[1]]
@@ -53,7 +55,7 @@ class B_cell(Cell):
 
     def proliferation(self):
         n = B_cell(self.model.ID, self.model)
-        n.infection(self.infection_state)
+        n.infection("latent")
         n.antigen_presented = self.antigen_presented
         n.pos = self.child_pos()
         n.calculate_side()
@@ -73,10 +75,12 @@ class B_cell(Cell):
         if self.infection_state != "lytic":
             if self.antigen_presented != '':
                 self.activated = True
+                self.proliferation_rate = self.activated_proliferation_rate
             else:
                 IL21 = self.model.IL_21_matrix[self.pos[0], self.pos[1]]
                 if IL21 >= self.cytokine_activation_threshold:
                     self.activated = True
+                    self.proliferation_rate = self.activated_proliferation_rate
 
     def infection_switch(self):
         if self.infection_state == "latent":
@@ -88,6 +92,6 @@ class B_cell(Cell):
     def infection(self, state):
         if state == "latent":
             self.infection_state = "latent"
-            self.health = self.health * 10
+            self.health = int(self.health * 1.5)
             self.dmg_factor = self.dmg_factor * 1
             self.proliferation_rate = self.proliferation_rate

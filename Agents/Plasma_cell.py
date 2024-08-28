@@ -35,7 +35,7 @@ class Plasma_cell(Cell):
         x = self.pos[0]
         y = self.pos[1]
         if self.antigen_presented == "MBP":
-            self.model.MBP_antibody_matrix[x][y] += 1
+            self.model.MBP_antibody_matrix[x][y] += 20
         if self.antigen_presented == "EBNA1":
-            self.model.EBNA1_antibody_matrix[x][y] += 1
+            self.model.EBNA1_antibody_matrix[x][y] += 20
         self.tiredness += 1

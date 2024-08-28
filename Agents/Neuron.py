@@ -37,9 +37,9 @@ class Neuron(Agent):
         self.armor = int(self.armor_rating * self.current_myelin_health)
 
     def calculate_myelin_dmg(self):
-        sum = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
-        sum += self.model.IL_2_matrix[self.pos[0]][self.pos[1]]
-        sum += self.model.IL_6_matrix[self.pos[0]][self.pos[1]]
+        sum = self.model.IFN_matrix[self.pos[0]][self.pos[1]]*5
+        sum += self.model.IL_2_matrix[self.pos[0]][self.pos[1]]*5
+        sum += self.model.IL_6_matrix[self.pos[0]][self.pos[1]]*5
         dmg = int(sum - self.armor)
         if dmg < 0:
             dmg = 0
@@ -50,7 +50,8 @@ class Neuron(Agent):
 
     def MBP_release(self, dmg):
         neighborhood = self.model.grid.get_neighborhood(self.pos, moore=True,
-                                                        include_center=False)
+                                                        include_center=False,
+                                                        radius=3)
         while dmg > 0:
             for n in neighborhood:
                 self.model.MBP_matrix[n[0]][n[1]] += 1

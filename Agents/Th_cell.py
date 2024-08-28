@@ -12,7 +12,8 @@ class Th_cell(Cell):
         self.health = self.model.Health["Th-cell"]
         self.dmg_factor = self.model.Dmg_factor["Th-cell"]
         self.activated_proliferation_rate = int(self.proliferation_rate)*2
-        self.reactive_to = "EBNA1"
+        self.cytokine_threshold = 2
+        self.reactive_to = ["EBNA1"]
         self.MBP_exposure = 0
 
     def step(self):
@@ -22,7 +23,7 @@ class Th_cell(Cell):
         r = random.randint(0, 99)
         if r < self.proliferation_rate:
             IL2 = self.model.IL_2_matrix[self.pos[0], self.pos[1]]
-            if IL2 > 0:
+            if IL2 > self.cytokine_threshold:
                 self.differentiation()
             else:
                 self.proliferation()
@@ -34,15 +35,17 @@ class Th_cell(Cell):
         if self.antigen_presented in self.reactive_to:
             self.activated = True
             self.proliferation_rate = self.activated_proliferation_rate
-        elif (self.model.hypothesis == "Bystander activation" and
+        elif (self.model.hypothesis == "Bystander activation" and "MBP" in
               self.reactive_to == "MBP"):
             if self.model.cytokin_matrix[self.pos] >= self.cytokine_threshold:
                 self.activated = True
+                self.proliferation_rate = self.activated_proliferation_rate
         elif (self.model.hypothesis == "Epitope spreading" and
               self.antigen_presented == 'MBP'):
             r = random.randint(0, 99)
             if r < self.MBP_exposure:
                 self.activated = True
+                self.proliferation_rate = self.activated_proliferation_rate
 
     def proliferation(self):
         n = Th_cell(self.model.ID, self.model)

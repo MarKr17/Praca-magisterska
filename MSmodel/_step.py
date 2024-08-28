@@ -2,11 +2,11 @@ def step(self):
     """Advance the model by one step."""
     if self.schedule.steps == 0:
         self.hypothesis_switch()
-    elif self.schedule.steps % 100 == 0:
-        self.createT_naive_cells(int(self.Cell_numbers["T-cell"]))
-        self.createThcells(int(self.Cell_numbers["Th-cell"]))
-        self.createB_cells(int(self.Cell_numbers["B-cell"]))
-        self.create_APCs(int(self.Cell_numbers["APC"]))
+    elif self.schedule.steps % 50 == 0:
+        self.createT_naive_cells(int(int(self.Cell_numbers["T-cell"])/3))
+        self.createThcells(int(int(self.Cell_numbers["Th-cell"])/3))
+        self.createB_cells(int(int(self.Cell_numbers["B-cell"])/3))
+        self.create_APCs(int(int(self.Cell_numbers["APC"])/3))
     self.kill_agents = []
     self.new_agents = []
     self.schedule.step()
@@ -66,10 +66,10 @@ def bystander_activation(self):
         name = type(agent).__name__
         name = str(name)
         if name == 'T_naive cell' and nt > 0:
-            agent.reactive_to = "MBP"
+            agent.reactive_to = ["MBP"]
             nt -= 1
         elif name == 'Th_cell' and nth > 0:
-            agent.reactive_to = "MBP"
+            agent.reactive_to = ["MBP"]
             nth -= 1
 
 

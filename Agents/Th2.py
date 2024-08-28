@@ -8,7 +8,7 @@ class Th2(Cell):
         self.proliferation_rate = self.model.Proliferation_rate["Th-cell"]
         self.health = self.model.Health["Th-cell"]
         self.dmg_factor = self.model.Dmg_factor["Th-cell"]
-        self.reactive_to = "EBNA1"
+        self.reactive_to = ["EBNA1"]
 
     def step(self):
         self.move()
