@@ -130,6 +130,6 @@ def barrier_cytokin_effect(self):
 
 def calculate_cytokine_effect(self, i, j):
     if self.barrier[i][j] < 100:
-        self.barrier[i][j] += int(self.IFN_matrix[i][j]*2)
-    self.barrier[i][j] -= int(self.IL_22_matrix[i][j]/3)
-    self.barrier[i][j] -= int(self.IL_17_matrix[i][j]/3)
+        self.barrier[i][j] += int(self.IFN_matrix[i][j]*3)
+    self.barrier[i][j] -= int(self.IL_22_matrix[i][j])
+    self.barrier[i][j] -= int(self.IL_17_matrix[i][j])

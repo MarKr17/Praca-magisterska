@@ -12,6 +12,7 @@ class Treg17(Cell):
         self.activated = False
         self.antigen_presented = ''
         self.activated_proliferation_rate = int(self.proliferation_rate)*2
+        self.MBP_exposure = 0
 
     def step(self):
         self.move()

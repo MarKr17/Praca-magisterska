@@ -11,7 +11,7 @@ class Neuron(Agent):
         self.myelin_health = 100
         self.current_myelin_health = 100
         self.tiredness = 0
-        self.armor_rating = 10
+        self.armor_rating = 0.99
         self.armor = self.myelin_health * self.armor_rating
         self.attached_antibodies = 0
 
@@ -24,14 +24,14 @@ class Neuron(Agent):
             self.death()
 
     def myelin_regeneration(self):
-        if self.current_myelin_health < 10:
+        if self.current_myelin_health < 100:
             r = random.randint(0, 100)
             if r <= self.reg_rate:
-                self.current_myelin_health += 1
+                self.current_myelin_health += 10
                 self.tiredness += 1
 
     def calculate_armor(self):
-        self.armor_rating = int(self.armor_rating - pow(self.tiredness/100, 2))
+        self.armor_rating = int(self.armor_rating - self.tiredness/10)
         if self.armor_rating < 0:
             self.armor_rating = 0
         self.armor = int(self.armor_rating * self.current_myelin_health)
@@ -40,7 +40,7 @@ class Neuron(Agent):
         sum = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
         sum += self.model.IL_2_matrix[self.pos[0]][self.pos[1]]
         sum += self.model.IL_6_matrix[self.pos[0]][self.pos[1]]
-        dmg = int(sum- self.armor)
+        dmg = int(sum - self.armor)
         if dmg < 0:
             dmg = 0
         if self.current_myelin_health < dmg:

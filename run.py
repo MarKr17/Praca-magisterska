@@ -9,19 +9,19 @@ Cell_numbers = {"T-cell": 30,
                 "B-cell": 30,
                 "APC": 40,
                 "Virus": 100}
-Proliferation_rate = {"T-cell": 4,
-                      "Th-cell": 2,
+Proliferation_rate = {"T-cell": 3,
+                      "Th-cell": 3,
                       "B-cell": 2,
                       "APC": 2,
                       "Virus": 50}
 Health = {"T-cell": 30,
           "Th-cell": 30,
-          "B-cell": 30,
+          "B-cell": 20,
           "APC": 50,
           "Virus": 10}
 
 Dmg_factor = {"T-cell": 1,
-              "Th-cell": 2,
+              "Th-cell": 1,
               "B-cell": 2,
               "APC": 2,
               "Virus": 1}
