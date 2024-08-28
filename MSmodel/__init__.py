@@ -46,18 +46,18 @@ class MSModel(mesa.Model):
                                  [12, 18], [15, 18], [18, 18]]
         self.areas = np.zeros((self.size, self.size), dtype=int)
         self.barrier = np.zeros((self.size, self.size), dtype=float)
-        for i in range(6, 25):
-            self.areas[i][6] = 1
-            self.barrier[i][6] = 100
+        for i in range(9, 22):
+            self.areas[i][9] = 1
+            self.barrier[i][9] = 200
 
-            self.areas[i][24] = 1
-            self.barrier[i][24] = 100
-            if i in [6, 24]:
-                for j in range(6, 25):
+            self.areas[i][21] = 1
+            self.barrier[i][21] = 200
+            if i in [9, 21]:
+                for j in range(9, 22):
                     self.areas[i][j] = 1
-                    self.barrier[i][j] = 100
-        for i in range(7, 24):
-            for j in range(7, 24):
+                    self.barrier[i][j] = 200
+        for i in range(10, 21):
+            for j in range(10, 21):
                 self.areas[i][j] = 2
 
         self.hypothesis = ""
@@ -78,8 +78,8 @@ class MSModel(mesa.Model):
         self.MBP_antibody_matrix = np.zeros((self.size, self.size), dtype=int)
         self.EBNA1_antibody_matrix = np.zeros((self.size, self.size),
                                               dtype=int)
-        self.cytokine_dis_rate = 20
-        self.cytokine_amount = 2
+        self.cytokine_dis_rate = 60
+        self.cytokine_amount = 5
         self.grid = mesa.space.MultiGrid(self.size, self.size, True)
         # Create scheduler and assign it to the model
         self.schedule = mesa.time.RandomActivation(self)

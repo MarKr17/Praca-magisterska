@@ -58,7 +58,7 @@ def drawLegend(self, LEGEND_SIZE):
                                                h_max=100, width=width),
                       "Neuron":  drawStripe(neuron_gradient, h_max=10,
                                             width=width),
-                      "Myelin": drawStripe(myelin_gradient, h_max=10,
+                      "Myelin": drawStripe(myelin_gradient, h_max=100,
                                            width=width)}
 
     for g in Gradients_dict:

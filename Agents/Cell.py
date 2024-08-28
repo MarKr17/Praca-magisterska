@@ -38,7 +38,7 @@ class Cell(Agent):
                 if self.model.barrier[x][y] == 0:
                     chance = 100
                 else:
-                    chance = 100 - int(self.model.barrier[x][y]*0.99)
+                    chance = 100 - int(self.model.barrier[x][y]*0.99/2)
                     if self.area == 2:
                         chance = chance * 10
                 r = random.randint(0, 100)

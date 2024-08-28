@@ -12,7 +12,7 @@ class Th_cell(Cell):
         self.health = self.model.Health["Th-cell"]
         self.dmg_factor = self.model.Dmg_factor["Th-cell"]
         self.activated_proliferation_rate = int(self.proliferation_rate)*2
-        self.cytokine_threshold = 2
+        self.cytokine_threshold = 1
         self.reactive_to = ["EBNA1"]
         self.MBP_exposure = 0
 

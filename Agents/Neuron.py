@@ -4,12 +4,12 @@ from Agents.Agent import Agent
 
 class Neuron(Agent):
 
-    def __init__(self, unique_id, model, reg_rate):
+    def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
-        self.reg_rate = reg_rate
+        self.reg_rate = 100
         self.health = 10
-        self.myelin_health = 10
-        self.current_myelin_health = 10
+        self.myelin_health = 100
+        self.current_myelin_health = 100
         self.tiredness = 0
         self.armor_rating = 10
         self.armor = self.myelin_health * self.armor_rating
@@ -37,10 +37,10 @@ class Neuron(Agent):
         self.armor = int(self.armor_rating * self.current_myelin_health)
 
     def calculate_myelin_dmg(self):
-        sum = self.model.IFN_matrix[self.pos[0]][self.pos[1]]*5
-        sum += self.model.IL_2_matrix[self.pos[0]][self.pos[1]]*5
-        sum += self.model.IL_6_matrix[self.pos[0]][self.pos[1]]*5
-        dmg = int(sum - self.armor)
+        sum = self.model.IFN_matrix[self.pos[0]][self.pos[1]]
+        sum += self.model.IL_2_matrix[self.pos[0]][self.pos[1]]
+        sum += self.model.IL_6_matrix[self.pos[0]][self.pos[1]]
+        dmg = int(sum- self.armor)
         if dmg < 0:
             dmg = 0
         if self.current_myelin_health < dmg:

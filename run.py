@@ -4,26 +4,26 @@ from Visualisation import Visualisation
 # from plots import create_plots
 from Plots import Plots
 import os
-Cell_numbers = {"T-cell": 20,
-                "Th-cell": 20,
-                "B-cell": 20,
-                "APC": 20,
-                "Virus": 60}
-Proliferation_rate = {"T-cell": 5,
+Cell_numbers = {"T-cell": 30,
+                "Th-cell": 30,
+                "B-cell": 30,
+                "APC": 40,
+                "Virus": 100}
+Proliferation_rate = {"T-cell": 4,
                       "Th-cell": 2,
-                      "B-cell": 1,
-                      "APC": 1,
+                      "B-cell": 2,
+                      "APC": 2,
                       "Virus": 50}
-Health = {"T-cell": 10,
-          "Th-cell": 10,
-          "B-cell": 15,
-          "APC": 20,
+Health = {"T-cell": 30,
+          "Th-cell": 30,
+          "B-cell": 30,
+          "APC": 50,
           "Virus": 10}
 
 Dmg_factor = {"T-cell": 1,
               "Th-cell": 2,
               "B-cell": 2,
-              "APC": 3,
+              "APC": 2,
               "Virus": 1}
 
 

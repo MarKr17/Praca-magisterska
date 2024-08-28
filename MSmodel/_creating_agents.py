@@ -9,7 +9,7 @@ import random
 
 def createNeurons(self):
     for i in range(self.neuron_number):
-        n = Neuron(self.ID, self, 10)
+        n = Neuron(self.ID, self)
         # Add neuron to scheduler
         self.schedule.add(n)
         # Add neuron to assinged grid cell

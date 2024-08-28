@@ -3,7 +3,12 @@ from Agents.B_cell import B_cell
 from Agents.Plasma_cell import Plasma_cell
 from Agents.Neuron import Neuron
 from Agents.T_naive_cell import T_naive_cell
+from Agents.Th0 import Th0
+from Agents.Th1 import Th1
+from Agents.Th2 import Th2
 from Agents.Th_cell import Th_cell
+from Agents.Tpato17 import Tpato17
+from Agents.Treg17 import Treg17
 from Agents.Virus import Virus
 import random
 
@@ -61,7 +66,8 @@ class APC(Cell):
         neighbors = self.model.grid.get_neighbors(self.pos, moore=True)
         neighbors_copy = neighbors.copy()
         for n in neighbors_copy:
-            if not isinstance(n, (B_cell, Plasma_cell, Th_cell, T_naive_cell)):
+            if not isinstance(n, (B_cell, Plasma_cell, Th_cell, T_naive_cell,
+                                  Th0, Th1, Th2, Tpato17, Treg17)):
                 neighbors.remove(n)
         if len(neighbors) > 0:
             agent = random.choice(neighbors)

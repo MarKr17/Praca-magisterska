@@ -66,9 +66,9 @@ def drawAgents(self, GRID_SIZE):
 def drawNeuron(radius, neuron):
     i = int(neuron.health)-1
     n_color = neuron_gradient[i]
-    i = int(neuron.current_myelin_health)-1
+    i = int(neuron.current_myelin_health/10)-1
     m_color = myelin_gradient[i]
-    outer = radius+neuron.current_myelin_health
+    outer = radius+int(neuron.current_myelin_health/10)
     surf = pygame.Surface((2*outer, 2*outer), pygame.SRCALPHA, 32)
     pygame.draw.circle(surf, m_color, (outer, outer), outer)
     pygame.draw.circle(surf, n_color, (outer, outer), radius)

@@ -7,10 +7,9 @@ class Plasma_cell(Cell):
         super().__init__(unique_id, model)
         self.antigen_presented = ''
         self.antibody_production_rate = 50
-        self.proliferation_rate = int(self.model.Proliferation_rate["B-cell"]
-                                      / 2)
-        self.health = self.model.Health["B-cell"]
-        self.dmg_factor = self.model.Dmg_factor["B-cell"]
+        self.proliferation_rate = int(int(self.model.Proliferation_rate["B-cell"]))
+        self.health = 10
+        self.dmg_factor = 1
 
     def step(self):
         self.move()
